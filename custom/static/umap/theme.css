@@ -6,6 +6,12 @@
     background-image: url("./img/logo-hot.svg");
 }
 
+.button-bar {
+    margin: 40px;
+    display: block;
+    font-size: 1.4rem;
+}
+
 .umap-nav a.button {
     color: var(--color-light);
 }
