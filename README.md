@@ -1,4 +1,4 @@
 # HOT's uMap instance
 
-umap.hotosm.org
+https://umap.hotosm.org
 
