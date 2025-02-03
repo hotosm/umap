@@ -1,0 +1,46 @@
+/* Override this file for theming uMap easily */
+
+@import url("hot.css");
+
+.umap-nav h1 a:not(.button) {
+    background-image: url("./img/logo-hot.svg");
+}
+
+.umap-nav a.button {
+    color: var(--color-light);
+}
+
+body, div, ul, ol, li, a, section, nav,
+h1, h2, h3, h4, h5, h6, label,
+hr, input, textarea {
+    font-family: var(--hot-font-sans)
+}
+
+a {
+    color: var(--color-red);
+}
+
+:root {
+    /* Colors. */
+    --color-waterMint: var(--hot-color-cyan-50);
+    --color-darkBlue: var(--hot-color-blue-700);
+    --color-lightGray: var(--hot-color-gray-50);
+    --color-mediumGray: var(--hot-color-gray-500);
+    --color-darkGray: var(--hot-color-gray-900);
+    --color-light: var(--hot-color-neutral-0);
+    --color-limeGreen: var(--hot-color-cyan-50);
+    --color-brightCyan: var(--hot-color-cyan-100);
+    --color-lightCyan: var(--hot-color-cyan-50);
+    --color-red: var(--hot-color-red-700);
+    --color-darkRed: var(--hot-color-rose-700);
+
+    --background-color: var(--color-light);
+    --color-accent: var(--color-brightCyan);
+    --text-color: black;
+
+    /* Buttons. */
+    --button-primary-background: var(--color-red);
+    --button-primary-color: var(--color-light);
+    --button-neutral-background: var(--color-lightGray);
+    --button-neutral-color: var(--color-darkGray);
+}
