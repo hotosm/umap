@@ -1,23 +1,15 @@
 # -*- coding:utf-8 -*-
 
-"""
-Example settings for local development
-
-Use this file as a base for your local development settings and copy
-it to umap/settings/local.py. It should not be checked into
-your code repository.
-
-"""
-
+import os
 from umap.settings.base import *  # pylint: disable=W0614,W0401
 
-SECRET_KEY = ""
+SECRET_KEY = os.environ.get('UMAP_SECRET_KEY')
 INTERNAL_IPS = ("127.0.0.1",)
 ALLOWED_HOSTS = [
-    "*",
+    "*"
 ]
 
-DEBUG = False
+DEBUG = True
 
 ADMINS = (("Emilio Mariscal", "emilio.mariscal@hotosm.org"),)
 MANAGERS = ADMINS
@@ -25,10 +17,10 @@ MANAGERS = ADMINS
 DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": "",
-        "USER": "",
-        "PASSWORD": "",
-        "HOST": "127.0.0.1",
+        "NAME": os.environ.get('UMAP_DB_NAME'),
+        "USER": os.environ.get('UMAP_DB_USER'),
+        "PASSWORD": os.environ.get('UMAP_DB_PASSWORD'),
+        "HOST": os.environ.get('UMAP_DB_HOST'),
         "PORT": "5432",
     }
 }
@@ -44,12 +36,12 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
 )
 
-
-SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_KEY=""
-SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_SECRET=""
+SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_KEY=os.environ.get('UMAP_OSM_KEY')
+SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_SECRET=os.environ.get('UMAP_OSM_SECRET')
 
 MIDDLEWARE += ("social_django.middleware.SocialAuthExceptionMiddleware",)
-SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = os.getenv('UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS', 'False').lower() == 'true'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 SOCIAL_AUTH_BACKEND_ERROR_URL = "/"
 
@@ -70,7 +62,7 @@ UMAP_MAPS_PER_SEARCH = 15
 # How many maps should be showcased on the user page, if owner
 UMAP_MAPS_PER_PAGE_OWNER = 10
 
-SITE_URL = "https:/umap.hotosm.org"
+SITE_URL = os.environ.get('UMAP_SITE_URL', "http://127.0.0.1:8001")
 
 # CACHES = {
 #     'default': {
@@ -85,11 +77,8 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # Put the site in readonly mode (useful for migration or any maintenance)
 UMAP_READONLY = False
 
-# For static deployment
-STATIC_ROOT = "/home/admin/umap/var/static"
-
 # For users' statics (geojson mainly)
-MEDIA_ROOT = "/home/admin/umap/var/data"
+MEDIA_ROOT = "/srv/umap/var/data"
 
 # Default map location for new maps
 LEAFLET_LONGITUDE = 21
@@ -100,5 +89,14 @@ LEAFLET_ZOOM = 3
 UMAP_KEEP_VERSIONS = 10
 
 # Customization
-UMAP_CUSTOM_TEMPLATES="/home/admin/umap/custom/templates"
-UMAP_CUSTOM_STATICS="/home/admin/umap/custom/static"
+UMAP_CUSTOM_TEMPLATES="/srv/umap/custom/templates"
+UMAP_CUSTOM_STATICS="/srv/umap/custom/static"
+UMAP_HOME_FEED="highlighted"
+
+UMAP_HOST_INFOS = {
+    "name": "Humanitarian OpenStreetMap Team",
+    "url": "https://hotosm.org",
+    "contact": "emilio.mariscal@hotosm.org"
+}
+
+

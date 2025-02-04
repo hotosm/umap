@@ -2,30 +2,6 @@
 
 @import url("hot.css");
 
-.umap-nav h1 a:not(.button) {
-    background-image: url("./img/logo-hot.svg");
-}
-
-.button-bar {
-    margin: 40px;
-    display: block;
-    font-size: 1.4rem;
-}
-
-.umap-nav a.button {
-    color: var(--color-light);
-}
-
-body, div, ul, ol, li, a, section, nav,
-h1, h2, h3, h4, h5, h6, label,
-hr, input, textarea {
-    font-family: var(--hot-font-sans)
-}
-
-a {
-    color: var(--color-red);
-}
-
 :root {
     /* Colors. */
     --color-waterMint: var(--hot-color-cyan-50);
@@ -50,3 +26,29 @@ a {
     --button-neutral-background: var(--color-lightGray);
     --button-neutral-color: var(--color-darkGray);
 }
+
+.umap-nav h1 a:not(.button) {
+    background-image: url("./img/logo-hot.svg");
+}
+
+.button-bar {
+    margin: 40px;
+    display: block;
+    font-size: 1.4rem;
+}
+
+.umap-nav a.button, .button-primary, input[type="submit"] {
+    color: var(--color-light);
+    background-color: var(--color-red);
+}
+
+body, div, ul, ol, li, a, section, nav,
+h1, h2, h3, h4, h5, h6, label,
+hr, input, textarea {
+    font-family: var(--hot-font-sans)
+}
+
+a {
+    color: var(--color-red);
+}
+

@@ -1,0 +1,48 @@
+services:
+  db:
+    healthcheck:
+        test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+        interval: 2s
+    image: postgis/postgis:14-3.4-alpine
+    environment:
+      - POSTGRES_DB=${UMAP_DB_NAME:-postgres}
+      - POSTGRES_USER=${UMAP_DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${UMAP_DB_PASSWORD:-123456}
+    volumes:
+      - umap_db:/var/lib/postgresql/data
+      - ./custom/tilelayers.csv:/umap/tilelayers.csv
+      - ./scripts/import-tilelayers.sh:/umap/import-tilelayers.sh
+      - ./scripts/import-tilelayers.sql:/umap/import-tilelayers.sql
+
+
+  app:
+    image: umap/umap:2.8.2
+    ports:
+      - "8001:8000"
+    environment:
+      - SITE_URL=${SITE_URL:-http://127.0.0.1:8001/}
+      - UMAP_SETTINGS=/srv/umap/settings.py
+      - UMAP_SECRET_KEY=${UMAP_SECRET_KEY:-somelonghash}
+      - UMAP_DB_HOST=${UMAP_DB_HOST:-db}
+      - UMAP_DB_NAME=${UMAP_DB_NAME:-postgres}
+      - UMAP_DB_USER=${UMAP_DB_USER:-postgres}
+      - UMAP_DB_PASSWORD=${UMAP_DB_PASSWORD:-123456}
+      - UMAP_OSM_KEY=${UMAP_OSM_KEY}
+      - UMAP_OSM_SECRET=${UMAP_OSM_SECRET}
+      - UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS=${UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS:-False}
+      - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL-admin@example.com}
+      - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME-admin}
+      - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD-123456}
+    volumes:
+      - ./settings.py:/srv/umap/settings.py
+      - ./data:/srv/umap/var/data
+      - ./custom:/srv/umap/custom
+      - ./docker/entrypoint.sh:/srv/umap/docker/entrypoint.sh
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  umap_userdata:
+  umap_db:
