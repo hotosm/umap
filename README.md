@@ -6,11 +6,11 @@ https://umap.hotosm.org
 
 `docker compose up -d`
 
-## Add tile layers
+### Add tile layers
 
 `docker exec -ti umap-db-1 /bin/bash /umap/import-tilelayers.sh`
 
-## Create superuser
+### Create superuser
 
 `docker exec -ti umap-app-1 umap createsuperuser`
 
