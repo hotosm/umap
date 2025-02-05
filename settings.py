@@ -25,6 +25,21 @@ DATABASES = {
     }
 }
 
+STORAGES = {
+    "default": { "BACKEND": "django.core.files.storage.FileSystemStorage" },
+    "data": {
+        "BACKEND": "umap.storage.s3.S3DataStorage",
+        "OPTIONS": {
+            "access_key": os.environ.get('S3_ACCESS_KEY'),
+            "secret_key": os.environ.get('S3_SECRET_KEY'),
+            "security_token": os.environ.get('S3_SECURITY_TOKEN'),
+            "bucket_name": os.environ.get('S3_BUCKET_NAME'),
+            "endpoint_url": os.environ.get('S3_ENDPOINT_URL')
+        },
+    },
+    "staticfiles":{ "BACKEND": "umap.storage.staticfiles.UmapManifestStaticFilesStorage" }
+}
+
 LANGUAGE_CODE = "en"
 
 # Set to False if login into django account should not be possible. You can
@@ -45,7 +60,7 @@ SOCIAL_AUTH_REDIRECT_IS_HTTPS = os.getenv('UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS', 
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 SOCIAL_AUTH_BACKEND_ERROR_URL = "/"
 
-# Add a baner to warn people this instance is not production ready.
+# Add a banner to warn people this instance is not production ready.
 UMAP_DEMO_SITE = False
 
 # Whether to allow non authenticated people to create maps.
@@ -91,7 +106,7 @@ UMAP_KEEP_VERSIONS = 10
 # Customization
 UMAP_CUSTOM_TEMPLATES="/srv/umap/custom/templates"
 UMAP_CUSTOM_STATICS="/srv/umap/custom/static"
-UMAP_HOME_FEED="highlighted"
+# UMAP_HOME_FEED="highlighted"
 
 UMAP_HOST_INFOS = {
     "name": "Humanitarian OpenStreetMap Team",
@@ -99,4 +114,20 @@ UMAP_HOST_INFOS = {
     "contact": "emilio.mariscal@hotosm.org"
 }
 
-
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}

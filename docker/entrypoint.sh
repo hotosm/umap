@@ -3,6 +3,8 @@ set -eo pipefail
 
 source /venv/bin/activate
 
+# Install custom dependencies
+pip install umap-project[s3]
 # collect static files
 umap collectstatic --noinput
 # now wait for the database
