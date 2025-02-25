@@ -4,15 +4,16 @@ set -eo pipefail
 source /venv/bin/activate
 
 # Install custom dependencies
-pip install umap-project[s3]
+pip install umap-project[s3] gunicorn
 # collect static files
-umap collectstatic --noinput
+python manage.py collectstatic --noinput
 # now wait for the database
-umap wait_for_database
+python manage.py wait_for_database
 # then migrate the database
-umap migrate
+python manage.py migrate
 # import icons
-umap import_pictograms --attribution "Maki Icons by Mapbox" /srv/umap/custom/icons
-# run uWSGI
-exec uwsgi --ini docker/uwsgi.ini
+python manage.py import_pictograms --attribution "Maki Icons by Mapbox" /srv/umap/custom/icons
+# run app
+exec gunicorn -b 0.0.0.0:8000 wsgi
+
 

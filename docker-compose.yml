@@ -42,6 +42,10 @@ services:
       - ./data:/srv/umap/var/data
       - ./custom:/srv/umap/custom
       - ./docker/entrypoint.sh:/srv/umap/docker/entrypoint.sh
+      - ./urls.py:/srv/umap/urls.py
+      - ./manage.py:/srv/umap/manage.py
+      - ./views.py:/srv/umap/views.py
+      - ./wsgi.py:/srv/umap/wsgi.py
     restart: always
     depends_on:
       db:

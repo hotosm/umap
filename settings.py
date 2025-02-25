@@ -1,14 +1,17 @@
 # -*- coding:utf-8 -*-
 
-import os
 from umap.settings.base import *  # pylint: disable=W0614,W0401
+import os
 
-SECRET_KEY = os.environ.get('UMAP_SECRET_KEY')
+# Application definition
+ROOT_URLCONF = 'urls'
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-+q304+%(8^1#r49+0dbj584!k2n#wuc-a5^yx()jlf)quv+chu')
 INTERNAL_IPS = ("127.0.0.1",)
-ALLOWED_HOSTS = [
-    "*"
-]
+ALLOWED_HOSTS =  os.environ.get('ALLOWED_HOSTS', [])
 
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ADMINS = (("Emilio Mariscal", "emilio.mariscal@hotosm.org"),)
@@ -25,20 +28,21 @@ DATABASES = {
     }
 }
 
-STORAGES = {
-    "default": { "BACKEND": "django.core.files.storage.FileSystemStorage" },
-    "data": {
-        "BACKEND": "umap.storage.s3.S3DataStorage",
-        "OPTIONS": {
-            "access_key": os.environ.get('S3_ACCESS_KEY'),
-            "secret_key": os.environ.get('S3_SECRET_KEY'),
-            "security_token": os.environ.get('S3_SECURITY_TOKEN'),
-            "bucket_name": os.environ.get('S3_BUCKET_NAME'),
-            "endpoint_url": os.environ.get('S3_ENDPOINT_URL')
+if os.environ.get('ENABLE_S3_STORAGE', False):
+    STORAGES = {
+        "default": { "BACKEND": "django.core.files.storage.FileSystemStorage" },
+        "data": {
+            "BACKEND": "umap.storage.s3.S3DataStorage",
+            "OPTIONS": {
+                "access_key": os.environ.get('S3_ACCESS_KEY'),
+                "secret_key": os.environ.get('S3_SECRET_KEY'),
+                "security_token": os.environ.get('S3_SECURITY_TOKEN'),
+                "bucket_name": os.environ.get('S3_BUCKET_NAME'),
+                "endpoint_url": os.environ.get('S3_ENDPOINT_URL')
+            },
         },
-    },
-    "staticfiles":{ "BACKEND": "umap.storage.staticfiles.UmapManifestStaticFilesStorage" }
-}
+        "staticfiles":{ "BACKEND": "umap.storage.staticfiles.UmapManifestStaticFilesStorage" }
+    }
 
 LANGUAGE_CODE = "en"
 
@@ -60,6 +64,20 @@ SOCIAL_AUTH_REDIRECT_IS_HTTPS = os.getenv('UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS', 
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 SOCIAL_AUTH_BACKEND_ERROR_URL = "/"
 
+SITE_URL = os.environ.get('UMAP_SITE_URL', "http://127.0.0.1:8001")
+
+# POSTGIS_VERSION = (2, 1, 0)
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# For users' statics (geojson mainly)
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT', '/srv/umap/data')
+
+### uMap settings
+
+# Customization
+UMAP_CUSTOM_TEMPLATES=os.environ.get('UMAP_CUSTOM_TEMPLATES', '/srv/umap/custom/templates')
+UMAP_CUSTOM_STATICS=os.environ.get('UMAP_CUSTOM_STATICS', '/srv/umap/custom/static')
+
 # Add a banner to warn people this instance is not production ready.
 UMAP_DEMO_SITE = False
 
@@ -77,23 +95,8 @@ UMAP_MAPS_PER_SEARCH = 15
 # How many maps should be showcased on the user page, if owner
 UMAP_MAPS_PER_PAGE_OWNER = 10
 
-SITE_URL = os.environ.get('UMAP_SITE_URL', "http://127.0.0.1:8001")
-
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-#         'LOCATION': '/var/tmp/django_cache',
-#     }
-# }
-
-# POSTGIS_VERSION = (2, 1, 0)
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
 # Put the site in readonly mode (useful for migration or any maintenance)
 UMAP_READONLY = False
-
-# For users' statics (geojson mainly)
-MEDIA_ROOT = "/srv/umap/var/data"
 
 # Default map location for new maps
 LEAFLET_LONGITUDE = 21
@@ -103,31 +106,10 @@ LEAFLET_ZOOM = 3
 # Number of old version to keep per datalayer.
 UMAP_KEEP_VERSIONS = 10
 
-# Customization
-UMAP_CUSTOM_TEMPLATES="/srv/umap/custom/templates"
-UMAP_CUSTOM_STATICS="/srv/umap/custom/static"
 # UMAP_HOME_FEED="highlighted"
 
 UMAP_HOST_INFOS = {
     "name": "Humanitarian OpenStreetMap Team",
     "url": "https://hotosm.org",
-    "contact": "emilio.mariscal@hotosm.org"
-}
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
+    "email": "emilio.mariscal@hotosm.org"
 }

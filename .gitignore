@@ -1,6 +1,11 @@
 data
+static
+
+__pycache__
 
 venv
-.env
 
 .DS_Store
+
+run.sh
+run-docker.sh
