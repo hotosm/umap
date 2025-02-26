@@ -52,3 +52,19 @@ a {
     color: var(--color-red);
 }
 
+
+.upload-form {
+    width: 50%;
+    min-width: 375px;
+}
+
+.upload-form .text-input {
+    font-size: var(--hot-font-size-large);
+}
+
+.upload-form .button-primary {
+    font-weight: bold;
+    font-size: var(--hot-font-size-medium);
+    padding-left: var(--hot-spacing-x-large);
+    padding-right: var(--hot-spacing-x-large);
+}

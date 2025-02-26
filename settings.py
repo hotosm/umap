@@ -44,6 +44,11 @@ if os.environ.get('ENABLE_S3_STORAGE', False):
         "staticfiles":{ "BACKEND": "umap.storage.staticfiles.UmapManifestStaticFilesStorage" }
     }
 
+INSTALLED_APPS += (
+    "rest_framework",
+    "hotumap"
+)
+
 LANGUAGE_CODE = "en"
 
 # Set to False if login into django account should not be possible. You can
