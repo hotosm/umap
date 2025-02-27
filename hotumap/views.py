@@ -10,11 +10,12 @@ from .serializers import FileUploadSerializer
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from rest_framework.permissions import IsAuthenticated
-from umap.models import Map, DataLayer, get_default_licence
+from umap.models import Map, DataLayer, get_default_licence, set_storage
 from django.contrib.gis.geos import Point
 from django.utils import timezone
 from uuid import uuid4
 from django.shortcuts import render
+from django.http import FileResponse, Http404
 
 @login_required
 def chatmap_upload_view(request):
@@ -34,8 +35,8 @@ class FileUploadView(APIView):
         if uploaded_file.name.endswith('.zip'):
             try:
                 with zipfile.ZipFile(uploaded_file, 'r') as zip_ref:
-                    geojson_content_file = ""
-                    geojson_file_name = ""
+                    geojson_content_file = None
+                    geojson_file_name = None
                     center = [0,0]
                     files = []
                     for file_name in zip_ref.namelist():
@@ -53,7 +54,7 @@ class FileUploadView(APIView):
                                         "editMode": "advanced",
                                         "name": "ChatMap locations",
                                         "remoteData": {},
-                                        "popupContentTemplate": "# {message}\n*{username}*\n{{/uploads/uploads/{file|\"../../static/nopic.png\"}}}",
+                                        "popupContentTemplate": "# {message}\n*{username}*\n{{/media_file/{file|\"../../static/nopic.png\"}}}",
                                         "permissions": {"edit_status": 0}
                                     }
                                     file_content = json.dumps(geojson)
@@ -67,16 +68,19 @@ class FileUploadView(APIView):
                             elif file_name.endswith(".jpg"):
                                 content_file = ContentFile(file_content, name=file_name)
                                 files.append(content_file)
-                                    
-                    new_map = create_map(
-                        geojson_content_file,
-                        geojson_file_name,
-                        center, map_name,
-                        files,
-                        self.request.user
-                    )
-                    url = "/map/" + new_map.slug + "_" + str(new_map.id)
-                    return redirect(url)
+
+                    if geojson_content_file:
+                        new_map = create_map(
+                            geojson_content_file,
+                            geojson_file_name,
+                            center, map_name,
+                            files,
+                            self.request.user
+                        )
+                        url = "/map/" + new_map.slug + "_" + str(new_map.id)
+                        return redirect(url)
+                    else:
+                        return redirect("/chatmap")
             except zipfile.BadZipFile:
                 return Response({"detail": "The provided file is not a valid zip file."}, status=status.HTTP_400_BAD_REQUEST)
         else:
@@ -140,3 +144,14 @@ def create_map(geojson_data, geojson_file_name, center, map_name, files, owner):
             serializer.save()
     
     return new_map
+
+# Serve media files
+def serve_media(request, file_path):
+    storage = set_storage()
+    s3_file_path = f"media_uploads/{file_path}"
+    try:
+        file = storage.open(s3_file_path)
+    except FileNotFoundError:
+        raise Http404("File not found.")
+
+    return FileResponse(file, content_type='image/jpeg')

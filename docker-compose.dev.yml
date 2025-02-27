@@ -47,6 +47,7 @@ services:
       - ./manage.py:/srv/umap/manage.py
       - ./views.py:/srv/umap/views.py
       - ./wsgi.py:/srv/umap/wsgi.py
+      - ./hotumap:/srv/umap/hotumap
     restart: always
     depends_on:
       db:

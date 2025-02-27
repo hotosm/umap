@@ -41,7 +41,7 @@ if os.environ.get('ENABLE_S3_STORAGE', False):
                 "endpoint_url": os.environ.get('S3_ENDPOINT_URL')
             },
         },
-        "staticfiles":{ "BACKEND": "umap.storage.staticfiles.UmapManifestStaticFilesStorage" }
+        "staticfiles": { "BACKEND": "umap.storage.staticfiles.UmapManifestStaticFilesStorage" }
     }
 
 INSTALLED_APPS += (
