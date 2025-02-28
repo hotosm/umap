@@ -4,7 +4,7 @@
   <div class="wrapper row">
     <div class="upload-form">
       <h2>Upload a ChatMap</h2>
-      <p>You must download a GeoJSON file from <a href="chatmap.hotosm.org">chatmap.hotosm.org</a>, zip it together with pictures, and upload it here.</p>
+      <p>You must download a zip file from <strong><a href="https://chatmap.hotosm.org">chatmap.hotosm.org</a></strong> and upload it here.</p>
       <form action="/save_file/" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input class="text-input" type="text" name="name" id="name" required placeholder="Map name (ex: My awesome map)">

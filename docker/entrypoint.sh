@@ -11,7 +11,6 @@ python manage.py collectstatic --noinput
 python manage.py wait_for_database
 # then migrate the database
 python manage.py migrate
-python manage.py migrate hotumap
 # import icons
 python manage.py import_pictograms --attribution "Maki Icons by Mapbox" /srv/umap/custom/icons
 # run app

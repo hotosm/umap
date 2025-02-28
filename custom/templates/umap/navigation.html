@@ -1,0 +1,50 @@
+{% load i18n %}
+
+<nav class="umap-nav">
+  <section>
+    {% include "umap/branding.html" %}
+  </section>
+  <section>
+    <ul>
+      {% if user.is_authenticated %}
+        <li>
+          <a href="{% url 'user_dashboard' %}">{% trans "My Dashboard" %} ({{ user }})</a>
+        </li>
+        <li>
+          <a href="{{ user.get_stars_url }}">{% trans "Starred maps" %}</a>
+        </li>
+      {% else %}
+        <li>
+          <a href="{% url "login" %}" class="login">{% trans "Log in" %} / {% trans "Sign in" %}</a>
+        </li>
+      {% endif %}
+      <li>
+        <a href="{% url "about" %}">{% trans "About" %}</a>
+      </li>
+      <li>
+        <a href="{{ UMAP_HELP_URL }}">{% trans "Help" %}</a>
+      </li>
+      {% if user.is_authenticated %}
+        {% if user.has_usable_password %}
+          <li>
+            <a href="{% url "password_change" %}">{% trans "Change password" %}</a>
+          </li>
+        {% endif %}
+        <li>
+          <a href="{% url "logout" %}" class="logout">{% trans "Log out" %}</a>
+        </li>
+      {% endif %}
+      {% if not UMAP_READONLY %}
+        <li>
+          <a href="/chatmap">{% trans "Upload" %}</a>
+        </li>
+        <li>
+          <a href="{% url "map_new" %}" class="button button-primary">{% trans "Create a map" %}</a>
+        </li>
+      {% endif %}
+    </ul>
+  </section>
+</nav>
+    </ul>
+  </section>
+</nav>
