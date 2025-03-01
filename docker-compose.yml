@@ -50,6 +50,7 @@ services:
       - ./views.py:/srv/umap/views.py
       - ./wsgi.py:/srv/umap/wsgi.py
       - ./hotumap:/srv/umap/hotumap
+      - ./static:/srv/umap/static
     restart: always
     depends_on:
       db:
@@ -65,6 +66,8 @@ services:
         - ./nginx/conf.d:/etc/nginx/conf.d
         - ./certbot/www:/var/www/certbot
         - ./certbot/conf:/etc/letsencrypt
+        - ./static:/srv/umap/static
+        - ./custom/icons:/srv/umap/custom/icons/
       depends_on:
         - app
 
