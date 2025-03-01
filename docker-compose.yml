@@ -1,5 +1,6 @@
 services:
   db:
+    container_name: hotumap-db
     healthcheck:
         test: [ "CMD-SHELL", "pg_isready -U postgres" ]
         interval: 2s
@@ -16,10 +17,11 @@ services:
 
   app:
     image: umap/umap:2.8.2
+    container_name: hotumap
     ports:
       - "8001:8000"
     environment:
-      - SITE_URL=${SITE_URL:-http://127.0.0.1:8001/}
+      - UMAP_SITE_URL=${UMAP_SITE_URL:-http://127.0.0.1:8001/}
       - UMAP_SETTINGS=/srv/umap/settings.py
       - UMAP_SECRET_KEY=${UMAP_SECRET_KEY:-somelonghash}
       - UMAP_DB_HOST=${UMAP_DB_HOST:-db}
@@ -34,6 +36,7 @@ services:
       - S3_SECURITY_TOKEN=${S3_SECURITY_TOKEN}
       - S3_BUCKET_NAME=${S3_BUCKET_NAME}
       - S3_ENDPOINT_URL=${S3_ENDPOINT_URL}
+      - ENABLE_S3_STORAGE=${ENABLE_S3_STORAGE-False}
     volumes:
       - ./settings.py:/srv/umap/settings.py
       - ./data:/srv/umap/var/data
@@ -49,7 +52,25 @@ services:
       db:
         condition: service_healthy
 
+  nginx:
+      image: nginx:latest
+      restart: always
+      ports:
+        - "80:80"
+      volumes:
+        - ./nginx/conf.d:/etc/nginx/conf.d
+        - ./certbot/www:/var/www/certbot
+        - ./certbot/conf:/etc/letsencrypt
+      depends_on:
+        - app
+
+#  certbot:
+#      image: certbot/certbot
+#      volumes:
+#        - ./certbot/conf:/etc/letsencrypt
+#        - ./certbot/www:/var/www/certbot
+#      command: certonly --webroot --webroot-path=/var/www/certbot --email ${SITE_ADMIN_EMAIL} --agree-tos --no-eff-email --force-renewal -d ${SITE_DOMAIN}
+
 volumes:
   umap_userdata:
   umap_db:
-

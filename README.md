@@ -5,12 +5,14 @@ https://umap.hotosm.org
 ## Run with Docker
 
 `docker compose up -d`
+`docker exec -t hotumap python manage.py makemigrations hotumap`
+`docker exec -t hotumap python manage.py migrate hotumap`
 
 ### Add tile layers
 
-`docker exec -ti umap-db-1 /bin/bash /umap/import-tilelayers.sh`
+`docker exec -t hotumap-db /bin/bash /umap/import-tilelayers.sh`
 
 ### Create superuser
 
-`docker exec -ti umap-app-1 umap createsuperuser`
+`docker exec -t hotumap python manage.py createsuperuser`
 
