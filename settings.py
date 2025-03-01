@@ -9,7 +9,7 @@ ROOT_URLCONF = 'urls'
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-+q304+%(8^1#r49+0dbj584!k2n#wuc-a5^yx()jlf)quv+chu')
 INTERNAL_IPS = ("127.0.0.1",)
-ALLOWED_HOSTS =  os.environ.get('ALLOWED_HOSTS', ["localhost"])
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', "localhost").split(',')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
