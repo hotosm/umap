@@ -9,11 +9,11 @@ ROOT_URLCONF = 'urls'
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-+q304+%(8^1#r49+0dbj584!k2n#wuc-a5^yx()jlf)quv+chu')
 INTERNAL_IPS = ("127.0.0.1",)
-ALLOWED_HOSTS =  os.environ.get('ALLOWED_HOSTS', 'localhost').split(",")
-CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', 'localhost').split(",")
+ALLOWED_HOSTS =  os.environ.get('ALLOWED_HOSTS', '127.0.0.1').split(",")
+CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', 'http://127.0.0.1').split(",")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG=os.getenv('DEBUG', 'False').lower() == 'true'
 
 ADMINS = (("Emilio Mariscal", "emilio.mariscal@hotosm.org"),)
 MANAGERS = ADMINS
@@ -112,7 +112,7 @@ LEAFLET_ZOOM = 3
 # Number of old version to keep per datalayer.
 UMAP_KEEP_VERSIONS = 10
 
-# UMAP_HOME_FEED="highlighted"
+UMAP_HOME_FEED="highlighted"
 
 UMAP_HOST_INFOS = {
     "name": "Humanitarian OpenStreetMap Team",
