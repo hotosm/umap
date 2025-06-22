@@ -62,7 +62,7 @@
 
 body, div, ul, ol, li, a, section, nav,
 h1, h2, h3, h4, h5, h6, label,
-hr, input, textarea {
+hr, input, textarea, select, button {
     font-family: var(--hot-font-sans)
 }
 
@@ -123,4 +123,10 @@ footer a.branding {
 .umap-popup-content img {
     border-radius: var(--hot-border-radius-medium);
     max-height: 486px;
+}
+
+
+.search-form input[type="submit"] {
+    color: var(--hot-color-neutral-50);
+    background-color: var(--hot-color-neutral-900);
 }
