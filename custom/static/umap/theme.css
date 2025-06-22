@@ -87,6 +87,10 @@ a {
     padding-right: var(--hot-spacing-x-large);
 }
 
+.upload-form input {
+    margin-bottom: var(--hot-spacing-large);
+}
+
 footer {
     position: fixed;
     bottom: 0;
@@ -104,3 +108,19 @@ footer a.branding {
     font-size: var(--hot-font-size-x-large);
 }
 
+.wrapper {
+    padding-bottom: 150px;
+}
+
+.umap-popup-content {
+    text-align: center;
+}
+
+.umap-popup-container.text > * {
+    text-align: left;
+}
+
+.umap-popup-content img {
+    border-radius: var(--hot-border-radius-medium);
+    max-height: 486px;
+}

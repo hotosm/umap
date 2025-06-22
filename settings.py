@@ -2,6 +2,7 @@
 
 from umap.settings.base import *  # pylint: disable=W0614,W0401
 import os
+from django.utils.translation import gettext_lazy as _
 
 # Application definition
 ROOT_URLCONF = 'urls'
@@ -88,7 +89,7 @@ UMAP_CUSTOM_STATICS=os.environ.get('UMAP_CUSTOM_STATICS', '/srv/umap/custom/stat
 UMAP_DEMO_SITE = False
 
 # Whether to allow non authenticated people to create maps.
-UMAP_ALLOW_ANONYMOUS = True
+UMAP_ALLOW_ANONYMOUS = False
 
 # This setting will exclude empty maps (in fact, it will exclude all maps where
 # the default center has not been updated)
@@ -119,3 +120,16 @@ UMAP_HOST_INFOS = {
     "url": "https://hotosm.org",
     "email": "emilio.mariscal@hotosm.org"
 }
+
+UMAP_IMPORTERS = {
+    "overpass": {"url": "https://overpass-api.de/api/interpreter"},
+}
+
+UMAP_TAGS = (
+    ("disaster", _("Disaster")),
+    ("environment", _("Environment")),
+    ("education", _("Education")),
+    ("health", _("Health")),
+    ("public", _("Public sector")),
+    ("science", _("Science")),
+)
