@@ -97,6 +97,7 @@ footer {
     width: 100%;
     background-color: var(--hot-color-neutral-900);
     font-size: var(--hot-font-size-small);
+    z-index: 99999;
 }
 
 footer a, footer span {
