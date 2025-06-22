@@ -1,0 +1,23 @@
+/* sans */
+@font-face {
+    font-family: "Archivo";
+    src: url("/static/umap/fonts/Archivo-VariableFont.ttf");
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Archivo";
+    src: url("/static/umap/fonts/Archivo-Italic-VariableFont.ttf");
+    font-display: swap;
+    font-style: italic;
+}
+
+/* variant */
+@font-face {
+    font-family: "Barlow";
+    src: url("/static/umap/fonts/Barlow-Bold.ttf");
+    font-display: swap;
+    font-weight: 700;
+}
+
