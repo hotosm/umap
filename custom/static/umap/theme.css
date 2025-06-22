@@ -1,6 +1,7 @@
 /* Override this file for theming uMap easily */
 
 @import url("hot.css");
+@import url("hot-font-face.css");
 
 :root {
     /* Colors. */
@@ -27,8 +28,25 @@
     --button-neutral-color: var(--color-darkGray);
 }
 
+
 .umap-nav h1 a:not(.button) {
     background-image: url("./img/logo-hot.svg");
+    color: var(--hot-color-neutral-950);
+    font-family: var(--hot-font-sans-variant);
+    font-weight: 700;
+    font-size: var(--hot-font-size-x-large);
+    padding-inline-start: 70px;
+    padding-top: 0;
+}
+
+.umap-nav ul li a:not(.button) {
+    color: var(--hot-color-neutral-950);
+    font-size: var(--hot-font-size-small);
+}
+
+.umap-main-edit-toolbox .logo a {
+    background-image: url("./img/logo-hot-grey.svg");
+    background-size: 40px;
 }
 
 .button-bar {
@@ -68,3 +86,21 @@ a {
     padding-left: var(--hot-spacing-x-large);
     padding-right: var(--hot-spacing-x-large);
 }
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--hot-color-neutral-900);
+    font-size: var(--hot-font-size-small);
+}
+
+footer a, footer span {
+    color: var(--hot-color-neutral-300)
+}
+
+footer a.branding {
+    background-image: url("./img/logo-hot-grey.svg");
+    font-size: var(--hot-font-size-x-large);
+}
+
