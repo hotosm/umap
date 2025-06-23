@@ -109,10 +109,6 @@ footer a.branding {
     font-size: var(--hot-font-size-x-large);
 }
 
-.wrapper {
-    padding-bottom: 150px;
-}
-
 .umap-popup-content {
     text-align: center;
 }
@@ -130,4 +126,8 @@ footer a.branding {
 .search-form input[type="submit"] {
     color: var(--hot-color-neutral-50);
     background-color: var(--hot-color-neutral-900);
+}
+
+.grid-container, .pagination {
+    padding-bottom: 150px;
 }
