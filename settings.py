@@ -48,8 +48,25 @@ if os.environ.get('ENABLE_S3_STORAGE', False):
 
 INSTALLED_APPS += (
     "rest_framework",
-    "hotumap"
+    "hotumap",
+    'dbbackup',
 )
+
+
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': './backups'}
+
+if os.environ.get('ENABLE_S3_STORAGE', False):
+    DBBACKUP_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    DBBACKUP_STORAGE_OPTIONS = {
+        "access_key": os.environ.get('S3_ACCESS_KEY'),
+        "secret_key": os.environ.get('S3_SECRET_KEY'),
+        "security_token": os.environ.get('S3_SECURITY_TOKEN'),
+        "bucket_name": os.environ.get('S3_BUCKET_NAME'),
+        "endpoint_url": os.environ.get('S3_ENDPOINT_URL'),
+        "location": "backups"
+    }
+
 
 LANGUAGE_CODE = "en"
 

@@ -3,8 +3,11 @@ set -eo pipefail
 
 source /venv/bin/activate
 
+# Install PostgreSQL client for the backup system
+apt-get update
+apt-get install -y postgresql-client
 # Install custom dependencies
-pip install umap-project[s3] gunicorn djangorestframework
+pip install umap-project[s3] gunicorn djangorestframework django-dbbackup
 # collect static files
 python manage.py collectstatic --noinput
 # now wait for the database
