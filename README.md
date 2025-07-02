@@ -60,6 +60,8 @@ Core uMap
 |✅| Database backup functionality |
 | | [Multiple imagery backgrounds / imagery backgrounds as layers](https://github.com/hotosm/umap/issues/5) |
 | | [Enable real-time collaboration](https://github.com/hotosm/chatmap/issues/1) |
+| | Define and create a set of initial templates for humanitarian use |
+| | Define and create a set of initial categories for humanitarian use |
 
 Integration with HOT products
 
