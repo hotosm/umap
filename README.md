@@ -58,7 +58,7 @@ Core uMap
 |✅| Custom (HOT) branding |
 |✅| Containerization (via Docker) |
 |✅| Database backup functionality |
-|  | Multiple backgrounds / backgrounds as layers |
+|  | [Multiple imagery backgrounds / imagery backgrounds as layers](https://github.com/hotosm/umap/issues/5) |
 | | [Enable real-time collaboration]([https://github.com/hotosm/chatmap/issues/1](https://github.com/hotosm/umap/issues/3)) |
 
 Integration with HOT products
