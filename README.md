@@ -69,6 +69,7 @@ Integration with HOT products
 |✅| Integration with ChatMap (load exported chats + media files) |
 | | Add access to all HOT products from header |
 | | Basic integration with OpenAerialMap (get available background imagery for the map's area) |
+| | Basic integration with DroneTM (get available background imagery from project id) |
 | | Basic integration with Tasking Manager (get project AOI/status by id) |
 | | Basic integration with FieldTM (get mapped data) |
 | | Basic integration with Raw Data API (get OSM data from there, instead of Overpass) |
