@@ -113,9 +113,9 @@ UMAP_ALLOW_ANONYMOUS = False
 UMAP_EXCLUDE_DEFAULT_MAPS = False
 
 # How many maps should be showcased on the main page resp. on the user page
-UMAP_MAPS_PER_PAGE = 5
+UMAP_MAPS_PER_PAGE = 10
 # How many maps should be looked for when performing a (sub)search
-UMAP_MAPS_PER_SEARCH = 15
+UMAP_MAPS_PER_SEARCH = 25
 # How many maps should be showcased on the user page, if owner
 UMAP_MAPS_PER_PAGE_OWNER = 10
 

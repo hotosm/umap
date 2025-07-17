@@ -91,13 +91,17 @@ a {
     margin-bottom: var(--hot-spacing-large);
 }
 
+.umap-permanent-credits-container {
+  max-height: 23px !important;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 footer {
-    position: fixed;
-    bottom: 0;
     width: 100%;
     background-color: var(--hot-color-neutral-900);
     font-size: var(--hot-font-size-small);
-    z-index: 99999;
 }
 
 footer a, footer span {
@@ -122,7 +126,6 @@ footer a.branding {
     max-height: 486px;
 }
 
-
 .search-form input[type="submit"] {
     color: var(--hot-color-neutral-50);
     background-color: var(--hot-color-neutral-900);
@@ -130,4 +133,8 @@ footer a.branding {
 
 .grid-container, .pagination {
     padding-bottom: 150px;
+}
+
+.login form input {
+    margin: var(--hot-spacing-medium) 0;
 }
