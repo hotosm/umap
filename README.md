@@ -83,7 +83,7 @@ Advanced features that will enable new use cases
 <!-- prettier-ignore-start -->
 | Status | Feature |
 |:--:| :-- |
-| | Support vector tiles
+| | Support [vector tiles](https://github.com/umap-project/umap/issues/1634)
 
 
 ## Licensing
