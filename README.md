@@ -90,8 +90,8 @@ Advanced features that will enable new use cases
 
 ## Licensing
 
-Copyright 2024 Humanitarian OpenStreetMap Team
+This project makes heavy use of the amazing [uMap](https://github.com/umap-project/umap) project, developed by Yohan Boniface & contributors, which is under the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-This is free software! you may use this project under the terms of the GNU General Public License (GPL) Version 3.
+The rest of the code is copyrighted by (2024) Humanitarian OpenStreetMap Team under the terms of the same license, GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-This project makes heavy use of the amazing [uMap](https://github.com/umap-project/umap) project developed by Yohan Boniface & contributors, which has the same GNU license.
+
