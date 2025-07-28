@@ -1,0 +1,16 @@
+<!-- Matomo -->
+<script>
+window.onload = function() {
+  /* Track download button clicks */
+  if (U && "MAP" in U && "share" in U.MAP && "download") {
+  const uMapShareDownload = U.MAP.share.download;
+    U.MAP.share.download = function(...args) { 
+        console.log("umap-download-click"); // For debugging, remove me
+        var _paq = window._paq = window._paq || [];
+        _paq.push({"event": "umap-download-click"});
+        return uMapShareDownload.apply(this, args);
+    }
+  }
+}
+</script>
+<!-- End Matomo Code -->
