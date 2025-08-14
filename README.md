@@ -70,7 +70,7 @@ Integration with HOT products
 | Status | Feature |
 |:--:| :-- |
 |✅| Basic integration with ChatMap (load exported chats + media files) |
-| | Advanced integration with ChatMap (live stream of data) |
+|⚙️| Advanced integration with ChatMap (live stream of data) |
 | | Add access to all HOT products from header |
 | | Basic integration with OpenAerialMap (get available background imagery for the map's area) |
 | | Basic integration with DroneTM (get available background imagery from project id) |
