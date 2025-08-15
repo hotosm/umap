@@ -50,7 +50,7 @@ docker exec -ti hotumap python manage.py createsuperuser
 ✅ Done
 ⚙️ In progress
 
-Core uMap
+### Core uMap
 
 <!-- prettier-ignore-start -->
 | Status | Feature |
@@ -64,7 +64,7 @@ Core uMap
 | | [Enable real-time collaboration](https://github.com/hotosm/chatmap/issues/1) |
 | | Support [vector tiles](https://github.com/umap-project/umap/issues/1634)
 
-Custom features / integrations
+### Custom features / integrations
 
 <!-- prettier-ignore-start -->
 | Status | Feature |
