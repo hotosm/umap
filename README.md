@@ -1,4 +1,4 @@
-# HOT's uMap instance
+# HOT's uMap
 
 This is the uMap instance for HOT, an easy way to create maps
 with a focus in humanitarian use
@@ -45,7 +45,7 @@ docker exec -t hotumap-db /bin/bash /umap/import-tilelayers.sh
 docker exec -ti hotumap python manage.py createsuperuser
 ```
 
-## Product roadmap
+## Latest features
 
 ✅ Done
 ⚙️ In progress
@@ -58,19 +58,21 @@ Core uMap
 |✅| Custom (HOT) branding |
 |✅| Containerization (via Docker) |
 |✅| Database backup functionality |
-|⚙️| [Support audio for ChatMap imports](https://github.com/hotosm/umap/issues/6)
 |⚙️| Define and create a set of initial templates for humanitarian use |
 |⚙️| Define and create a set of initial categories for humanitarian use |
 | | [Multiple imagery backgrounds / imagery backgrounds as layers](https://github.com/hotosm/umap/issues/5) |
 | | [Enable real-time collaboration](https://github.com/hotosm/chatmap/issues/1) |
+| | Support [vector tiles](https://github.com/umap-project/umap/issues/1634)
 
-Integration with HOT products
+Custom features / integrations
 
 <!-- prettier-ignore-start -->
 | Status | Feature |
 |:--:| :-- |
 |✅| Basic integration with ChatMap (load exported chats + media files) |
+|⚙️| [Create visualizationa from multiple maps](https://github.com/hotosm/umap/issues/11)
 |⚙️| Advanced integration with ChatMap (live stream of data) |
+|⚙️| [Support audio for ChatMap imports](https://github.com/hotosm/umap/issues/6)
 | | Add access to all HOT products from header |
 | | Basic integration with OpenAerialMap (get available background imagery for the map's area) |
 | | Basic integration with DroneTM (get available background imagery from project id) |
@@ -79,14 +81,6 @@ Integration with HOT products
 | | Basic integration with Raw Data API (get OSM data from there, instead of Overpass) |
 | | Basic integration with fAIr (get predictions) |
 | | Create a raster layer by uploading data to OpenAerialMap |
-
-Advanced features that will enable new use cases
-
-<!-- prettier-ignore-start -->
-| Status | Feature |
-|:--:| :-- |
-| | Support [vector tiles](https://github.com/umap-project/umap/issues/1634)
-
 
 ## Licensing
 
