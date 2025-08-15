@@ -69,7 +69,7 @@ docker exec -ti hotumap python manage.py createsuperuser
 <!-- prettier-ignore-start -->
 | Status | Feature |
 |:--:| :-- |
-|✅| Basic integration with ChatMap (load exported chats + media files) |
+|✅| Basic integration with [ChatMap](https://chatmap.hotosm.org) (load exported chats + media files) |
 |⚙️| [Create visualizations from multiple maps](https://github.com/hotosm/umap/issues/11)
 |⚙️| Advanced integration with ChatMap (live stream of data) |
 |⚙️| [Support audio for ChatMap imports](https://github.com/hotosm/umap/issues/6)
