@@ -6,7 +6,7 @@ with a focus in humanitarian use
 https://umap.hotosm.org
 
 It's based on [uMap](https://github.com/umap-project/umap/)
-with some extra flavour added by the `hotmap` app.
+with some extra flavour added by the `hotumap` app.
 
 ## Run
 
