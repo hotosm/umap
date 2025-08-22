@@ -21,14 +21,32 @@ from settings import SITE_URL
 # Upload form
 @login_required
 def chatmap_upload_view(request):
-    return render(request, 'upload.html')
+    # Get ChatMap templates list
+    # they must contain 'chatmap' in the name
+    # and be starred by a member of staff
+    qs = Map.public.starred_by_staff().filter(
+        is_template=True,
+        name__icontains='chatmap',
+    ).order_by('name')
+
+    chatmap_templates = [
+        {
+            "id": m.id,
+            "name": m.name,
+            "description": m.description,
+            "url": m.get_absolute_url(),
+        }
+        for m in qs
+    ]
+    context = {"chatmap_templates": chatmap_templates}
+    return render(request, 'upload.html', context)
 
 # This is a view for extending uMap with a new feature
 # that enables the uploading of data exported from a tool like
 # ChatMap (chatmap.hotosm.org). The .zip file uploaded
 # here must contain a GeoJSON file with a 'message' property
 # for displaying text and a 'file' property if media files
-# (.jpg) are available
+# (.jpg or .mp4) are available
 #
 # Example:
 #
@@ -40,16 +58,16 @@ def chatmap_upload_view(request):
 class FileUploadView(APIView):
     parser_classes = (MultiPartParser, FormParser)
     permission_classes = [IsAuthenticated]
-    
-    
+
     def post(self, request, *args, **kwargs):
         uploaded_file = request.FILES.get('file')
         map_name = request.POST.get('name')
+        template_id = int(request.POST.get('template_id', '-1'))
         uuid = uuid4()
-                
+
         if not uploaded_file:
             return Response({"detail": "No file provided."}, status=status.HTTP_400_BAD_REQUEST)
-        
+
         # Only accepts .zip files
         if uploaded_file.name.endswith('.zip'):
             try:
@@ -61,7 +79,7 @@ class FileUploadView(APIView):
                     for file_name in zip_ref.namelist():
                         with zip_ref.open(file_name) as file:
                             file_content = file.read()
-                            
+                        
                             # Handle GeoJSON files
                             if file_name.endswith(".geojson"):
                                 try:
@@ -95,7 +113,8 @@ class FileUploadView(APIView):
                             map_name,
                             files,
                             self.request.user,
-                            uuid
+                            uuid,
+                            template_id
                         )
                         url = "/map/" + new_map.slug + "_" + str(new_map.id)
                         return redirect(url)
@@ -106,34 +125,37 @@ class FileUploadView(APIView):
         else:
             return Response({"detail": "Please upload a .zip file."}, status=status.HTTP_400_BAD_REQUEST)
 
-
 # Template for layers
 POPUP_CONTENT_TEMPLATE = "# {message}\n{{{image}}}\n{video}"
 
-# Create a new map  with uploaded data
-def create_map(geojson_data, geojson_file_name, center, map_name, files, owner, uuid):
-    
-    site_url_video = SITE_URL.replace("http:", "").replace("https:", "")
-    
-    # Default map settings
-    map_settings = {
-        "type": "Feature", 
-        "geometry": {
-            "type": "Point",
-            "coordinates": center
-        },
-        "properties": {
-            "zoom": 15, 
-            "rules": [], 
-            "overlay": {}, 
-            "tilelayer": {}, 
-            "limitBounds": {}, 
-            "zoomControl": True, 
-            "fullscreenControl": True,
-            "slideshow": {"active": True},
+# Create a new map with uploaded data
+def create_map(geojson_data, geojson_file_name, center, map_name, files, owner, uuid, template_id):
+
+    map_settings = None
+    if template_id == -1:
+        # Default map settings
+        map_settings = {
+            "type": "Feature", 
+            "geometry": {
+                "type": "Point",
+                "coordinates": center
+            },
+            "properties": {
+                "zoom": 15, 
+                "rules": [], 
+                "overlay": {}, 
+                "tilelayer": {}, 
+                "limitBounds": {}, 
+                "zoomControl": True, 
+                "fullscreenControl": True,
+                "slideshow": {"active": True},
+            }
         }
-    }
-    
+    else:
+        # Get settings from template
+        template_map = Map.objects.get(pk=template_id)
+        map_settings = template_map.settings
+
     # New uMap map
     new_map = Map(
         name=map_name,
@@ -152,9 +174,10 @@ def create_map(geojson_data, geojson_file_name, center, map_name, files, owner, 
     )
     new_map.save()
     new_map.editors.add(owner)
-    
+
     # Replace file property with image and video urls
     # If no video, or no image, set a blank single pixel
+    site_url_video = SITE_URL.replace("http:", "").replace("https:", "")
     for feature in geojson_data['features']:
         path = f"{uuid}-{feature['properties']['file']}"
         if path.endswith(".jpg"):
@@ -164,7 +187,21 @@ def create_map(geojson_data, geojson_file_name, center, map_name, files, owner, 
             feature['properties']['image'] = "/static/nopic.png"
         del feature['properties']['file']
 
-    # Create data layer linked to map
+    # Data layer settings
+    data_layer_settings = None
+    if template_id == -1:
+        data_layer_settings = {
+            "color": "Crimson",
+            "iconClass": "Drop",
+            "popupContentTemplate": POPUP_CONTENT_TEMPLATE,
+            "popupShape": "Large",
+        }
+    else:
+        # Get first template's data layer
+        data_layer = DataLayer.objects.get(map=template_id)
+        data_layer_settings = data_layer.settings
+        
+    # Create new data layer
     new_data_layer = DataLayer(
         uuid=uuid,
         name=f"ChatMap {map_name}",
@@ -173,23 +210,17 @@ def create_map(geojson_data, geojson_file_name, center, map_name, files, owner, 
         geojson=ContentFile(json.dumps(geojson_data), name=geojson_file_name),
         display_on_load=True,
         rank=1,
-        settings={
-            "color": "Crimson",
-            "iconClass": "Drop",
-            "popupContentTemplate": POPUP_CONTENT_TEMPLATE,
-            "popupShape": "Large",
-
-        },
+        settings=data_layer_settings,
         edit_status=Map.OWNER,
     )
     new_data_layer.save()
-    
+
     # Save files
     for file in files:
         serializer = FileUploadSerializer(data={'file': file, 'data_layer': new_data_layer.pk})
         if serializer.is_valid():
             serializer.save()
-    
+
     return new_map
 
 # Serve media files
@@ -204,7 +235,6 @@ def serve_media(request, file_path):
     if file_path.endswith(".mp4"):
         FileResponse(file, content_type='video/mp4')
     return FileResponse(file, content_type='image/jpeg')
-
 
 # Serve video player
 def serve_video_player(request, file_path):

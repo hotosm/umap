@@ -50,14 +50,15 @@
 }
 
 .button-bar {
-    margin: 40px;
+    margin: var(--hot-spacing-2x-large);
     display: block;
-    font-size: 1.4rem;
+    font-size: var(--hot-font-size-x-large);
 }
 
 .umap-nav a.button, .button-primary, input[type="submit"] {
     color: var(--color-light);
     background-color: var(--color-red);
+    margin-inline-end: var(--hot-spacing-large);
 }
 
 body, div, ul, ol, li, a, section, nav,
@@ -87,8 +88,13 @@ a {
     padding-right: var(--hot-spacing-x-large);
 }
 
-.upload-form input {
+.upload-form input,
+.upload-form select {
     margin-bottom: var(--hot-spacing-large);
+}
+
+.upload-form select {
+    border: 2px solid var(--hot-color-neutral-1000);
 }
 
 .umap-permanent-credits-container {
@@ -96,6 +102,10 @@ a {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.wrapper {
+    padding: var(--hot-spacing-small);
 }
 
 footer {

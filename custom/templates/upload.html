@@ -9,6 +9,12 @@
         {% csrf_token %}
         <input class="text-input" type="text" name="name" id="name" required placeholder="Map name (ex: My awesome map)">
         <input class="file-input" type="file" name="file" id="file" required accept=".zip">
+        <select name="template_id" id="template_id">
+          <option value="-1">Default template</option>
+          {% for tpl in chatmap_templates %}
+            <option value="{{ tpl.id }}">{{ tpl.name }}</option>
+          {% endfor %}
+        </select>
         <input class="button-primary" type="submit" value="Upload" />
       </form> 
     </div>
