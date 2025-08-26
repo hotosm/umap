@@ -78,8 +78,8 @@ services:
         - umap_sock:/srv/umap:ro
       depends_on:
         - app
-  networks:
-    - umap_net
+      networks:
+        - umap_net
 
   redis:
     image: redis:latest
