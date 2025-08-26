@@ -17,6 +17,10 @@ python manage.py migrate
 # import icons
 python manage.py import_pictograms --attribution "Maki Icons by Mapbox" /srv/umap/custom/icons
 # run app
-exec gunicorn -b 0.0.0.0:8000 wsgi
-
-
+exec uvicorn \
+    --proxy-headers \
+    --host 0.0.0.0 \
+    --port 8000 \
+    --uds /srv/umap/umap.sock  \
+    --no-access-log \
+    umap.asgi:application

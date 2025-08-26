@@ -14,12 +14,12 @@ services:
       - ./custom/tilelayers.csv:/umap/tilelayers.csv
       - ./scripts/import-tilelayers.sh:/umap/import-tilelayers.sh
       - ./scripts/import-tilelayers.sql:/umap/import-tilelayers.sql
+    networks:
+      - umap_net
 
   app:
     image: umap/umap:3.1.2
     container_name: hotumap
-    ports:
-      - "8001:8000"
     environment:
       - UMAP_SITE_URL=${UMAP_SITE_URL:-http://127.0.0.1:8001/}
       - UMAP_SETTINGS=/srv/umap/settings.py
@@ -38,6 +38,8 @@ services:
       - S3_BUCKET_NAME=${S3_BUCKET_NAME}
       - S3_ENDPOINT_URL=${S3_ENDPOINT_URL}
       - ENABLE_S3_STORAGE=${ENABLE_S3_STORAGE-True}
+      - REALTIME_ENABLED=${REALTIME_ENABLED-True}
+      - REDIS_URL=redis://redis:6379
     volumes:
       - ./settings.py:/srv/umap/settings.py
       - ./data:/srv/umap/var/data
@@ -48,9 +50,17 @@ services:
       - ./views.py:/srv/umap/views.py
       - ./wsgi.py:/srv/umap/wsgi.py
       - ./hotumap:/srv/umap/hotumap
+      - umap_sock:/srv/umap
+
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - umap_net
+    expose:
+       - "8000"
 
   minio:
     container_name: minio
@@ -67,6 +77,8 @@ services:
     volumes:
       - data:/data
     command: server --console-address ":9001" /data
+    networks:
+      - umap_net
 
   createbuckets:
     image: minio/mc
@@ -80,8 +92,36 @@ services:
       exit 0;
       "
 
+  redis:
+    image: redis:latest
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+    command: ["redis-server"]
+    networks:
+      - umap_net
+
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: hotumap-nginx
+    depends_on:
+      - app
+    volumes:
+      - umap_sock:/srv/umap:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - "8001:80"
+    networks:
+      - umap_net
+    
 volumes:
   umap_userdata:
   umap_db:
   data:
+  umap_sock: {} 
+
+networks:
+  umap_net:
+    driver: bridge
+
 

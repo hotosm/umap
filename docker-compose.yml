@@ -14,12 +14,14 @@ services:
       - ./custom/tilelayers.csv:/umap/tilelayers.csv
       - ./scripts/import-tilelayers.sh:/umap/import-tilelayers.sh
       - ./scripts/import-tilelayers.sql:/umap/import-tilelayers.sql
+    networks:
+      - umap_net
 
   app:
     image: umap/umap:3.1.2
     container_name: hotumap
-    ports:
-      - "8001:8000"
+    expose:
+       - "8000"
     environment:
       - SITE_DOMAIN=${SITE_DOMAIN:-localhost}
       - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS}
@@ -51,10 +53,15 @@ services:
       - ./wsgi.py:/srv/umap/wsgi.py
       - ./hotumap:/srv/umap/hotumap
       - ./static:/srv/umap/static
+      - umap_sock:/srv/umap
     restart: always
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - umap_net
 
   nginx:
       image: nginx:latest
@@ -68,8 +75,19 @@ services:
         - ./certbot/conf:/etc/letsencrypt
         - ./static:/srv/umap/static
         - ./custom/icons:/srv/umap/custom/icons/
+        - umap_sock:/srv/umap:ro
       depends_on:
         - app
+  networks:
+    - umap_net
+
+  redis:
+    image: redis:latest
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+    command: ["redis-server"]
+    networks:
+      - umap_net
 
 #  certbot:
 #      image: certbot/certbot
@@ -81,3 +99,8 @@ services:
 volumes:
   umap_userdata:
   umap_db:
+  umap_sock: {} 
+
+networks:
+  umap_net:
+    driver: bridge

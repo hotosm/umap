@@ -11,13 +11,17 @@ ROOT_URLCONF = 'urls'
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-+q304+%(8^1#r49+0dbj584!k2n#wuc-a5^yx()jlf)quv+chu')
 INTERNAL_IPS = ("127.0.0.1",)
 ALLOWED_HOSTS =  os.environ.get('ALLOWED_HOSTS', '127.0.0.1').split(",")
-CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', 'http://127.0.0.1').split(",")
+CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', 'http://127.0.0.1,http://127.0.0.1:8001').split(",")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=os.getenv('DEBUG', 'False').lower() == 'true'
 
 ADMINS = (("Emilio Mariscal", "emilio.mariscal@hotosm.org"),)
 MANAGERS = ADMINS
+
+# Realtime
+REALTIME_ENABLED=os.environ.get('REALTIME_ENABLED', False)
+REDIS_URL=os.environ.get('REDIS_URL', None)
 
 DATABASES = {
     "default": {
