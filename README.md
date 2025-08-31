@@ -60,8 +60,8 @@ docker exec -ti hotumap python manage.py createsuperuser
 |✅| Database backup functionality |
 |⚙️| Define and create a set of initial templates for humanitarian use |
 |⚙️| Define and create a set of initial categories for humanitarian use |
+|⚙️| [Enable real-time collaboration](https://github.com/hotosm/chatmap/issues/1) |
 | | [Multiple imagery backgrounds / imagery backgrounds as layers](https://github.com/hotosm/umap/issues/5) |
-| | [Enable real-time collaboration](https://github.com/hotosm/chatmap/issues/1) |
 | | Support [vector tiles](https://github.com/umap-project/umap/issues/1634)
 
 ### Custom features / integrations
@@ -70,6 +70,7 @@ docker exec -ti hotumap python manage.py createsuperuser
 | Status | Feature |
 |:--:| :-- |
 |✅| Basic integration with [ChatMap](https://chatmap.hotosm.org) (load exported chats + media files) |
+|✅| Template selection for ChatMap imports
 |⚙️| [Create visualizations from multiple maps](https://github.com/hotosm/umap/issues/11)
 |⚙️| Advanced integration with ChatMap (live stream of data) |
 |⚙️| [Support audio for ChatMap imports](https://github.com/hotosm/umap/issues/6)
