@@ -93,6 +93,7 @@ class FileUploadView(APIView):
                                         "remoteData": {},
                                         "permissions": {"edit_status": 0}
                                     }
+                                    geojson_data = geojson
                                     geojson_file_name = file_name
                                     center = geojson["features"][0]["geometry"]["coordinates"]
                                 except:
@@ -185,7 +186,6 @@ def create_map(geojson_data, geojson_file_name, center, map_name, files, owner, 
             feature['properties']['video'] = f"<iframe width=\"495\" height=\"365\" src=\"//{site_url_video}/video_player/{path}\" title=\"Video player\" scrolling=\"no\" frameborder=\"0\"></iframe>"
             feature['properties']['image'] = "/static/nopic.png"
         del feature['properties']['file']
-        # Remove username
         del feature['properties']['username']
 
     # Data layer settings
