@@ -17,9 +17,15 @@ services:
 
   app:
     image: umap/umap:3.1.2
-    container_name: hotumap
-    ports:
-      - "8001:8000"
+    deploy:
+      replicas: ${APP_REPLICAS:-4}
+      resources:
+        limits:
+          cpus: ${APP_CPUS:-0.8}"
+          memory: ${APP_MEM:-3072M}"
+        reservations:
+          cpus: "0.1"
+          memory: ${APP_MEM_RES:-512M}"
     environment:
       - SITE_DOMAIN=${SITE_DOMAIN:-localhost}
       - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS}
@@ -71,12 +77,12 @@ services:
       depends_on:
         - app
 
-#  certbot:
-#      image: certbot/certbot
-#      volumes:
-#        - ./certbot/conf:/etc/letsencrypt
-#        - ./certbot/www:/var/www/certbot
-#      command: certonly --webroot --webroot-path=/var/www/certbot --email ${SITE_ADMIN_EMAIL} --agree-tos --no-eff-email --force-renewal -d ${SITE_DOMAIN}
+  certbot:
+      image: certbot/certbot
+      volumes:
+        - ./certbot/conf:/etc/letsencrypt
+        - ./certbot/www:/var/www/certbot
+      command: certonly --webroot --webroot-path=/var/www/certbot --email ${SITE_ADMIN_EMAIL} --agree-tos --no-eff-email --force-renewal -d ${SITE_DOMAIN}
 
 volumes:
   umap_userdata:
