@@ -21,11 +21,11 @@ services:
       replicas: ${APP_REPLICAS:-4}
       resources:
         limits:
-          cpus: ${APP_CPUS:-0.8}"
-          memory: ${APP_MEM:-3072M}"
+          cpus: ${APP_CPUS:-0.8}
+          memory: ${APP_MEM:-3072M}
         reservations:
           cpus: "0.1"
-          memory: ${APP_MEM_RES:-512M}"
+          memory: ${APP_MEM_RES:-512M}
     environment:
       - SITE_DOMAIN=${SITE_DOMAIN:-localhost}
       - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS}
