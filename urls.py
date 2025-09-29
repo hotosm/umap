@@ -9,6 +9,7 @@ urlpatterns = [
    path('save_file/', views.FileUploadView.as_view(), name='file-upload'),
    path('media_file/<path:file_path>', views.serve_media, name='serve_media'),
    path('video_player/<path:file_path>', views.serve_video_player, name='serve_video_player'),
+   path('audio_player/<path:file_path>', views.serve_audio_player, name='serve_audio_player'),
 ]
 
 urlpatterns += urls.urlpatterns

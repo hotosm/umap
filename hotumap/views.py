@@ -100,7 +100,7 @@ class FileUploadView(APIView):
                                     pass
 
                             # Handle media
-                            elif file_name.endswith(".jpg") or file_name.endswith(".mp4"):
+                            elif file_name.endswith(".jpg") or file_name.endswith(".mp4") or file_name.endswith(".opus") or file_name.endswith(".mp3"):
                                 content_file = ContentFile(file_content, name=f"{uuid}-{file_name}")
                                 files.append(content_file)
 
@@ -126,7 +126,7 @@ class FileUploadView(APIView):
             return Response({"detail": "Please upload a .zip file."}, status=status.HTTP_400_BAD_REQUEST)
 
 # Template for layers
-POPUP_CONTENT_TEMPLATE = "# {message}\n{{{image}}}\n{video}"
+POPUP_CONTENT_TEMPLATE = "# {message}\n{{{image}}}\n{media}"
 
 # Create a new map with uploaded data
 def create_map(geojson_data, geojson_file_name, center, map_name, files, owner, uuid, template_id):
@@ -175,15 +175,18 @@ def create_map(geojson_data, geojson_file_name, center, map_name, files, owner, 
     new_map.save()
     new_map.editors.add(owner)
 
-    # Replace file property with image and video urls
-    # If no video, or no image, set a blank single pixel
-    site_url_video = SITE_URL.replace("http:", "").replace("https:", "")
+    # Replace file property with image and media urls
+    # If no media, or no image, set a blank single pixel
+    site_url_media = SITE_URL.replace("http:", "").replace("https:", "")
     for feature in geojson_data['features']:
         path = f"{uuid}-{feature['properties']['file']}"
         if path.endswith(".jpg"):
             feature['properties']['image'] = f"{SITE_URL}/media_file/{path}"
         elif path.endswith(".mp4"):
-            feature['properties']['video'] = f"<iframe width=\"495\" height=\"365\" src=\"//{site_url_video}/video_player/{path}\" title=\"Video player\" scrolling=\"no\" frameborder=\"0\"></iframe>"
+            feature['properties']['media'] = f"<iframe width=\"495\" height=\"365\" src=\"//{site_url_media}/video_player/{path}\" title=\"Video player\" scrolling=\"no\" frameborder=\"0\"></iframe>"
+            feature['properties']['image'] = "/static/nopic.png"
+        elif path.endswith(".opus") or path.endswith(".mp3"):
+            feature['properties']['media'] = f"<iframe width=\"495\" height=\"365\" src=\"//{site_url_media}/audio_player/{path}\" title=\"Audio player\" scrolling=\"no\" frameborder=\"0\"></iframe>"
             feature['properties']['image'] = "/static/nopic.png"
         del feature['properties']['file']
         del feature['properties']['username']
@@ -230,13 +233,27 @@ def serve_media(request, file_path):
     s3_file_path = f"media_uploads/{file_path}"
     try:
         file = storage.open(s3_file_path)
+
     except FileNotFoundError:
         raise Http404("File not found.")
 
+    content_type = 'image/jpeg'
     if file_path.endswith(".mp4"):
-        FileResponse(file, content_type='video/mp4')
-    return FileResponse(file, content_type='image/jpeg')
+        content_type = 'video/mp4'
+    elif file_path.endswith(".opus"):
+        content_type = 'audio/ogg'
+    elif file_path.endswith(".mp3"):
+        content_type = 'audio/mp3'
+
+    return FileResponse(file, content_type=content_type)
 
 # Serve video player
 def serve_video_player(request, file_path):
     return render(request, "video.html", {"video_url": file_path})
+
+# Serve audio player
+def serve_audio_player(request, file_path):
+    file_type = "audio/ogg"
+    if file_path.endswith(".mp3"):
+        file_type = "audio/mp3"
+    return render(request, "audio.html", {"audio_url": file_path, "file_type": file_type})
