@@ -186,7 +186,7 @@ def create_map(geojson_data, geojson_file_name, center, map_name, files, owner, 
             feature['properties']['media'] = f"<iframe width=\"495\" height=\"365\" src=\"//{site_url_media}/video_player/{path}\" title=\"Video player\" scrolling=\"no\" frameborder=\"0\"></iframe>"
             feature['properties']['image'] = "/static/nopic.png"
         elif path.endswith(".opus") or path.endswith(".mp3"):
-            feature['properties']['media'] = f"<iframe width=\"495\" height=\"365\" src=\"//{site_url_media}/audio_player/{path}\" title=\"Audio player\" scrolling=\"no\" frameborder=\"0\"></iframe>"
+            feature['properties']['media'] = f"<iframe width=\"495\" height=\"65\" src=\"//{site_url_media}/audio_player/{path}\" title=\"Audio player\" scrolling=\"no\" frameborder=\"0\"></iframe>"
             feature['properties']['image'] = "/static/nopic.png"
         del feature['properties']['file']
         del feature['properties']['username']
