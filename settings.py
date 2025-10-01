@@ -30,7 +30,7 @@ DATABASES = {
     }
 }
 
-if os.environ.get('ENABLE_S3_STORAGE', False):
+if os.environ.get('ENABLE_S3_STORAGE', False) == 'True':
     STORAGES = {
         "default": { "BACKEND": "django.core.files.storage.FileSystemStorage" },
         "data": {
@@ -52,11 +52,10 @@ INSTALLED_APPS += (
     'dbbackup',
 )
 
-
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {'location': './backups'}
 
-if os.environ.get('ENABLE_S3_STORAGE', False):
+if os.environ.get('ENABLE_S3_STORAGE', False) == 'True':
     DBBACKUP_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DBBACKUP_STORAGE_OPTIONS = {
         "access_key": os.environ.get('S3_ACCESS_KEY'),
