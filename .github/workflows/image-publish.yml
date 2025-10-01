@@ -25,7 +25,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push chatmap-ui
+      - name: Build and push hotosm-umap
         uses: docker/build-push-action@v5
         with:
           context: ./app
