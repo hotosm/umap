@@ -1,4 +1,3 @@
-# views.py
 import zipfile
 import json
 from rest_framework.views import APIView
@@ -20,7 +19,7 @@ from settings import SITE_URL
 
 # Upload form
 @login_required
-def chatmap_upload_view(request):
+def upload_view(request):
     # Get ChatMap templates list
     # they must contain 'chatmap' in the name
     # and be starred by a member of staff
@@ -46,7 +45,7 @@ def chatmap_upload_view(request):
 # ChatMap (chatmap.hotosm.org). The .zip file uploaded
 # here must contain a GeoJSON file with a 'message' property
 # for displaying text and a 'file' property if media files
-# (.jpg or .mp4) are available
+# (.jpg, .mp4 and .opus) are available
 #
 # Example:
 #

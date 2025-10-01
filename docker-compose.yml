@@ -30,7 +30,7 @@ services:
       - SITE_DOMAIN=${SITE_DOMAIN:-localhost}
       - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS}
       - UMAP_SITE_URL=${UMAP_SITE_URL:-http://127.0.0.1:8001/}
-      - UMAP_SETTINGS=/srv/umap/settings.py
+      - UMAP_SETTINGS=/app/umap/settings.py
       - UMAP_SECRET_KEY=${UMAP_SECRET_KEY:-somelonghash}
       - UMAP_DB_HOST=${UMAP_DB_HOST:-db}
       - UMAP_DB_NAME=${UMAP_DB_NAME:-postgres}
@@ -47,16 +47,16 @@ services:
       - ENABLE_S3_STORAGE=${ENABLE_S3_STORAGE:-False}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost}
     volumes:
-      - ./settings.py:/srv/umap/settings.py
-      - ./data:/srv/umap/var/data
-      - ./custom:/srv/umap/custom
-      - ./docker/entrypoint.sh:/srv/umap/docker/entrypoint.sh
-      - ./urls.py:/srv/umap/urls.py
-      - ./manage.py:/srv/umap/manage.py
-      - ./views.py:/srv/umap/views.py
-      - ./wsgi.py:/srv/umap/wsgi.py
-      - ./hotumap:/srv/umap/hotumap
-      - ./static:/srv/umap/static
+      - ./settings.py:/app/umap/settings.py
+      - ./data:/app/umap/var/data
+      - ./custom:/app/umap/custom
+      - ./docker/entrypoint.sh:/app/umap/docker/entrypoint.sh
+      - ./urls.py:/app/umap/urls.py
+      - ./manage.py:/app/umap/manage.py
+      - ./views.py:/app/umap/views.py
+      - ./wsgi.py:/app/umap/wsgi.py
+      - ./hotumap:/app/umap/hotumap
+      - ./static:/app/umap/static
     restart: always
     depends_on:
       db:
@@ -72,8 +72,8 @@ services:
         - ./nginx/conf.d:/etc/nginx/conf.d
         - ./certbot/www:/var/www/certbot
         - ./certbot/conf:/etc/letsencrypt
-        - ./static:/srv/umap/static
-        - ./custom/icons:/srv/umap/custom/icons/
+        - ./static:/app/umap/static
+        - ./custom/icons:/app/umap/custom/icons/
       depends_on:
         - app
 

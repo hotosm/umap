@@ -93,13 +93,13 @@ SITE_URL = os.environ.get('UMAP_SITE_URL', "http://127.0.0.1:8001")
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # For users' statics (geojson mainly)
-MEDIA_ROOT = os.environ.get('MEDIA_ROOT', '/srv/umap/data')
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT', '/app/umap/data')
 
 ### uMap settings
 
 # Customization
-UMAP_CUSTOM_TEMPLATES=os.environ.get('UMAP_CUSTOM_TEMPLATES', '/srv/umap/custom/templates')
-UMAP_CUSTOM_STATICS=os.environ.get('UMAP_CUSTOM_STATICS', '/srv/umap/custom/static')
+UMAP_CUSTOM_TEMPLATES=os.environ.get('UMAP_CUSTOM_TEMPLATES', '/app/umap/custom/templates')
+UMAP_CUSTOM_STATICS=os.environ.get('UMAP_CUSTOM_STATICS', '/app/umap/custom/static')
 
 # Add a banner to warn people this instance is not production ready.
 UMAP_DEMO_SITE = False

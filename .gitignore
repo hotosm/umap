@@ -3,10 +3,8 @@ data
 
 __pycache__
 
-venv
-env
+.env.local
+.env.docker
+.env.prod
 
 .DS_Store
-
-run.sh
-run-docker.sh

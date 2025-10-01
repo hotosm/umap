@@ -11,9 +11,6 @@ services:
       - POSTGRES_PASSWORD=${UMAP_DB_PASSWORD:-123456}
     volumes:
       - umap_db:/var/lib/postgresql/data
-      - ./custom/tilelayers.csv:/umap/tilelayers.csv
-      - ./scripts/import-tilelayers.sh:/umap/import-tilelayers.sh
-      - ./scripts/import-tilelayers.sql:/umap/import-tilelayers.sql
 
   app:
     image: umap/umap:3.1.2
@@ -22,7 +19,7 @@ services:
       - "8001:8000"
     environment:
       - UMAP_SITE_URL=${UMAP_SITE_URL:-http://127.0.0.1:8001/}
-      - UMAP_SETTINGS=/srv/umap/settings.py
+      - UMAP_SETTINGS=/app/umap/settings.py
       - UMAP_SECRET_KEY=${UMAP_SECRET_KEY:-somelonghash}
       - UMAP_DB_HOST=${UMAP_DB_HOST:-db}
       - UMAP_DB_NAME=${UMAP_DB_NAME:-postgres}
@@ -42,15 +39,9 @@ services:
       - SITE_DOMAIN=${SITE_DOMAIN:-localhost}
       - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS}
     volumes:
-      - ./settings.py:/srv/umap/settings.py
-      - ./data:/srv/umap/var/data
-      - ./custom:/srv/umap/custom
-      - ./docker/entrypoint.sh:/srv/umap/docker/entrypoint.sh
-      - ./urls.py:/srv/umap/urls.py
-      - ./manage.py:/srv/umap/manage.py
-      - ./views.py:/srv/umap/views.py
-      - ./wsgi.py:/srv/umap/wsgi.py
-      - ./hotumap:/srv/umap/hotumap
+      - ./settings.py:/app/umap/settings.py
+      - ./data:/app/umap/var/data
+      - ./app/entrypoint.sh:/app/entrypoint.sh
     restart: always
     depends_on:
       db:

@@ -12,34 +12,59 @@ with some extra flavour added by the `hotumap` app.
 
 Make a copy of env.sample and edit the needed variables.
 
-## Run with Docker
-
 ### Development
 
-```
-docker compose -f docker-compose.dev.yml up -d
-docker exec -t hotumap python manage.py makemigrations hotumap
-docker exec -t hotumap python manage.py migrate hotumap
-```
+1. Edit source ./env.local.sample and rename it to ./env.local
+2. `source ./env.local`
+3. `uv run python manage.py makemigrations hotumap`
+3. `uv run python manage.py migrate hotumap`
+3. `uv run python manage.py collectstatic --noinput`
+4. `uv run python manage.py import_pictograms --attribution "Maki Icons by Mapbox" custom/icons`
+5. `uv run gunicorn wsgi`
 
-You should be able to open the app:
+You should be able to open the app in:
+http://127.0.0.1:8001
+
+#### With Docker
+
+1. Edit source `./env.docker.sample` and rename it to `./env.docker`
+2. `source ./env.docker`
+3. `docker compose -f docker-compose.dev.yml up -d`
+4. `docker exec -t hotumap python manage.py makemigrations hotumap`
+5. `docker exec -t hotumap python manage.py migrate hotumap`
+
+You should be able to open the app in:
 http://127.0.0.1:8001
 
 ### Production
 
-For *production* run the same commands but with the default compose yaml file:
+1. Edit source `./env.prod.sample` and rename it to `./env.prod`
+2. `source ./env.prod`
+3. `docker compose -f docker-compose.dev.yml up -d`
+4. `docker exec -t hotumap python manage.py makemigrations hotumap`
+5. `docker exec -t hotumap python manage.py migrate hotumap`
+
+### Useful commands
+
+#### Add tile layers
 
 ```
-docker compose up -d
+uv run python manage.py migrate hotumap
 ```
 
-### Add tile layers
+Or, in Docker:
 
 ```
 docker exec -t hotumap-db /bin/bash /umap/import-tilelayers.sh
 ```
 
-### Create superuser
+#### Create superuser
+
+```
+uv run python manage.py migrate hotumap
+```
+
+Or, in Docker:
 
 ```
 docker exec -ti hotumap python manage.py createsuperuser
