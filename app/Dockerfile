@@ -5,10 +5,11 @@ FROM umap/umap:3.1.2
 WORKDIR /app
 
 # Install uv
-RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
-ADD https://astral.sh/uv/install.sh /uv-installer.sh
-RUN sh /uv-installer.sh && rm /uv-installer.sh
-RUN ln -s /root/.local/bin/uv /usr/local/bin/uv
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl ca-certificates && \
+    curl -LsSf https://astral.sh/uv/install.sh | sh -s -- --no-modify-path && \
+    cp /root/.local/bin/uv /usr/local/bin/uv && \
+    chmod 755 /usr/local/bin/uv
 
 # Copy app
 COPY . .
