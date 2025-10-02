@@ -17,7 +17,7 @@ source ./env.local`
 cd app && sh ./start.sh
 ```
 
-You should be able to open the app in `http://127.0.0.1:8001`.
+You should be able to open the app in `http://127.0.0.1:8000`.
 
 ### With Docker
 
