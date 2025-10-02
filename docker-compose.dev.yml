@@ -18,7 +18,7 @@ services:
     ports:
       - "8001:8000"
     environment:
-      - UMAP_SITE_URL=${UMAP_SITE_URL:-http://127.0.0.1:8001/}
+      - UMAP_SITE_URL=${UMAP_SITE_URL:-http://127.0.0.1:8001}
       - UMAP_SETTINGS=/app/settings.py
       - UMAP_SECRET_KEY=${UMAP_SECRET_KEY:-somelonghash}
       - UMAP_DB_USER=${UMAP_DB_USER:-postgres}
