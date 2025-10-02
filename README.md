@@ -12,21 +12,23 @@ with some extra flavour added by the `hotumap` app.
 
 Edit source ./env.local.sample and rename it to ./env.local, then:
 
-1. `source ./env.local`
-2. `cd app && sh ./start.sh `
+```
+source ./env.local`
+cd app && sh ./start.sh
+```
 
-You should be able to open the app in:
-http://127.0.0.1:8001
+You should be able to open the app in `http://127.0.0.1:8001`.
 
 ### With Docker
 
 Edit source `./env.docker.sample` and rename it to `./env.docker`, then:
 
-1. `source ./env.docker`
-2. `docker compose -f docker-compose.dev.yml up -d`
+```
+source ./env.docker
+docker compose -f docker-compose.dev.yml up -d
+```
 
-You should be able to open the app in:
-http://127.0.0.1:8001
+You should be able to open the app in `http://127.0.0.1:8001`.
 
 ### Production
 
@@ -34,8 +36,10 @@ For production you might also want to define a website domain and S3 storage.
 
 Edit source `./env.prod.sample` and rename it to `./env.prod`, then:
 
-1. `source ./env.prod`
-2. `docker compose -f docker-compose.yml up -d`
+```
+source ./env.prod`
+docker compose -f docker-compose.yml up -d
+```
 
 ### Useful commands
 
