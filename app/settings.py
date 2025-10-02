@@ -152,10 +152,10 @@ UMAP_TAGS = (
 )
 
 
-BASE_DIR = pathlib.Path(__file__).resolve().parent.parent
+BASE_DIR = os.environ.get('UMAP_BASE_DIR', '/app')
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = f"{BASE_DIR}/static/"
+STATIC_ROOT = f"{BASE_DIR}/staticfiles"
 STATICFILES_DIRS = [
-    BASE_DIR / 'custom' / 'static',
+    BASE_DIR, f"{BASE_DIR}/custom", f"{BASE_DIR}/static"
 ]
