@@ -10,10 +10,6 @@ with some extra flavour added by the `hotumap` app.
 
 ## Run
 
-Make a copy of env.sample and edit the needed variables.
-
-### Development
-
 Edit source ./env.local.sample and rename it to ./env.local, then:
 
 1. `source ./env.local`
@@ -22,7 +18,7 @@ Edit source ./env.local.sample and rename it to ./env.local, then:
 You should be able to open the app in:
 http://127.0.0.1:8001
 
-#### With Docker
+### With Docker
 
 Edit source `./env.docker.sample` and rename it to `./env.docker`, then:
 
