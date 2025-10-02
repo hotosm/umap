@@ -14,48 +14,45 @@ Make a copy of env.sample and edit the needed variables.
 
 ### Development
 
-1. Edit source ./env.local.sample and rename it to ./env.local
-2. `source ./env.local`
-3. `uv run python manage.py makemigrations hotumap`
-3. `uv run python manage.py migrate hotumap`
-3. `uv run python manage.py collectstatic --noinput`
-4. `uv run python manage.py import_pictograms --attribution "Maki Icons by Mapbox" custom/icons`
-5. `uv run gunicorn wsgi`
+Edit source ./env.local.sample and rename it to ./env.local, then:
+
+1. `source ./env.local`
+2. `cd app && sh ./start.sh `
 
 You should be able to open the app in:
 http://127.0.0.1:8001
 
 #### With Docker
 
-1. Edit source `./env.docker.sample` and rename it to `./env.docker`
-2. `source ./env.docker`
-3. `docker compose -f docker-compose.dev.yml up -d`
-4. `docker exec -t hotumap python manage.py makemigrations hotumap`
-5. `docker exec -t hotumap python manage.py migrate hotumap`
+Edit source `./env.docker.sample` and rename it to `./env.docker`, then:
+
+1. `source ./env.docker`
+2. `docker compose -f docker-compose.dev.yml up -d`
 
 You should be able to open the app in:
 http://127.0.0.1:8001
 
 ### Production
 
-1. Edit source `./env.prod.sample` and rename it to `./env.prod`
-2. `source ./env.prod`
-3. `docker compose -f docker-compose.dev.yml up -d`
-4. `docker exec -t hotumap python manage.py makemigrations hotumap`
-5. `docker exec -t hotumap python manage.py migrate hotumap`
+For production you might also want to define a website domain and S3 storage.
+
+Edit source `./env.prod.sample` and rename it to `./env.prod`, then:
+
+1. `source ./env.prod`
+2. `docker compose -f docker-compose.yml up -d`
 
 ### Useful commands
 
 #### Create superuser
 
 ```
-uv run python manage.py migrate hotumap
+uv run python manage.py createsuperuser
 ```
 
 Or, in Docker:
 
 ```
-docker exec -ti hotumap python manage.py createsuperuser
+docker exec -ti hotumap uv run python manage.py createsuperuser
 ```
 
 ## Latest features

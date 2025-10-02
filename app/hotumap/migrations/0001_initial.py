@@ -11,6 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('umap', '0028_map_is_template'),
+        ('social_django', '0016_alter_usersocialauth_extra_data'),
     ]
 
     operations = [

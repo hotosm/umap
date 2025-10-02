@@ -22,11 +22,11 @@ MANAGERS = ADMINS
 DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": os.environ.get('UMAP_DB_NAME'),
-        "USER": os.environ.get('UMAP_DB_USER'),
-        "PASSWORD": os.environ.get('UMAP_DB_PASSWORD'),
-        "HOST": os.environ.get('UMAP_DB_HOST'),
-        "PORT": "5432",
+        "NAME": os.environ.get('UMAP_DB_NAME', 'umap'),
+        "USER": os.environ.get('UMAP_DB_USER', 'umap'),
+        "PASSWORD": os.environ.get('UMAP_DB_PASSWORD', '123456'),
+        "HOST": os.environ.get('UMAP_DB_HOST', 'localhost'),
+        "PORT": os.environ.get('UMAP_DB_PORT', '5432'),
     }
 }
 

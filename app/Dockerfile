@@ -28,6 +28,6 @@ HEALTHCHECK --interval=30s --timeout=5s \
     CMD curl -f http://localhost:8000/ || exit 1
 
 # App entrypoint
-RUN chmod +x /app/entrypoint.sh
-ENTRYPOINT ["./entrypoint.sh"]
+RUN chmod +x /app/start.sh
+ENTRYPOINT ["./start.sh"]
 

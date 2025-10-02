@@ -1,4 +1,5 @@
 data
+app/static
 /static/
 
 __pycache__
