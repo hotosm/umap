@@ -14,12 +14,12 @@ RUN apt-get update && \
 # Copy app
 COPY . .
 
-# Install dependencies
-RUN uv sync --locked
-
 RUN adduser --disabled-password --gecos "" appuser && \
     chown -R appuser:appuser /app
 USER appuser
+
+# Install dependencies
+RUN uv sync --locked
 
 EXPOSE 8000
 
