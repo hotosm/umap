@@ -19,7 +19,7 @@ services:
       - "8001:8000"
     environment:
       - UMAP_SITE_URL=${UMAP_SITE_URL:-http://127.0.0.1:8001/}
-      - UMAP_SETTINGS=/app/umap/settings.py
+      - UMAP_SETTINGS=/app/settings.py
       - UMAP_SECRET_KEY=${UMAP_SECRET_KEY:-somelonghash}
       - UMAP_DB_HOST=${UMAP_DB_HOST:-db}
       - UMAP_DB_NAME=${UMAP_DB_NAME:-postgres}
@@ -38,6 +38,8 @@ services:
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost}
       - SITE_DOMAIN=${SITE_DOMAIN:-localhost}
       - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS}
+      - UMAP_CUSTOM_TEMPLATES=${UMAP_CUSTOM_TEMPLATES:-/app/custom/templates}
+      - UMAP_CUSTOM_STATICS=${UMAP_CUSTOM_STATICS:-/app/custom/static}
     volumes:
       - ./data:/app/umap/var/data
     restart: always

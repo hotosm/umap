@@ -3,8 +3,8 @@ data
 
 __pycache__
 
-.env.local
-.env.docker
-.env.prod
+env.local
+env.docker
+env.prod
 
 .DS_Store
