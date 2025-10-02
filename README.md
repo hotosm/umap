@@ -46,18 +46,6 @@ http://127.0.0.1:8001
 
 ### Useful commands
 
-#### Add tile layers
-
-```
-uv run python manage.py migrate hotumap
-```
-
-Or, in Docker:
-
-```
-docker exec -t hotumap-db /bin/bash /umap/import-tilelayers.sh
-```
-
 #### Create superuser
 
 ```
