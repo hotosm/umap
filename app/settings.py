@@ -3,6 +3,7 @@
 from umap.settings.base import *  # pylint: disable=W0614,W0401
 import os
 from django.utils.translation import gettext_lazy as _
+import pathlib
 
 # Application definition
 ROOT_URLCONF = 'urls'
@@ -149,3 +150,12 @@ UMAP_TAGS = (
     ("public", _("Public sector")),
     ("science", _("Science")),
 )
+
+
+BASE_DIR = pathlib.Path(__file__).resolve().parent.parent
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'custom' / 'static',
+]

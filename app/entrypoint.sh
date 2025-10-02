@@ -9,4 +9,4 @@ uv run python manage.py migrate
 # import icons
 uv run python manage.py import_pictograms --attribution "Maki Icons by Mapbox" /app/custom/icons
 # run app
-uv run exec gunicorn -b 0.0.0.0:8000 wsgi
+uv run gunicorn -b 0.0.0.0:8000 wsgi
