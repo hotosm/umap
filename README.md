@@ -10,7 +10,7 @@ with some extra flavour added by the `hotumap` app.
 
 ## Run
 
-Edit source ./env.local.sample and rename it to ./env.local, then:
+Edit source `./env.local.sample` and rename it to `./env.local`, then:
 
 ```
 source ./env.local`
