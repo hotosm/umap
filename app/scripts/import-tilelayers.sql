@@ -5,7 +5,7 @@ CREATE TEMP TABLE tmp_table ON COMMIT DROP AS (
   )
 WITH NO DATA;
 
-COPY tmp_table FROM '/umap/tilelayers.csv' DELIMITER ',' CSV;
+COPY tmp_table FROM '/app/scripts/import-tilelayers.csv' DELIMITER ',' CSV;
 
 INSERT INTO umap_tilelayer
 SELECT *

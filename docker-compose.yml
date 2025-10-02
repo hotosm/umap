@@ -11,9 +11,6 @@ services:
       - POSTGRES_PASSWORD=${UMAP_DB_PASSWORD:-123456}
     volumes:
       - umap_db:/var/lib/postgresql/data
-      - ./app/scripts/import-tilelayers.sql:/docker-entrypoint-initdb.d/import-tilelayers.sql
-    command:
-      psql -U postgres < import-tilelayers.sql
 
   app:
     image: ghcr.io/hotosm/hotosm-umap:latest
@@ -34,6 +31,7 @@ services:
       - UMAP_DB_NAME=${UMAP_DB_NAME:-postgres}
       - UMAP_DB_USER=${UMAP_DB_USER:-postgres}
       - UMAP_DB_PASSWORD=${UMAP_DB_PASSWORD:-123456}
+      - PGPASSWORD=${UMAP_DB_PASSWORD:-123456}
       - UMAP_OSM_KEY=${UMAP_OSM_KEY}
       - DEBUG=${DEBUG:-true}
       - UMAP_OSM_SECRET=${UMAP_OSM_SECRET}

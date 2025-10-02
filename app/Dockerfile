@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Install uv
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends curl ca-certificates && \
+    apt-get install -y --no-install-recommends curl ca-certificates postgresql-client && \
     curl -LsSf https://astral.sh/uv/install.sh | sh -s -- --no-modify-path && \
     cp /root/.local/bin/uv /usr/local/bin/uv && \
     chmod 755 /usr/local/bin/uv
