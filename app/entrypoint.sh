@@ -3,10 +3,10 @@ set -eo pipefail
 # import tilelayers
 echo "Importing tilelayers..."
 psql \
-  --host="$POSTGRES_HOST" \
-  --port="${POSTGRES_PORT:-5432}" \
-  --username="$POSTGRES_USER" \
-  --dbname="$POSTGRES_DB" \
+  --host="$UMAP_DB_HOST" \
+  --port="${UMAP_DB_PORT:-5432}" \
+  --username="$UMAP_DB_USER" \
+  --dbname="$UMAP_DB_NAME" \
   --file=/app/scripts/import-tilelayers.sql
 # collect static files
 uv run python manage.py collectstatic --noinput
