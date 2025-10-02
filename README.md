@@ -13,7 +13,7 @@ with some extra flavour added by the `hotumap` app.
 Edit source `./env.local.sample` and rename it to `./env.local`, then:
 
 ```
-source ./env.local`
+source ./env.local
 cd app && sh ./start.sh
 ```
 
