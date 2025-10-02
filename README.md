@@ -37,7 +37,7 @@ For production you might also want to define a website domain and S3 storage.
 Edit source `./env.prod.sample` and rename it to `./env.prod`, then:
 
 ```
-source ./env.prod`
+source ./env.prod
 docker compose -f docker-compose.yml up -d
 ```
 
