@@ -11,7 +11,7 @@ ROOT_URLCONF = 'urls'
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-+q304+%(8^1#r49+0dbj584!k2n#wuc-a5^yx()jlf)quv+chu')
 INTERNAL_IPS = ("127.0.0.1",)
-ALLOWED_HOSTS =  os.environ.get('ALLOWED_HOSTS', '127.0.0.1').split(",")
+ALLOWED_HOSTS =  os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost:8000').split(",")
 CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', 'http://127.0.0.1').split(",")
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -154,8 +154,8 @@ UMAP_TAGS = (
 
 BASE_DIR = os.environ.get('UMAP_BASE_DIR', '/app')
 
-STATIC_URL = f"{BASE_DIR}/static/"
 STATIC_ROOT = f"{BASE_DIR}/staticfiles"
 STATICFILES_DIRS = [
     BASE_DIR, f"{BASE_DIR}/custom", f"{BASE_DIR}/static"
 ]
+

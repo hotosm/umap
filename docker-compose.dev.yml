@@ -35,11 +35,11 @@ services:
       - S3_BUCKET_NAME=${S3_BUCKET_NAME}
       - S3_ENDPOINT_URL=${S3_ENDPOINT_URL}
       - ENABLE_S3_STORAGE=${ENABLE_S3_STORAGE:-False}
-      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost:8000}
       - SITE_DOMAIN=${SITE_DOMAIN:-localhost}
       - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS}
-      - UMAP_CUSTOM_TEMPLATES=${UMAP_CUSTOM_TEMPLATES:-/app/custom/templates}
-      - UMAP_CUSTOM_STATICS=${UMAP_CUSTOM_STATICS:-/app/custom/static}
+      - UMAP_CUSTOM_TEMPLATES=${UMAP_CUSTOM_TEMPLATES}
+      - UMAP_CUSTOM_STATICS=${UMAP_CUSTOM_STATICS}
     volumes:
       - ./data:/app/umap/var/data
     restart: always
