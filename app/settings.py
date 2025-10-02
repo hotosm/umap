@@ -3,7 +3,6 @@
 from umap.settings.base import *  # pylint: disable=W0614,W0401
 import os
 from django.utils.translation import gettext_lazy as _
-import pathlib
 
 # Application definition
 ROOT_URLCONF = 'urls'
