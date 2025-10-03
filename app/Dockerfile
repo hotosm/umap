@@ -1,6 +1,6 @@
 # HOT uMap Dockerfile
 
-FROM umap/umap:3.1.2
+FROM umap/umap:3.3.6
 
 WORKDIR /app
 
