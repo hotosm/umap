@@ -9,3 +9,5 @@ env.docker
 env.prod
 
 .DS_Store
+
+certbot
