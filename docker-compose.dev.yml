@@ -13,7 +13,7 @@ services:
       - umap_db:/var/lib/postgresql/data
 
   app:
-    image: ghcr.io/hotosm/hotosm-umap:latest
+    image: hotumap
     container_name: hotumap
     ports:
       - "8001:8000"
@@ -39,6 +39,7 @@ services:
       - ENABLE_S3_STORAGE=${ENABLE_S3_STORAGE:-False}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost,127.0.0.1}
       - SITE_DOMAIN=${SITE_DOMAIN:-localhost,127.0.0.1}
+      - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS:-http://localhost,http://127.0.0.1}
     volumes:
       - ./data:/app/umap/var/data
     restart: always
