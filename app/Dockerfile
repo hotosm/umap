@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Install uv
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends curl ca-certificates postgresql-client && \
+    apt-get install -y --no-install-recommends curl ca-certificates postgresql-client git && \
     curl -LsSf https://astral.sh/uv/install.sh | sh -s -- --no-modify-path && \
     cp /root/.local/bin/uv /usr/local/bin/uv && \
     chmod 755 /usr/local/bin/uv
@@ -28,6 +28,7 @@ HEALTHCHECK --interval=30s --timeout=5s \
     CMD curl -f http://localhost:8000/ || exit 1
 
 # App entrypoint
-RUN chmod +x /app/start.sh
+RUN chmod +x /app/start.sh && \
+    chmod +x /app/scripts/wait-for-db.sh
 ENTRYPOINT ["./start.sh"]
 

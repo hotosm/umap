@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 set -eo pipefail
+
+# Wait for database to be ready
+echo "Waiting for database to be ready..."
+/app/scripts/wait-for-db.sh
+
 # collect static files
 uv run python manage.py collectstatic --noinput
-# now wait for the database
-uv run python manage.py wait_for_database
 # ensure social_django migrations are set
 uv run python manage.py migrate social_django
 # then run other migrations

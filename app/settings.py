@@ -7,6 +7,16 @@ from django.utils.translation import gettext_lazy as _
 # Application definition
 ROOT_URLCONF = 'urls'
 
+# AUTH_PROVIDER Configuration
+AUTH_PROVIDER = os.environ.get('AUTH_PROVIDER', 'legacy')
+
+# Hanko SSO Configuration
+if AUTH_PROVIDER == 'hanko':
+    HANKO_API_URL = os.environ.get('HANKO_API_URL')
+    COOKIE_SECRET = os.environ.get('COOKIE_SECRET')
+    COOKIE_DOMAIN = os.environ.get('COOKIE_DOMAIN', None)
+    COOKIE_SECURE = os.environ.get('COOKIE_SECURE', 'False').lower() == 'true'
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-+q304+%(8^1#r49+0dbj584!k2n#wuc-a5^yx()jlf)quv+chu')
 INTERNAL_IPS = ("127.0.0.1",)
@@ -46,11 +56,16 @@ if os.environ.get('ENABLE_S3_STORAGE', False) == 'True':
         "staticfiles": { "BACKEND": "umap.storage.staticfiles.UmapManifestStaticFilesStorage" }
     }
 
-INSTALLED_APPS += (
-    "rest_framework",
-    "hotumap",
-    'dbbackup',
+# Ensure hotumap is registered only once (base settings may already add it)
+INSTALLED_APPS = tuple(
+    app for app in INSTALLED_APPS if app not in ("hotumap", "hotumap.apps.HotumapConfig")
 )
+for _app in ("hotumap.apps.HotumapConfig", "dbbackup"):
+    if _app not in INSTALLED_APPS:
+        INSTALLED_APPS += (_app,)
+
+if AUTH_PROVIDER == 'hanko':
+    INSTALLED_APPS += ("hotosm_auth_django",)
 
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {'location': './backups'}
@@ -82,6 +97,10 @@ SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_KEY=os.environ.get('UMAP_OSM_KEY')
 SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_SECRET=os.environ.get('UMAP_OSM_SECRET')
 
 MIDDLEWARE += ("social_django.middleware.SocialAuthExceptionMiddleware",)
+
+if AUTH_PROVIDER == 'hanko':
+    auth_middleware_index = MIDDLEWARE.index("django.contrib.auth.middleware.AuthenticationMiddleware")
+    MIDDLEWARE.insert(auth_middleware_index, "hotosm_auth_django.HankoAuthMiddleware")
 
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = os.getenv('UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS', 'False').lower() == 'true'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
