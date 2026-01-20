@@ -96,11 +96,14 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_KEY=os.environ.get('UMAP_OSM_KEY')
 SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_SECRET=os.environ.get('UMAP_OSM_SECRET')
 
+MIDDLEWARE = list(MIDDLEWARE)
 MIDDLEWARE += ("social_django.middleware.SocialAuthExceptionMiddleware",)
 
 if AUTH_PROVIDER == 'hanko':
     auth_middleware_index = MIDDLEWARE.index("django.contrib.auth.middleware.AuthenticationMiddleware")
     MIDDLEWARE.insert(auth_middleware_index, "hotosm_auth_django.HankoAuthMiddleware")
+
+MIDDLEWARE = tuple(MIDDLEWARE)
 
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = os.getenv('UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS', 'False').lower() == 'true'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
