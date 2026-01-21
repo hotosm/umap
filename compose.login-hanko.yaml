@@ -38,7 +38,7 @@ services:
       - UMAP_DB_USER=${POSTGRES_USER:-umap}
       - UMAP_DB_PASSWORD=${POSTGRES_PASSWORD:-umap}
       - PGPASSWORD=${POSTGRES_PASSWORD:-umap}
-      - DEBUG=false
+      - DEBUG=true
       - ALLOWED_HOSTS=testlogin.umap.hotosm.org,localhost
       - CSRF_TRUSTED_ORIGINS=https://testlogin.umap.hotosm.org
       # Hanko SSO
