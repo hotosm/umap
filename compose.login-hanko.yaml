@@ -1,0 +1,71 @@
+# compose.login-hanko.yaml - Test environment for login_hanko branch
+# Deploy to: testlogin.umap.hotosm.org
+# Requires: Traefik running in /opt/traefik with hotosm-test network
+
+services:
+  db:
+    image: postgis/postgis:14-3.5-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-umap}
+      - POSTGRES_USER=${POSTGRES_USER:-umap}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-umap}
+    volumes:
+      - umap-db:/var/lib/postgresql/data
+    networks:
+      - internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-umap}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    image: ghcr.io/hotosm/umap/app:login-hanko
+    restart: unless-stopped
+    deploy:
+      replicas: 2
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # uMap settings
+      - UMAP_SITE_URL=https://testlogin.umap.hotosm.org
+      - UMAP_SETTINGS=/app/settings.py
+      - UMAP_SECRET_KEY=${SECRET_KEY}
+      - UMAP_DB_HOST=db
+      - UMAP_DB_NAME=${POSTGRES_DB:-umap}
+      - UMAP_DB_USER=${POSTGRES_USER:-umap}
+      - UMAP_DB_PASSWORD=${POSTGRES_PASSWORD:-umap}
+      - PGPASSWORD=${POSTGRES_PASSWORD:-umap}
+      - DEBUG=false
+      - ALLOWED_HOSTS=testlogin.umap.hotosm.org,localhost
+      - CSRF_TRUSTED_ORIGINS=https://testlogin.umap.hotosm.org
+      # Hanko SSO
+      - AUTH_PROVIDER=${AUTH_PROVIDER:-hanko}
+      - HANKO_API_URL=https://dev.login.hotosm.org
+      - JWT_ISSUER=https://dev.login.hotosm.org
+      - COOKIE_SECRET=${COOKIE_SECRET}
+      - COOKIE_DOMAIN=.hotosm.org
+      - COOKIE_SECURE=true
+      - LOGIN_URL=https://dev.login.hotosm.org
+    volumes:
+      - umap-data:/app/umap/var/data
+    networks:
+      - hotosm-test
+      - internal
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.umap-app.rule=Host(`testlogin.umap.hotosm.org`)"
+      - "traefik.http.routers.umap-app.entrypoints=websecure"
+      - "traefik.http.routers.umap-app.tls.certresolver=letsencrypt"
+      - "traefik.http.services.umap-app.loadbalancer.server.port=8000"
+
+networks:
+  hotosm-test:
+    external: true
+  internal:
+
+volumes:
+  umap-db:
+  umap-data:
