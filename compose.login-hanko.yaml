@@ -38,8 +38,8 @@ services:
       - UMAP_DB_USER=${POSTGRES_USER:-umap}
       - UMAP_DB_PASSWORD=${POSTGRES_PASSWORD:-umap}
       - PGPASSWORD=${POSTGRES_PASSWORD:-umap}
-      - DEBUG=true
-      - ALLOWED_HOSTS=testlogin.umap.hotosm.org,localhost
+      - DEBUG=false
+      - ALLOWED_HOSTS=testlogin.umap.hotosm.org,localhost,nginx
       - CSRF_TRUSTED_ORIGINS=https://testlogin.umap.hotosm.org
       # Hanko SSO
       - AUTH_PROVIDER=${AUTH_PROVIDER:-hanko}
@@ -51,6 +51,20 @@ services:
       - LOGIN_URL=https://dev.login.hotosm.org
     volumes:
       - umap-data:/app/umap/var/data
+      - umap-static:/app/static
+      - umap-icons:/app/custom/icons
+    networks:
+      - internal
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    depends_on:
+      - app
+    volumes:
+      - ./nginx/conf.d/umap.conf:/etc/nginx/conf.d/default.conf:ro
+      - umap-static:/app/static:ro
+      - umap-icons:/app/custom/icons:ro
     networks:
       - hotosm-test
       - internal
@@ -59,7 +73,7 @@ services:
       - "traefik.http.routers.umap-app.rule=Host(`testlogin.umap.hotosm.org`)"
       - "traefik.http.routers.umap-app.entrypoints=websecure"
       - "traefik.http.routers.umap-app.tls.certresolver=letsencrypt"
-      - "traefik.http.services.umap-app.loadbalancer.server.port=8000"
+      - "traefik.http.services.umap-app.loadbalancer.server.port=80"
 
 networks:
   hotosm-test:
@@ -69,3 +83,5 @@ networks:
 volumes:
   umap-db:
   umap-data:
+  umap-static:
+  umap-icons:

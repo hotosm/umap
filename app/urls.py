@@ -31,8 +31,3 @@ if getattr(settings, 'AUTH_PROVIDER', 'legacy') == 'hanko':
     ]
 
 urlpatterns += urls.urlpatterns
-
-# Serve static files in DEBUG mode (for gunicorn)
-if settings.DEBUG:
-    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-    urlpatterns += staticfiles_urlpatterns()
