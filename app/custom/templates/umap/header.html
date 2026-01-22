@@ -1,3 +1,14 @@
+{% load static %}
+
+{% if AUTH_PROVIDER == 'hanko' %}
+<!-- Hanko SSO Dependencies -->
+<!-- WebAwesome - required for hotosm-auth dropdown components -->
+<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-beta.1/dist/styles/webawesome.css">
+<script type="module" src="https://early.webawesome.com/webawesome@3.0.0-beta.1/dist/webawesome.js"></script>
+<!-- HOTOSM Auth Web Component -->
+<script type="module" src="https://unpkg.com/@hotosm/hanko-auth@0.3.4/dist/hanko-auth.esm.js"></script>
+{% endif %}
+
 <!-- Matomo -->
 <script>
   var _paq = window._paq = window._paq || [];
@@ -16,7 +27,7 @@
     /* Track download button clicks */
     if (U && "MAP" in U && "share" in U.MAP && "download") {
       const uMapShareDownload = U.MAP.share.download;
-      U.MAP.share.download = function(...args) { 
+      U.MAP.share.download = function(...args) {
           _paq.push(['trackEvent', 'Download', 'Click', document.title.slice(0,100), 1]);
           return uMapShareDownload.apply(this, args);
       }

@@ -17,14 +17,37 @@ from django.contrib.auth.models import User
 logger = logging.getLogger(__name__)
 
 
+def find_legacy_user_by_osm_id(osm_id: int) -> Optional[User]:
+    """Find existing user by OSM ID via social_auth.
+
+    Used after OSM connect to check if this OSM ID already exists
+    in the database (legacy user). This is more reliable than username
+    because OSM allows username changes.
+
+    Args:
+        osm_id: OSM user ID from OAuth
+
+    Returns:
+        User if found, None otherwise
+    """
+    try:
+        from social_django.models import UserSocialAuth
+        social_auth = UserSocialAuth.objects.get(
+            provider='openstreetmap-oauth2',
+            uid=str(osm_id)
+        )
+        return social_auth.user
+    except Exception:
+        return None
+
+
 def find_legacy_user_by_username(username: str) -> Optional[User]:
     """Find existing user by username.
 
-    Used after OSM connect to check if this username already exists
-    in the database (legacy user).
+    Used to check if a legacy user exists with the given OSM username.
 
     Args:
-        username: OSM username from OAuth
+        username: OSM username to search for
 
     Returns:
         User if found, None otherwise
@@ -35,29 +58,29 @@ def find_legacy_user_by_username(username: str) -> Optional[User]:
         return None
 
 
-def handle_legacy_recovery(osm_data: dict) -> Tuple[Optional[User], str]:
+def handle_legacy_recovery(osm_data: dict) -> Tuple[Optional[User], int]:
     """Handle legacy user recovery after OSM connect.
 
     Called when user said "Yes, I had an account" and connected OSM.
-    Checks if the username from OAuth exists in the database.
+    Checks if the OSM ID from OAuth exists in social_auth.
 
     Args:
         osm_data: OSM OAuth response containing 'id', 'username', 'display_name'
 
     Returns:
-        Tuple of (existing_user, username):
+        Tuple of (existing_user, osm_id):
         - If existing_user is not None: Legacy user found, create mapping
         - If existing_user is None: No legacy user, need to create new account
     """
-    username = osm_data.get("display_name") or osm_data.get("username")
-    existing_user = find_legacy_user_by_username(username)
+    osm_id = osm_data.get("id")
+    existing_user = find_legacy_user_by_osm_id(osm_id) if osm_id else None
 
     if existing_user:
-        logger.info(f"Legacy user found: username={username}, id={existing_user.id}")
+        logger.info(f"Legacy user found: osm_id={osm_id}, django_user_id={existing_user.id}")
     else:
-        logger.info(f"No legacy user found for username={username}")
+        logger.info(f"No legacy user found for osm_id={osm_id}")
 
-    return existing_user, username
+    return existing_user, osm_id
 
 
 def create_umap_user(

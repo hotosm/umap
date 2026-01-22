@@ -10,7 +10,7 @@ from django.test import TestCase, RequestFactory
 from unittest.mock import Mock, patch
 
 from hotumap.hanko_helpers import (
-    find_legacy_user_by_username,
+    find_legacy_user_by_osm_id,
     create_umap_user,
     HankoUserFilterMixin,
 )
@@ -30,15 +30,24 @@ class UserMappingTestCase(TestCase):
             email='osm@example.com'
         )
 
-    def test_find_legacy_user_by_username(self):
-        """Test finding legacy users by username."""
-        # Should find existing user
-        found = find_legacy_user_by_username('testuser')
+    def test_find_legacy_user_by_osm_id(self):
+        """Test finding legacy users by OSM ID via social_auth."""
+        from social_django.models import UserSocialAuth
+
+        # Create social auth entry for user1
+        UserSocialAuth.objects.create(
+            user=self.user1,
+            provider='openstreetmap-oauth2',
+            uid='12345'
+        )
+
+        # Should find existing user by OSM ID
+        found = find_legacy_user_by_osm_id(12345)
         self.assertIsNotNone(found)
         self.assertEqual(found.id, self.user1.id)
 
-        # Should return None for non-existent user
-        not_found = find_legacy_user_by_username('nonexistent')
+        # Should return None for non-existent OSM ID
+        not_found = find_legacy_user_by_osm_id(99999)
         self.assertIsNone(not_found)
 
     def test_create_umap_user(self):
@@ -149,11 +158,18 @@ class OnboardingFlowTestCase(TestCase):
     def test_legacy_user_onboarding_success(self, mock_create_mapping):
         """Test legacy user onboarding with existing user."""
         from hotumap.views import OnboardingCallback
+        from social_django.models import UserSocialAuth
 
-        # Create existing user
+        # Create existing user with social auth (simulating OSM OAuth legacy)
         existing_user = User.objects.create_user(
             username='legacyuser',
             email='legacy@example.com'
+        )
+        # Create social auth entry linking OSM ID to user
+        UserSocialAuth.objects.create(
+            user=existing_user,
+            provider='openstreetmap-oauth2',
+            uid='12345'
         )
 
         # Create mock request with OSM connection
@@ -164,8 +180,8 @@ class OnboardingFlowTestCase(TestCase):
             email='legacy@example.com'
         )
         request.hotosm.osm = Mock(
-            osm_username='legacyuser',
-            osm_user_id=12345
+            osm_id=12345,
+            osm_username='legacyuser'
         )
 
         # Call the view
@@ -187,7 +203,7 @@ class OnboardingFlowTestCase(TestCase):
         """Test legacy user onboarding when user doesn't exist."""
         from hotumap.views import OnboardingCallback
 
-        # Create mock request with OSM connection (but no matching user)
+        # Create mock request with OSM connection (but no matching user in social_auth)
         request = self.factory.get('/')
         request.hotosm = Mock()
         request.hotosm.user = Mock(
@@ -195,8 +211,8 @@ class OnboardingFlowTestCase(TestCase):
             email='notfound@example.com'
         )
         request.hotosm.osm = Mock(
-            osm_username='nonexistentuser',
-            osm_user_id=99999
+            osm_id=99999,
+            osm_username='nonexistentuser'
         )
 
         # Call the view

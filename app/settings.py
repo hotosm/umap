@@ -12,7 +12,10 @@ AUTH_PROVIDER = os.environ.get('AUTH_PROVIDER', 'legacy')
 
 # Hanko SSO Configuration
 if AUTH_PROVIDER == 'hanko':
+    # HANKO_API_URL is used by backend middleware for JWT validation (internal URL preferred)
     HANKO_API_URL = os.environ.get('HANKO_API_URL')
+    # HANKO_PUBLIC_URL is used by frontend web component (public URL)
+    HANKO_PUBLIC_URL = os.environ.get('HANKO_PUBLIC_URL', HANKO_API_URL)
     COOKIE_SECRET = os.environ.get('COOKIE_SECRET')
     COOKIE_DOMAIN = os.environ.get('COOKIE_DOMAIN', None)
     COOKIE_SECURE = os.environ.get('COOKIE_SECURE', 'False').lower() == 'true'
@@ -66,6 +69,11 @@ for _app in ("hotumap.apps.HotumapConfig", "dbbackup"):
 
 if AUTH_PROVIDER == 'hanko':
     INSTALLED_APPS += ("hotosm_auth_django",)
+
+# Add custom context processor for auth settings in templates
+TEMPLATES[0]['OPTIONS']['context_processors'] = list(TEMPLATES[0]['OPTIONS']['context_processors']) + [
+    'hotumap.context_processors.auth_settings',
+]
 
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {'location': './backups'}
