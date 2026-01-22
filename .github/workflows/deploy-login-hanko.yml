@@ -95,6 +95,14 @@ jobs:
 
             # Pull and deploy
             docker compose -f compose.login-hanko.yaml pull
+
+            # Ensure volumes exist and fix permissions for appuser (UID 1000)
+            docker compose -f compose.login-hanko.yaml up -d --no-recreate db
+            docker run --rm \
+              -v umap-test_umap-static:/app/static \
+              -v umap-test_umap-icons:/app/custom/icons \
+              alpine chown -R 1000:1000 /app/static /app/custom/icons
+
             docker compose -f compose.login-hanko.yaml up -d --force-recreate
 
             # Cleanup
