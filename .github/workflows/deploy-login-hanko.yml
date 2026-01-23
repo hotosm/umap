@@ -93,17 +93,24 @@ jobs:
             # Login to GHCR
             echo "${GH_TOKEN}" | docker login ghcr.io -u ${GH_ACTOR} --password-stdin
 
-            # Pull and deploy
+            # Stop app containers to ensure clean recreate
+            docker compose -f compose.login-hanko.yaml stop app nginx || true
+
+            # Pull new images
             docker compose -f compose.login-hanko.yaml pull
 
-            # Ensure volumes exist and fix permissions for appuser (UID 1000)
+            # Remove old app containers
+            docker compose -f compose.login-hanko.yaml rm -f app nginx || true
+
+            # Ensure db is running and volumes exist
             docker compose -f compose.login-hanko.yaml up -d --no-recreate db
             docker run --rm \
               -v umap-test_umap-static:/app/static \
               -v umap-test_umap-icons:/app/custom/icons \
               alpine chown -R 1000:1000 /app/static /app/custom/icons
 
-            docker compose -f compose.login-hanko.yaml up -d --force-recreate
+            # Start fresh app containers
+            docker compose -f compose.login-hanko.yaml up -d
 
             # Cleanup
             docker image prune -af

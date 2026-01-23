@@ -49,6 +49,7 @@ services:
       - COOKIE_DOMAIN=.hotosm.org
       - COOKIE_SECURE=true
       - LOGIN_URL=https://dev.login.hotosm.org
+      - ADMIN_EMAILS=hernangigena@gmail.com,justina@animus.com.ar,andreatchirillano@hotmail.com,emilio.mariscal@hotosm.org
     volumes:
       - umap-data:/app/umap/var/data
       - umap-static:/app/static
