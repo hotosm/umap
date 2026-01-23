@@ -9,33 +9,27 @@
       {% if AUTH_PROVIDER == 'hanko' %}
         {# Hanko SSO Mode #}
         {% if hanko_authenticated %}
-          {# User is authenticated with Hanko - show dashboard #}
+          {# User is authenticated with Hanko - show dashboard and starred #}
           <li>
             <a href="{% url 'user_dashboard' %}">{% trans "Dashboard" %}</a>
           </li>
           {% if hanko_django_user %}
-            {# Has mapping to Django user - show starred maps #}
             <li>
               <a href="{{ hanko_django_user.get_stars_url }}">{% trans "Starred maps" %}</a>
             </li>
           {% endif %}
-          {# Hanko auth web component (handles profile dropdown with Sign Out) #}
-          <li>
-            <hotosm-auth
-              hanko-url="{{ HANKO_API_URL }}"
-              redirect-after-login="{{ SITE_URL }}"
-              redirect-after-logout="{{ SITE_URL }}"
-              mapping-check-url="/api/v1/auth/status/"
-              app-id="umap"
-              {% if hanko_django_user %}display-name="{{ hanko_django_user.username }}"{% elif hanko_user %}display-name="{{ hanko_user.email }}"{% endif %}
-            ></hotosm-auth>
-          </li>
-        {% else %}
-          {# Not authenticated - show login link #}
-          <li>
-            <a href="{% url 'login' %}" class="login">{% trans "Log in" %}</a>
-          </li>
         {% endif %}
+        {# Hanko auth web component - ALWAYS show (Sign In button or dropdown) #}
+        <li>
+          <hotosm-auth
+            hanko-url="{{ HANKO_API_URL }}"
+            redirect-after-login="{{ SITE_URL }}"
+            redirect-after-logout="{{ SITE_URL }}"
+            mapping-check-url="/api/v1/auth/status/"
+            app-id="umap"
+            {% if hanko_django_user %}display-name="{{ hanko_django_user.username }}"{% elif hanko_user %}display-name="{{ hanko_user.email }}"{% endif %}
+          ></hotosm-auth>
+        </li>
       {% else %}
         {# Legacy Django/OSM Login #}
         {% if user.is_authenticated %}
