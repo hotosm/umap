@@ -16,6 +16,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework import status
 
 from .hanko_helpers import (
+    find_legacy_user_by_osm_id,
     find_legacy_user_by_username,
     create_umap_user,
 )
@@ -151,18 +152,21 @@ class OnboardingCallback(View):
                     status=400
                 )
 
+            osm_id = osm_connection.osm_user_id
             username = osm_connection.osm_username
 
-            # Check if User already exists (true legacy)
-            existing_user = find_legacy_user_by_username(username)
+            # Check if User already exists (true legacy) - first by osm_id, then by username
+            existing_user = find_legacy_user_by_osm_id(osm_id) if osm_id else None
+            if not existing_user:
+                existing_user = find_legacy_user_by_username(username)
 
             if not existing_user:
-                # No existing uMap account with this username
+                # No existing uMap account with this osm_id or username
                 # Redirect back to Login with error message
                 from urllib.parse import urlencode
-                login_url = getattr(settings, 'HANKO_API_URL', 'https://login.hotosm.org')
+                login_url = getattr(settings, 'HANKO_PUBLIC_URL', '') or getattr(settings, 'HANKO_API_URL', 'https://login.hotosm.org')
                 site_url = getattr(settings, 'SITE_URL', '/')
-                error_msg = f"No existing account found for '{username}'. Please select 'No, I'm new' to create a new account."
+                error_msg = f"No existing account found for '{username}' (osm_id={osm_id}). Please select 'No, I'm new' to create a new account."
                 params = urlencode({
                     'onboarding': 'umap',
                     'return_to': site_url,

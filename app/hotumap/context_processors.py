@@ -21,6 +21,7 @@ def auth_settings(request):
     context = {
         'AUTH_PROVIDER': getattr(settings, 'AUTH_PROVIDER', 'legacy'),
         'HANKO_API_URL': hanko_public_url,  # Frontend always uses public URL
+        'HANKO_PUBLIC_URL': hanko_public_url,  # Explicit public URL for web component
         'SITE_URL': getattr(settings, 'SITE_URL', '/'),
         'COOKIE_DOMAIN': getattr(settings, 'COOKIE_DOMAIN', ''),
         'hanko_user': None,

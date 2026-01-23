@@ -23,14 +23,18 @@ urlpatterns = [
 
 # Add admin mapping patterns if Hanko is enabled
 if getattr(settings, 'AUTH_PROVIDER', 'legacy') == 'hanko':
-    # Import admin views directly
-    from hotumap import admin_views
     from hotumap import dashboard_views
+    from hotumap.admin_routes_wrapper import create_json_admin_urlpatterns
 
-    urlpatterns += [
-        path('api/admin/mappings/', admin_views.MappingsListCreateView.as_view(), name="admin-mappings-list"),
-        path('api/admin/mappings/<path:id>/', admin_views.MappingDetailView.as_view(), name="admin-mapping-detail"),
-    ]
+    # Auth-libs admin routes for hanko_user_mappings (used by Login admin panel)
+    hanko_admin_patterns = create_json_admin_urlpatterns(
+        app_name="umap",
+        user_model="auth.User",
+        user_id_column="id",
+        user_name_column="username",
+        user_email_column="email",
+    )
+    urlpatterns += [path('api/admin/', include(hanko_admin_patterns))]
 
     # Override user_dashboard with Hanko-aware version
     # Using explicit paths for each language to ensure they match before umap's
