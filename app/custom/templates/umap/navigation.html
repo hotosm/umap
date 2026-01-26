@@ -15,7 +15,7 @@
           </li>
           {% if hanko_django_user %}
             <li>
-              <a href="{{ hanko_django_user.get_stars_url }}">{% trans "Starred maps" %}</a>
+              <a href="{{ hanko_django_user.get_stars_url }}">Starred</a>
             </li>
           {% endif %}
         {% endif %}
@@ -23,6 +23,7 @@
         <li>
           <hotosm-auth
             hanko-url="{{ HANKO_PUBLIC_URL }}"
+            base-path="{{ HANKO_PUBLIC_URL }}"
             redirect-after-login="{{ SITE_URL }}"
             redirect-after-logout="{{ SITE_URL }}"
             mapping-check-url="/api/v1/auth/status/"

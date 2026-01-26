@@ -36,14 +36,16 @@ if getattr(settings, 'AUTH_PROVIDER', 'legacy') == 'hanko':
     )
     urlpatterns += [path('api/admin/', include(hanko_admin_patterns))]
 
-    # Override user_dashboard with Hanko-aware version
+    # Override user views with Hanko-aware versions
     # Using explicit paths for each language to ensure they match before umap's
-    urlpatterns += [
-        path('es/me', dashboard_views.user_dashboard, name="user_dashboard_es"),
-        path('en/me', dashboard_views.user_dashboard, name="user_dashboard_en"),
-        path('fr/me', dashboard_views.user_dashboard, name="user_dashboard_fr"),
-        path('de/me', dashboard_views.user_dashboard, name="user_dashboard_de"),
-        path('pt/me', dashboard_views.user_dashboard, name="user_dashboard_pt"),
-    ]
+    # Languages supported by umap
+    langs = ['es', 'en', 'fr', 'de', 'pt', 'it', 'nl', 'pl', 'ru', 'ja', 'zh', 'ko']
+    for lang in langs:
+        urlpatterns += [
+            path(f'{lang}/me', dashboard_views.user_dashboard, name=f"user_dashboard_{lang}"),
+            path(f'{lang}/me/teams', dashboard_views.user_teams, name=f"user_teams_{lang}"),
+            path(f'{lang}/me/templates', dashboard_views.user_templates, name=f"user_templates_{lang}"),
+            path(f'{lang}/me/profile', dashboard_views.user_profile, name=f"user_profile_{lang}"),
+        ]
 
 urlpatterns += urls.urlpatterns
