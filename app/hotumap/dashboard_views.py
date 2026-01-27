@@ -22,7 +22,7 @@ from .decorators import hanko_or_login_required
 User = get_user_model()
 
 
-def get_hanko_django_user(request, auto_map=True, auto_create=True):
+def get_hanko_django_user(request, auto_map=True, auto_create=False):
     """
     Get the Django user for a Hanko-authenticated request.
 
@@ -330,6 +330,11 @@ def user_profile(request):
     # Only redirect if no Hanko user AND no Django user
     if not user and not hanko_user:
         return HttpResponseRedirect(reverse('login'))
+
+    # Hanko-only users (no Django user) cannot access profile page
+    # Redirect them to the dashboard
+    if hanko_user and not user:
+        return HttpResponseRedirect(reverse('user_dashboard'))
 
     # Simple form for profile
     class UserProfileForm(forms.ModelForm):

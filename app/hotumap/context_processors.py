@@ -34,10 +34,10 @@ def auth_settings(request):
             context['hanko_authenticated'] = True
             context['hanko_user'] = request.hotosm.user
 
-            # Try to get or create the mapped Django user
+            # Try to get the mapped Django user (no auto-create)
             try:
                 from hotumap.dashboard_views import get_hanko_django_user
-                django_user = get_hanko_django_user(request, auto_map=True, auto_create=True)
+                django_user = get_hanko_django_user(request, auto_map=True, auto_create=False)
                 if django_user:
                     context['hanko_django_user'] = django_user
             except ImportError:
