@@ -1,0 +1,25 @@
+{% load i18n %}
+
+<div class="row">
+  <h2 class="section tabs">
+    {% if selected == "maps" %}
+      <a class="selected" href="{% url 'user_dashboard' %}">{% blocktranslate with count=maps.paginator.count %}My Maps ({{ count }}){% endblocktranslate %}</a>
+    {% else %}
+      <a href="{% url 'user_dashboard' %}">{% trans "My Maps" %}</a>
+    {% endif %}
+    {% if selected == "templates" %}
+      <a class="selected" href="{% url 'user_templates' %}">{% blocktranslate with count=maps.paginator.count %}My Templates ({{ count }}){% endblocktranslate %}</a>
+    {% else %}
+      <a href="{% url 'user_templates' %}">{% trans "My Templates" %}</a>
+    {% endif %}
+    {% if UMAP_ALLOW_EDIT_PROFILE and hanko_authenticated %}
+      <a {% if selected == "profile" %}class="selected"{% endif %}
+         href="{{ HANKO_PUBLIC_URL }}/app/profile?return_to={{ SITE_URL|urlencode }}">{% trans "My profile" %}</a>
+    {% elif UMAP_ALLOW_EDIT_PROFILE and request.user.is_authenticated and not hanko_authenticated %}
+      <a {% if selected == "profile" %}class="selected"{% endif %}
+         href="{% url 'user_profile' %}">{% trans "My profile" %}</a>
+    {% endif %}
+    <a {% if selected == "teams" %}class="selected"{% endif %}
+       href="{% url 'user_teams' %}">{% trans "My teams" %}</a>
+  </h2>
+</div>
