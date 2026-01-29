@@ -42,6 +42,8 @@ if getattr(settings, 'AUTH_PROVIDER', 'legacy') == 'hanko':
     langs = ['es', 'en', 'fr', 'de', 'pt', 'it', 'nl', 'pl', 'ru', 'ja', 'zh', 'ko']
     for lang in langs:
         urlpatterns += [
+            # Override login to redirect Hanko users to 'next' directly
+            path(f'{lang}/login/', dashboard_views.HankoAwareLoginView.as_view(), name=f"login_{lang}"),
             path(f'{lang}/me', dashboard_views.user_dashboard, name=f"user_dashboard_{lang}"),
             path(f'{lang}/me/teams', dashboard_views.user_teams, name=f"user_teams_{lang}"),
             path(f'{lang}/me/templates', dashboard_views.user_templates, name=f"user_templates_{lang}"),

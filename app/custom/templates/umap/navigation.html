@@ -63,7 +63,11 @@
           <a href="/chatmap">{% trans "Upload (ChatMap)" %}</a>
         </li>
         <li>
-          <a href="{% url 'map_new' %}" class="button button-primary">{% trans "Create a map" %}</a>
+          {% if AUTH_PROVIDER == 'hanko' and not hanko_authenticated %}
+            <a href="{{ HANKO_PUBLIC_URL }}/app?return_to={{ SITE_URL|urlencode }}" class="button button-primary">{% trans "Create a map" %}</a>
+          {% else %}
+            <a href="{% url 'map_new' %}" class="button button-primary">{% trans "Create a map" %}</a>
+          {% endif %}
         </li>
       {% endif %}
     </ul>

@@ -110,6 +110,9 @@ MIDDLEWARE += ("social_django.middleware.SocialAuthExceptionMiddleware",)
 if AUTH_PROVIDER == 'hanko':
     auth_middleware_index = MIDDLEWARE.index("django.contrib.auth.middleware.AuthenticationMiddleware")
     MIDDLEWARE.insert(auth_middleware_index, "hotosm_auth_django.HankoAuthMiddleware")
+    # Add our custom middleware AFTER AuthenticationMiddleware to set request.user
+    # This makes @login_required and is_authenticated work with Hanko
+    MIDDLEWARE.append("hotumap.middleware.HankoUserMiddleware")
 
 MIDDLEWARE = tuple(MIDDLEWARE)
 

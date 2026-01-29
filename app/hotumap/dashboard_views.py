@@ -7,6 +7,7 @@ Hanko authentication in addition to Django session auth.
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.auth import views as auth_views
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import QuerySet
 from django.http import HttpResponseRedirect
@@ -311,30 +312,28 @@ def user_templates(request):
 def user_profile(request):
     """
     User profile view that supports both Hanko and Django auth.
+
+    When Hanko auth is enabled, redirects to Hanko's profile page so users
+    manage their email/username there. Changes are synced back via middleware.
     """
     from django import forms
 
-    user = None
-    hanko_user = None
-
-    # Check Hanko authentication first
+    # If Hanko auth is enabled, redirect to Hanko profile page
     if getattr(settings, 'AUTH_PROVIDER', 'legacy') == 'hanko':
-        if hasattr(request, 'hotosm') and request.hotosm.user:
-            hanko_user = request.hotosm.user
-            user = get_hanko_django_user(request)
+        from urllib.parse import quote
+        hanko_public_url = getattr(settings, 'HANKO_PUBLIC_URL', '') or getattr(settings, 'HANKO_API_URL', '')
+        site_url = getattr(settings, 'SITE_URL', '/')
+        return_to = quote(site_url, safe='')
+        return HttpResponseRedirect(f"{hanko_public_url}/app/profile?return_to={return_to}")
 
-    # Fall back to Django session auth
-    if not user and request.user.is_authenticated:
+    user = None
+
+    # Legacy Django session auth
+    if request.user.is_authenticated:
         user = request.user
 
-    # Only redirect if no Hanko user AND no Django user
-    if not user and not hanko_user:
+    if not user:
         return HttpResponseRedirect(reverse('login'))
-
-    # Hanko-only users (no Django user) cannot access profile page
-    # Redirect them to the dashboard
-    if hanko_user and not user:
-        return HttpResponseRedirect(reverse('user_dashboard'))
 
     # Simple form for profile
     class UserProfileForm(forms.ModelForm):
@@ -361,9 +360,32 @@ def user_profile(request):
     context = {
         'object': user,
         'user': user,
-        'hanko_user': hanko_user,
         'form': form,
         'providers': providers,
     }
 
     return render(request, "auth/user_form.html", context)
+
+
+class HankoAwareLoginView(auth_views.LoginView):
+    """
+    Custom login view that checks for Hanko authentication.
+
+    If user is authenticated with Hanko, redirect to 'next' URL directly
+    without showing the legacy login form.
+    """
+
+    def dispatch(self, request, *args, **kwargs):
+        # Check if Hanko auth is enabled and user is authenticated with Hanko
+        if getattr(settings, 'AUTH_PROVIDER', 'legacy') == 'hanko':
+            if hasattr(request, 'hotosm') and request.hotosm.user:
+                # User is authenticated with Hanko - redirect to 'next' or dashboard
+                next_url = request.GET.get('next') or request.POST.get('next')
+                if next_url:
+                    return HttpResponseRedirect(next_url)
+                else:
+                    # Default to user dashboard
+                    return HttpResponseRedirect(reverse('user_dashboard'))
+
+        # Fall through to normal login view
+        return super().dispatch(request, *args, **kwargs)

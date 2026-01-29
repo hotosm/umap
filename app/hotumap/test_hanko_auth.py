@@ -18,7 +18,6 @@ from hotumap.hanko_helpers import (
 
 class UserMappingTestCase(TestCase):
     """Test user mapping helper functions."""
-
     def setUp(self):
         """Create test users."""
         self.user1 = User.objects.create_user(
