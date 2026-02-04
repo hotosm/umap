@@ -4,13 +4,13 @@ Tests for Hanko authentication in uMap.
 These tests verify the user mapping and onboarding flows.
 """
 
-import pytest
 from django.contrib.auth.models import User
 from django.test import TestCase, RequestFactory
 from unittest.mock import Mock, patch
 
 from hotumap.hanko_helpers import (
     find_legacy_user_by_osm_id,
+    find_legacy_user_by_email,
     create_umap_user,
     HankoUserFilterMixin,
 )
@@ -48,6 +48,21 @@ class UserMappingTestCase(TestCase):
         # Should return None for non-existent OSM ID
         not_found = find_legacy_user_by_osm_id(99999)
         self.assertIsNone(not_found)
+
+    def test_find_legacy_user_by_email(self):
+        """Test finding legacy users by email."""
+        # Should find existing user by email
+        found = find_legacy_user_by_email('test@example.com')
+        self.assertIsNotNone(found)
+        self.assertEqual(found.id, self.user1.id)
+
+        # Should return None for non-existent email
+        not_found = find_legacy_user_by_email('notfound@example.com')
+        self.assertIsNone(not_found)
+
+        # Should return None for empty/None email
+        self.assertIsNone(find_legacy_user_by_email(''))
+        self.assertIsNone(find_legacy_user_by_email(None))
 
     def test_create_umap_user(self):
         """Test creating new uMap users."""
@@ -179,7 +194,7 @@ class OnboardingFlowTestCase(TestCase):
             email='legacy@example.com'
         )
         request.hotosm.osm = Mock(
-            osm_id=12345,
+            osm_user_id=12345,
             osm_username='legacyuser'
         )
 
@@ -210,7 +225,7 @@ class OnboardingFlowTestCase(TestCase):
             email='notfound@example.com'
         )
         request.hotosm.osm = Mock(
-            osm_id=99999,
+            osm_user_id=99999,
             osm_username='nonexistentuser'
         )
 
@@ -296,4 +311,5 @@ class AuthStatusTestCase(TestCase):
 
 
 if __name__ == '__main__':
-    pytest.main([__file__])
+    import unittest
+    unittest.main()

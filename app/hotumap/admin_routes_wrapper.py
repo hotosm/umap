@@ -34,7 +34,10 @@ def create_json_admin_urlpatterns(app_name, user_model, user_id_column, user_nam
         if hasattr(pattern.callback, 'cls'):
             # It's a class-based view
             view_class = pattern.callback.cls
-            
+
+            # Disable DRF auth (we use is_admin_user() which checks request.hotosm.user)
+            view_class.authentication_classes = []
+
             # Add JSONRenderer to the class
             original_renderer_classes = getattr(view_class, 'renderer_classes', [])
             view_class.renderer_classes = [JSONRenderer]

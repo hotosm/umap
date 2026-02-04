@@ -41,19 +41,26 @@ def find_legacy_user_by_osm_id(osm_id: int) -> Optional[User]:
         return None
 
 
-def find_legacy_user_by_username(username: str) -> Optional[User]:
-    """Find existing user by username.
+def find_legacy_user_by_email(email: str) -> Optional[User]:
+    """Find existing user by email.
 
-    Used to check if a legacy user exists with the given OSM username.
+    Used as fallback when OSM ID lookup fails. More reliable than username
+    because email is unique and doesn't change as often.
+
+    Note: Legacy users from OSM OAuth typically don't have email set
+    (OSM OAuth returns email=""). This only works if user manually
+    configured their email in uMap.
 
     Args:
-        username: OSM username to search for
+        email: Email address to search for
 
     Returns:
         User if found, None otherwise
     """
+    if not email:
+        return None
     try:
-        return User.objects.get(username=username)
+        return User.objects.get(email=email)
     except User.DoesNotExist:
         return None
 

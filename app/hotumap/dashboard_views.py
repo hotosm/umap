@@ -23,18 +23,15 @@ from .decorators import hanko_or_login_required
 User = get_user_model()
 
 
-def get_hanko_django_user(request, auto_map=True, auto_create=False):
+def get_hanko_django_user(request):
     """
     Get the Django user for a Hanko-authenticated request.
 
-    If auto_map is True and no mapping exists, will try to find an existing
-    Django user by email and create the mapping automatically.
-
-    If auto_create is True and no existing Django user is found, will create
-    a new Django user and mapping.
+    Only returns a user if a mapping already exists. Does NOT auto-create
+    mappings or users. The onboarding flow handles user/mapping creation.
 
     Returns:
-        User instance if found/created, None otherwise
+        User instance if mapping exists, None otherwise
     """
     if not hasattr(request, 'hotosm') or not request.hotosm.user:
         return None
@@ -42,68 +39,15 @@ def get_hanko_django_user(request, auto_map=True, auto_create=False):
     hanko_user = request.hotosm.user
 
     try:
-        from hotosm_auth_django import get_mapped_user_id, create_user_mapping
+        from hotosm_auth_django import get_mapped_user_id
 
-        # First, check if mapping already exists
+        # Check if mapping exists
         mapped_user_id = get_mapped_user_id(hanko_user, app_name="umap")
         if mapped_user_id:
             try:
                 return User.objects.get(id=int(mapped_user_id))
             except User.DoesNotExist:
                 pass
-
-        # No mapping exists - try to find existing Django user by email
-        if auto_map and hanko_user.email:
-            try:
-                existing_user = User.objects.get(email=hanko_user.email)
-                # Found user by email - create mapping automatically
-                create_user_mapping(
-                    hanko_user_id=hanko_user.id,
-                    app_user_id=str(existing_user.id),
-                    app_name="umap",
-                )
-                return existing_user
-            except User.DoesNotExist:
-                pass
-
-            # Try by username (email prefix)
-            try:
-                email_username = hanko_user.email.split('@')[0]
-                existing_user = User.objects.get(username__iexact=email_username)
-                # Found user by username - create mapping automatically
-                create_user_mapping(
-                    hanko_user_id=hanko_user.id,
-                    app_user_id=str(existing_user.id),
-                    app_name="umap",
-                )
-                return existing_user
-            except User.DoesNotExist:
-                pass
-
-        # No existing user found - create new Django user
-        if auto_create and hanko_user.email:
-            # Generate username from email
-            base_username = hanko_user.email.split('@')[0]
-            username = base_username
-            counter = 1
-            while User.objects.filter(username=username).exists():
-                username = f"{base_username}{counter}"
-                counter += 1
-
-            # Create new Django user
-            new_user = User.objects.create_user(
-                username=username,
-                email=hanko_user.email,
-            )
-
-            # Create mapping
-            create_user_mapping(
-                hanko_user_id=hanko_user.id,
-                app_user_id=str(new_user.id),
-                app_name="umap",
-            )
-
-            return new_user
 
     except (ImportError, ValueError) as e:
         import logging

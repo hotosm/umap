@@ -39,7 +39,11 @@ class HankoUserMiddleware:
         return response
 
     def _authenticate_hanko_user(self, request):
-        """Set request.user to the mapped Django user if authenticated with Hanko."""
+        """Set request.user to the mapped Django user if authenticated with Hanko.
+
+        If no mapping exists, sets request.needs_onboarding = True.
+        The actual user/mapping creation happens in OnboardingCallback view.
+        """
         # Check if user is already authenticated via Django session
         if hasattr(request, 'user') and request.user.is_authenticated:
             return
@@ -68,43 +72,15 @@ class HankoUserMiddleware:
                     logger.debug(f"Hanko user {hanko_user.id} mapped to Django user {django_user.id}")
                 except User.DoesNotExist:
                     logger.warning(f"Mapped user {mapped_user_id} not found for Hanko user {hanko_user.id}")
+                    # Mapping exists but user deleted - needs re-onboarding
+                    request.needs_onboarding = True
+                    request.hanko_user_for_onboarding = hanko_user
             else:
-                # No mapping exists - try auto-mapping by email or create new user
-                if hanko_user.email:
-                    try:
-                        from hotosm_auth_django import create_user_mapping
-
-                        # Try to find existing user by email
-                        existing_user = User.objects.filter(email=hanko_user.email).first()
-                        if not existing_user:
-                            # Try by username (email prefix)
-                            email_username = hanko_user.email.split('@')[0]
-                            existing_user = User.objects.filter(username__iexact=email_username).first()
-
-                        if existing_user:
-                            # Create mapping to existing user
-                            create_user_mapping(
-                                hanko_user_id=hanko_user.id,
-                                app_user_id=str(existing_user.id),
-                                app_name="umap",
-                            )
-                            request.user = existing_user
-                            request._hanko_authenticated = True
-                            logger.info(f"Auto-mapped Hanko user {hanko_user.id} to existing Django user {existing_user.id}")
-                        else:
-                            # No existing user - create new Django user
-                            new_user = self._create_django_user_for_hanko(hanko_user)
-                            if new_user:
-                                create_user_mapping(
-                                    hanko_user_id=hanko_user.id,
-                                    app_user_id=str(new_user.id),
-                                    app_name="umap",
-                                )
-                                request.user = new_user
-                                request._hanko_authenticated = True
-                                logger.info(f"Auto-created Django user {new_user.id} for Hanko user {hanko_user.id}")
-                    except Exception as e:
-                        logger.error(f"Error auto-mapping/creating Hanko user: {e}")
+                # No mapping exists - user needs onboarding
+                # Do NOT auto-create users here. Let OnboardingCallback handle it.
+                request.needs_onboarding = True
+                request.hanko_user_for_onboarding = hanko_user
+                logger.debug(f"Hanko user {hanko_user.email} needs onboarding (no mapping)")
 
         except ImportError as e:
             logger.error(f"hotosm_auth_django not available: {e}")
@@ -135,39 +111,3 @@ class HankoUserMiddleware:
 
         if updated:
             django_user.save(update_fields=['email', 'username'])
-
-    def _create_django_user_for_hanko(self, hanko_user):
-        """Create a new Django user for a Hanko user.
-
-        Args:
-            hanko_user: The Hanko user object with id and email
-
-        Returns:
-            User: The created Django user, or None if creation failed
-        """
-        if not hanko_user.email:
-            return None
-
-        try:
-            # Generate username from email
-            base_username = hanko_user.email.split('@')[0]
-            username = base_username
-            counter = 1
-
-            # Ensure unique username
-            while User.objects.filter(username=username).exists():
-                username = f"{base_username}{counter}"
-                counter += 1
-
-            # Create the user
-            new_user = User.objects.create_user(
-                username=username,
-                email=hanko_user.email,
-            )
-
-            logger.info(f"Created Django user '{username}' (id={new_user.id}) for Hanko email {hanko_user.email}")
-            return new_user
-
-        except Exception as e:
-            logger.error(f"Failed to create Django user for Hanko user {hanko_user.id}: {e}")
-            return None
