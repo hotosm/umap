@@ -5,8 +5,8 @@
 <!-- WebAwesome - required for hotosm-auth dropdown components -->
 <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-beta.1/dist/styles/webawesome.css">
 <script type="module" src="https://early.webawesome.com/webawesome@3.0.0-beta.1/dist/webawesome.js"></script>
-<!-- HOTOSM Auth Web Component -->
-<script type="module" src="https://unpkg.com/@hotosm/hanko-auth@0.4.2/dist/hanko-auth.esm.js"></script>
+<!-- HOTOSM Auth Web Component (local build for development) -->
+<script type="module" src="{% static 'umap/js/hanko-auth.esm.js' %}"></script>
 {% endif %}
 
 <!-- Matomo -->

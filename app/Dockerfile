@@ -11,15 +11,17 @@ RUN apt-get update && \
     cp /root/.local/bin/uv /usr/local/bin/uv && \
     chmod 755 /usr/local/bin/uv
 
-# Copy app
-COPY . .
-
+# Create user
 RUN adduser --disabled-password --gecos "" appuser && \
     chown -R appuser:appuser /app
 USER appuser
 
-# Install dependencies
+# Install dependencies first (cached independently from source code)
+COPY --chown=appuser:appuser pyproject.toml uv.lock ./
 RUN uv sync --locked
+
+# Copy application code
+COPY --chown=appuser:appuser . .
 
 EXPOSE 8000
 
