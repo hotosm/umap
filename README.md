@@ -25,7 +25,7 @@ Edit source `./env.docker.sample` and rename it to `./env.docker`, then:
 
 ```
 source ./env.docker
-docker compose -f docker-compose.dev.yml up -d
+docker compose -f compose.dev.yml up -d
 ```
 
 You should be able to open the app in `http://127.0.0.1:8001`.
@@ -38,7 +38,7 @@ Edit source `./env.prod.sample` and rename it to `./env.prod`, then:
 
 ```
 source ./env.prod
-docker compose -f docker-compose.yml up -d
+docker compose -f compose.yml up -d
 ```
 
 ### Useful commands
