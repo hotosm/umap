@@ -10,7 +10,7 @@ services:
       - POSTGRES_USER=${UMAP_DB_USER:-postgres}
       - POSTGRES_PASSWORD=${UMAP_DB_PASSWORD:-123456}
     volumes:
-      - umap_db:/var/lib/postgresql/data
+      - umap_db_volume:/var/lib/postgresql/data
 
   app:
     image: ghcr.io/hotosm/hotosm-umap:latest
@@ -48,23 +48,24 @@ services:
     volumes:
       - ./data:/app/umap/var/data
       - static_volume:/app/static
+      - icons_volume:/app/custom/icons
     restart: always
     depends_on:
-      db:
-        condition: service_healthy
+    -      db:
+    -        condition: service_healthy
 
   nginx:
       image: nginx:latest
       restart: always
       ports:
-        - "80:80"
+        - "80:40"
         - "443:443"
       volumes:
         - ./nginx/conf.d:/etc/nginx/conf.d
         - ./certbot/www:/var/www/certbot
         - ./certbot/conf:/etc/letsencrypt
         - static_volume:/app/static
-        - ./custom/icons:/app/custom/icons/
+        - icons_volume:/app/custom/icons/
       depends_on:
         - app
 
@@ -76,6 +77,6 @@ services:
 #      command: certonly --webroot --webroot-path=/var/www/certbot --email ${SITE_ADMIN_EMAIL} --agree-tos --no-eff-email --force-renewal -d ${SITE_DOMAIN}
 
 volumes:
-  umap_db:
-  data:
+  umap_db_volume:
   static_volume:
+  icons_volume:
