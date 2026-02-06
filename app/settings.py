@@ -46,11 +46,12 @@ if os.environ.get('ENABLE_S3_STORAGE', False) == 'True':
         "staticfiles": { "BACKEND": "umap.storage.staticfiles.UmapManifestStaticFilesStorage" }
     }
 
-INSTALLED_APPS += (
-    "rest_framework",
-    "hotumap",
-    'dbbackup',
-)
+if not "hotumap" in INSTALLED_APPS:
+    INSTALLED_APPS.append("hotumap")
+if not "dbbackup" in INSTALLED_APPS:
+    INSTALLED_APPS.append("dbbackup")
+if not "rest_framework" in INSTALLED_APPS:
+    INSTALLED_APPS.append("rest_framework")
 
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {'location': './backups'}
