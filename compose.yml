@@ -51,8 +51,8 @@ services:
       - icons_volume:/app/custom/icons
     restart: always
     depends_on:
-      - db:
-        - condition: service_healthy
+      db:
+          condition: service_healthy
 
   nginx:
       image: nginx:latest
