@@ -1,0 +1,96 @@
+name: Build & deploy master to umap.hotosm.org
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "app/**"
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_PREFIX: ${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push hotosm-umap
+        uses: docker/build-push-action@v5
+        with:
+          context: ./app
+          file: ./app/Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/hotosm-umap:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Add host to known_hosts
+        run: ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy
+        env:
+          GH_ACTOR: ${{ github.actor }}
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_USER: ${{ secrets.EC2_USER }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UMAP_OSM_KEY: ${{ secrets.UMAP_OSM_KEY }}
+          UMAP_OSM_SECRET: ${{ secrets.UMAP_OSM_SECRET }}
+          UMAP_DB_PASSWORD: ${{ secrets.UMAP_DB_PASSWORD }}
+
+          S3_ENDPOINT_URL: ${{ vars.S3_ENDPOINT_URL }}L
+          S3_BUCKET_NAME: ${{ vars.S3_BUCKET_NAME }}
+          ENABLE_S3_STORAGE: ${{ vars.ENABLE_S3_STORAGE }}
+          UMAP_SITE_URL: ${{ vars.UMAP_SITE_URL }}
+          SITE_ADMIN_EMAIL: ${{ vars.SITE_ADMIN_EMAIL }}
+          SITE_DOMAIN: ${{ vars.SITE_DOMAIN }}
+          ALLOWED_HOSTS: ${{ vars.ALLOWED_HOSTS }}
+          CSRF_TRUSTED_ORIGINS: ${{ vars.CSRF_TRUSTED_ORIGINS }}
+          APP_REPLICAS: ${{ vars.APP_REPLICAS }}
+          APP_MEM: ${{ vars.APP_MEM }}
+          APP_MEM_RES: ${{ vars.APP_MEM_RES }}
+          REALTIME_ENABLED: ${{ vars.REALTIME_ENABLED }}
+        run: |
+          ssh $EC2_USER@$EC2_HOST << ENDSSH
+            set -e
+            APP_DIR="/home/$EC2_USER/umap"
+            # Initial setup if it doesn't exist
+            if [ ! -d "\$APP_DIR" ]; then
+                sudo mkdir -p \$APP_DIR
+                sudo chown \$USER:\$USER \$APP_DIR
+                git clone -b master https://github.com/hotosm/umap.git \$APP_DIR
+                echo "✅ Cloned repository"
+            fi
+            cd \$APP_DIR
+            # Pull latest changes
+            git fetch origin master
+            git reset --hard origin/master
+            echo "✅ Updated to latest master"
+            # Pull and deploy
+            docker compose -f compose.yml pull
+            docker compose -f compose.yml up -d --force-recreate
+            # Cleanup
+            docker image prune -af
+            echo "✅ Deployment complete"
+          ENDSSH
+
