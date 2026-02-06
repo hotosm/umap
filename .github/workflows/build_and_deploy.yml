@@ -60,7 +60,7 @@ jobs:
           UMAP_OSM_SECRET: ${{ secrets.UMAP_OSM_SECRET }}
           UMAP_DB_PASSWORD: ${{ secrets.UMAP_DB_PASSWORD }}
 
-          S3_ENDPOINT_URL: ${{ vars.S3_ENDPOINT_URL }}L
+          S3_ENDPOINT_URL: ${{ vars.S3_ENDPOINT_URL }}
           S3_BUCKET_NAME: ${{ vars.S3_BUCKET_NAME }}
           ENABLE_S3_STORAGE: ${{ vars.ENABLE_S3_STORAGE }}
           UMAP_SITE_URL: ${{ vars.UMAP_SITE_URL }}
