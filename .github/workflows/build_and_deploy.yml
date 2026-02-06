@@ -75,22 +75,21 @@ jobs:
         run: |
           ssh $EC2_USER@$EC2_HOST << ENDSSH
             set -e
-            export LOGIN_URL=$LOGIN_URL
-            export UMAP_OSM_KEY=$UMAP_OSM_KEY
-            export UMAP_OSM_SECRET=$UMAP_OSM_SECRET
-            export UMAP_DB_PASSWORD=$UMAP_DB_PASSWORD
-            export S3_ENDPOINT_URL=$S3_ENDPOINT_URL
-            export S3_BUCKET_NAME=$S3_BUCKET_NAME
-            export ENABLE_S3_STORAGE=$ENABLE_S3_STORAGE
-            export UMAP_SITE_URL=$UMAP_SITE_URL
-            export SITE_ADMIN_EMAIL=$SITE_ADMIN_EMAIL
-            export SITE_DOMAIN=$SITE_DOMAIN
-            export ALLOWED_HOSTS=$ALLOWED_HOSTS
-            export CSRF_TRUSTED_ORIGINS=$CSRF_TRUSTED_ORIGINS
-            export APP_REPLICAS=$APP_REPLICAS
-            export APP_MEM=$APP_MEM
-            export APP_MEM_RES=$APP_MEM_RES
-            export REALTIME_ENABLED=$REALTIME_ENABLED
+            export UMAP_OSM_KEY="$UMAP_OSM_KEY"
+            export UMAP_OSM_SECRET="$UMAP_OSM_SECRET"
+            export UMAP_DB_PASSWORD="$UMAP_DB_PASSWORD"
+            export S3_ENDPOINT_URL="$S3_ENDPOINT_URL"
+            export S3_BUCKET_NAME="$S3_BUCKET_NAME"
+            export ENABLE_S3_STORAGE="$ENABLE_S3_STORAGE"
+            export UMAP_SITE_URL="$UMAP_SITE_URL"
+            export SITE_ADMIN_EMAIL="$SITE_ADMIN_EMAIL"
+            export SITE_DOMAIN="$SITE_DOMAIN"
+            export ALLOWED_HOSTS="$ALLOWED_HOSTS"
+            export CSRF_TRUSTED_ORIGINS="$CSRF_TRUSTED_ORIGINS"
+            export APP_REPLICAS="$APP_REPLICAS"
+            export APP_MEM="$APP_MEM"
+            export APP_MEM_RES="$APP_MEM_RES"
+            export REALTIME_ENABLED="$REALTIME_ENABLED"
             APP_DIR="/home/$EC2_USER/umap"
             # Initial setup if it doesn't exist
             if [ ! -d "\$APP_DIR" ]; then
