@@ -3,7 +3,7 @@ name: Build and publish images
 on:
   push:
     branches:
-      - main
+      - develop
     paths:
       - "app/**"
 jobs:
