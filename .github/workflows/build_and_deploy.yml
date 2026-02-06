@@ -90,7 +90,7 @@ jobs:
             export APP_MEM="$APP_MEM"
             export APP_MEM_RES="$APP_MEM_RES"
             export REALTIME_ENABLED="$REALTIME_ENABLED"
-            APP_DIR="/home/$EC2_USER/umap"
+            APP_DIR="/home/$EC2_USER/umap.hotosm.org"
             # Initial setup if it doesn't exist
             if [ ! -d "\$APP_DIR" ]; then
                 sudo mkdir -p \$APP_DIR
