@@ -7,7 +7,7 @@ on:
     paths:
       - "app/**"
       - "compose.yml"
-      - ".github/workflows"
+      - ".github/workflows/*"
   workflow_dispatch:
 
 env:
