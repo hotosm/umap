@@ -58,7 +58,7 @@ services:
       image: nginx:latest
       restart: always
       ports:
-        - "80:40"
+        - "80:80"
         - "443:443"
       volumes:
         - ./nginx/conf.d:/etc/nginx/conf.d
@@ -68,13 +68,6 @@ services:
         - icons_volume:/app/custom/icons/
       depends_on:
         - app
-
-#  certbot:
-#      image: certbot/certbot
-#      volumes:
-#        - ./certbot/conf:/etc/letsencrypt
-#        - ./certbot/www:/var/www/certbot
-#      command: certonly --webroot --webroot-path=/var/www/certbot --email ${SITE_ADMIN_EMAIL} --agree-tos --no-eff-email --force-renewal -d ${SITE_DOMAIN}
 
 volumes:
   umap_db_volume:
