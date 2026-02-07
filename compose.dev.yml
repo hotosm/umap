@@ -11,6 +11,8 @@ services:
       - POSTGRES_PASSWORD=${UMAP_DB_PASSWORD:-123456}
     volumes:
       - umap_db_volume:/var/lib/postgresql/data
+    networks:
+      - umap_net
 
   app:
     image: ghcr.io/hotosm/hotosm-umap:develop
@@ -54,21 +56,35 @@ services:
     depends_on:
       db:
           condition: service_healthy
+    networks:
+      - umap_net
 
   nginx:
-      image: nginx:latest
-      restart: always
-      ports:
-        - "80:80"
-        - "443:443"
-      volumes:
-        - ./nginx/conf.d:/etc/nginx/conf.d
-        - ./certbot/www:/var/www/certbot
-        - ./certbot/conf:/etc/letsencrypt
-        - static_volume:/app/static
-        - icons_volume:/app/custom/icons/
-      depends_on:
-        - app
+    image: nginx:latest
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
+      - static_volume:/app/static
+      - icons_volume:/app/custom/icons/
+    depends_on:
+      - app
+    networks:
+      - umap_net
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - umap_net
+
+networks:
+  umap_net:
 
 volumes:
   umap_db_volume:
