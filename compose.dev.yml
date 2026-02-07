@@ -52,6 +52,7 @@ services:
       - ./data:/app/umap/var/data
       - static_volume:/app/static
       - icons_volume:/app/custom/icons
+      - umap_data_volume:/app/data
     restart: always
     depends_on:
       db:
@@ -71,6 +72,7 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - static_volume:/app/static
       - icons_volume:/app/custom/icons/
+      - umap_data_volume:/app/data
     depends_on:
       - app
     networks:
@@ -88,5 +90,6 @@ networks:
 
 volumes:
   umap_db_volume:
+  umap_data_volume:
   static_volume:
   icons_volume:
