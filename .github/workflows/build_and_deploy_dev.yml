@@ -104,6 +104,7 @@ jobs:
             git reset --hard origin/develop
             echo "✅ Updated to latest develop"
             # Pull and deploy
+            sed -i -e 's/umap.hotosm.org/umap-dev.hotosm.org/g' nginx/conf.d/umap.conf
             docker compose -f compose.dev.yml pull
             docker compose -f compose.dev.yml up -d --force-recreate
             # Cleanup
