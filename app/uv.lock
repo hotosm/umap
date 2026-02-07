@@ -299,6 +299,7 @@ dependencies = [
     { name = "djangorestframework" },
     { name = "gunicorn" },
     { name = "psycopg2-binary" },
+    { name = "redis" },
     { name = "umap-project", extra = ["s3"] },
 ]
 
@@ -308,6 +309,7 @@ requires-dist = [
     { name = "djangorestframework", specifier = ">=3.16.1" },
     { name = "gunicorn", specifier = ">=23.0.0" },
     { name = "psycopg2-binary", specifier = ">=2.9.10" },
+    { name = "redis", specifier = ">=7.1.0" },
     { name = "umap-project", extras = ["s3"], specifier = ">=3.6.1" },
 ]
 
@@ -513,6 +515,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/c3/7b/9aae16756d3f33cbc512760ba3e69c3856a51aa293e463f2ca97760d1b1b/rcssmin-1.2.2-cp314-cp314t-musllinux_1_2_aarch64.whl", hash = "sha256:d0197fab78ebbe33f5df9caf2572ef2d44bbe243a9130881a0c5c53ba03641fa", size = 53066 },
     { url = "https://files.pythonhosted.org/packages/4e/18/b06fadfa9b85e486bb1571050217cb539c062d1ae4cd32b1a31c36f67fd4/rcssmin-1.2.2-cp314-cp314t-musllinux_1_2_i686.whl", hash = "sha256:19e53c58768369366fdaef00da59f275f724f229994ea885309df6ca368ff3c8", size = 54271 },
     { url = "https://files.pythonhosted.org/packages/79/55/f29ce21f8e5a1f3c19d43b67b907268d227b7edcda2ca200ca0028734a5e/rcssmin-1.2.2-cp314-cp314t-musllinux_1_2_x86_64.whl", hash = "sha256:8d3de1a870e00d157f3a7b1797498fdc09a3774629079572350f75783bb94b9a", size = 52423 },
+]
+
+[[package]]
+name = "redis"
+version = "7.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/43/c8/983d5c6579a411d8a99bc5823cc5712768859b5ce2c8afe1a65b37832c81/redis-7.1.0.tar.gz", hash = "sha256:b1cc3cfa5a2cb9c2ab3ba700864fb0ad75617b41f01352ce5779dabf6d5f9c3c", size = 4796669 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/89/f0/8956f8a86b20d7bb9d6ac0187cf4cd54d8065bc9a1a09eb8011d4d326596/redis-7.1.0-py3-none-any.whl", hash = "sha256:23c52b208f92b56103e17c5d06bdc1a6c2c0b3106583985a76a18f83b265de2b", size = 354159 },
 ]
 
 [[package]]

@@ -9,5 +9,6 @@ dependencies = [
     "djangorestframework>=3.16.1",
     "gunicorn>=23.0.0",
     "psycopg2-binary>=2.9.10",
+    "redis>=7.1.0",
     "umap-project[s3]>=3.6.1",
 ]
