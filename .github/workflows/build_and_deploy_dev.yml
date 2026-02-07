@@ -6,7 +6,7 @@ on:
       - develop
     paths:
       - "app/**"
-      - "compose.yml"
+      - "compose.dev.yml"
       - ".github/workflows/*"
   workflow_dispatch:
 
