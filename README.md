@@ -3,7 +3,7 @@
 This is the uMap instance for HOT, an easy way to create maps
 with a focus in humanitarian use
 
-https://umap.hotosm.org
+### https://umap.hotosm.org
 
 It's based on [uMap](https://github.com/umap-project/umap/)
 with some extra flavour added by the `hotumap` app.

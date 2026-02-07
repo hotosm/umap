@@ -45,6 +45,7 @@ services:
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost,127.0.0.1,52.20.59.8}
       - SITE_DOMAIN=${SITE_DOMAIN:-localhost,127.0.0.1}
       - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS:-http://localhost,http://127.0.0.1}
+      - REALTIME_ENABLED=${REALTIME_ENABLED:-False}
     volumes:
       - ./data:/app/umap/var/data
       - static_volume:/app/static
