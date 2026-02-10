@@ -1,6 +1,6 @@
 # HOT uMap Dockerfile
 
-FROM umap/umap:3.4.0
+FROM umap/umap:3.6.1
 
 WORKDIR /app
 
@@ -29,8 +29,12 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s \
     CMD curl -f http://localhost:8000/ || exit 1
 
+# Static files
+RUN mkdir -p /app/static && \
+    chown -R appuser:appuser /app/static && \
+    chmod -R 755 /app/static
+
 # App entrypoint
 RUN chmod +x /app/start.sh && \
     chmod +x /app/scripts/wait-for-db.sh
 ENTRYPOINT ["./start.sh"]
-

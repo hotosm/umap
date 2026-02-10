@@ -1,6 +1,6 @@
 /* Override this file for theming uMap easily */
 
-@import url("hot.css");
+@import url('https://cdn.jsdelivr.net/npm/@hotosm/ui-design@latest/dist/hot.css');
 @import url("hot-font-face.css");
 
 :root {

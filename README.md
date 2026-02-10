@@ -3,7 +3,7 @@
 This is the uMap instance for HOT, an easy way to create maps
 with a focus in humanitarian use
 
-https://umap.hotosm.org
+### https://umap.hotosm.org
 
 It's based on [uMap](https://github.com/umap-project/umap/)
 with some extra flavour added by the `hotumap` app.
@@ -25,7 +25,7 @@ Edit source `./env.docker.sample` and rename it to `./env.docker`, then:
 
 ```
 source ./env.docker
-docker compose -f docker-compose.dev.yml up -d
+docker compose -f compose.dev.yml up -d
 ```
 
 You should be able to open the app in `http://127.0.0.1:8001`.
@@ -38,7 +38,7 @@ Edit source `./env.prod.sample` and rename it to `./env.prod`, then:
 
 ```
 source ./env.prod
-docker compose -f docker-compose.yml up -d
+docker compose -f compose.yml up -d
 ```
 
 ### Useful commands
@@ -68,8 +68,8 @@ docker exec -ti hotumap uv run python manage.py createsuperuser
 |✅| Custom (HOT) branding |
 |✅| Containerization (via Docker) |
 |✅| Database backup functionality |
+|✅| Define and create a set of initial categories for humanitarian use |
 |⚙️| Define and create a set of initial templates for humanitarian use |
-|⚙️| Define and create a set of initial categories for humanitarian use |
 |⚙️| [Enable real-time collaboration](https://github.com/hotosm/umap/issues/3) |
 | | [Multiple imagery backgrounds / imagery backgrounds as layers](https://github.com/hotosm/umap/issues/5) |
 | | Support [vector tiles](https://github.com/umap-project/umap/issues/1634)
@@ -82,8 +82,8 @@ docker exec -ti hotumap uv run python manage.py createsuperuser
 |✅| Basic integration with [ChatMap](https://chatmap.hotosm.org) (load exported chats + media files) |
 |✅| Template selection for ChatMap imports
 |✅| [Support audio for ChatMap imports](https://github.com/hotosm/umap/issues/6)
+|✅| Advanced integration with ChatMap (live stream of data) |
 |⚙️| [Create visualizations from multiple maps](https://github.com/hotosm/umap/issues/11)
-|⚙️| Advanced integration with ChatMap (live stream of data) |
 |⚙️| [Create isochrone visualization map](https://github.com/hotosm/umap/issues/10)
 | | Add access to all HOT products from header |
 | | Basic integration with OpenAerialMap (get available background imagery for the map's area) |
