@@ -178,8 +178,9 @@ def create_map(geojson_data, geojson_file_name, center, map_name, files, owner, 
     # If no media, or no image, set a blank single pixel
     site_url_media = SITE_URL.replace("http:", "").replace("https:", "")
     for feature in geojson_data['features']:
-        path = f"{uuid}-{feature['properties'].get('file')}"
-        if path:
+        file_name = feature['properties'].get('file')
+        if file_name:
+            path = f"{uuid}-{file_name}"
             if path.endswith(".jpg"):
                 feature['properties']['image'] = f"{SITE_URL}/media_file/{path}"
             elif path.endswith(".mp4"):
