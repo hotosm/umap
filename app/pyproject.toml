@@ -12,5 +12,5 @@ dependencies = [
     "pydantic>=2.12.5",
     "redis>=7.1.0",
     "umap-project[s3]>=3.6.1",
-    "hotosm-auth[django]==0.2.7",
+    "hotosm-auth[django]==0.2.9",
 ]
