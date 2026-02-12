@@ -1,6 +1,6 @@
 [project]
 name = "hotosm-umap"
-version = "0.1.0"
+version = "0.1.3"
 description = "A HOT instance for uMap"
 readme = "README.md"
 requires-python = ">=3.13"
@@ -9,6 +9,8 @@ dependencies = [
     "djangorestframework>=3.16.1",
     "gunicorn>=23.0.0",
     "psycopg2-binary>=2.9.10",
-    "umap-project[s3]>=3.3.6",
-    "hotosm-auth[django]==0.2.7",
+    "pydantic>=2.12.5",
+    "redis>=7.1.0",
+    "umap-project[s3]>=3.6.1",
+    "hotosm-auth[django]==0.2.9",
 ]

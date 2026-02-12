@@ -63,7 +63,7 @@ if os.environ.get('ENABLE_S3_STORAGE', False) == 'True':
 INSTALLED_APPS = tuple(
     app for app in INSTALLED_APPS if app not in ("hotumap", "hotumap.apps.HotumapConfig")
 )
-for _app in ("hotumap.apps.HotumapConfig", "dbbackup"):
+for _app in ("hotumap.apps.HotumapConfig", "dbbackup", "rest_framework"):
     if _app not in INSTALLED_APPS:
         INSTALLED_APPS += (_app,)
 
