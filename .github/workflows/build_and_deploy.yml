@@ -8,6 +8,7 @@ on:
       - "app/**"
       - "compose.yml"
       - ".github/workflows/*"
+      - "nginx/**"
   workflow_dispatch:
 
 env:
