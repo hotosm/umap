@@ -4,12 +4,19 @@ FROM umap/umap:3.6.1
 
 WORKDIR /app
 
-# Install uv
+# Install system dependencies
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends curl ca-certificates postgresql-client git && \
-    curl -LsSf https://astral.sh/uv/install.sh | sh -s -- --no-modify-path && \
-    cp /root/.local/bin/uv /usr/local/bin/uv && \
-    chmod 755 /usr/local/bin/uv
+    apt-get install -y --no-install-recommends \
+        curl \
+        ca-certificates \
+        postgresql-client \
+        git && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy uv binary from official image
+COPY --from=ghcr.io/astral-sh/uv:0.9 /uv /usr/local/bin/uv
+
+RUN chmod 755 /usr/local/bin/uv
 
 # Create user
 RUN adduser --disabled-password --gecos "" appuser && \
