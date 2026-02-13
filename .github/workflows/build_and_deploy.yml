@@ -8,6 +8,7 @@ on:
       - "app/**"
       - "compose.yml"
       - ".github/workflows/*"
+      - "nginx/**"
   workflow_dispatch:
 
 env:
@@ -72,6 +73,7 @@ jobs:
           APP_MEM: ${{ vars.APP_MEM }}
           APP_MEM_RES: ${{ vars.APP_MEM_RES }}
           REALTIME_ENABLED: ${{ vars.REALTIME_ENABLED }}
+          UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS: ${{ vars.UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS }}
         run: |
           ssh $EC2_USER@$EC2_HOST << ENDSSH
             set -e
@@ -90,6 +92,7 @@ jobs:
             export APP_MEM="$APP_MEM"
             export APP_MEM_RES="$APP_MEM_RES"
             export REALTIME_ENABLED="$REALTIME_ENABLED"
+            export UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS="$UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS"
             APP_DIR="/home/$EC2_USER/umap.hotosm.org"
             # Initial setup if it doesn't exist
             if [ ! -d "\$APP_DIR" ]; then
