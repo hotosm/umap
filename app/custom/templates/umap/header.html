@@ -1,37 +1,41 @@
-{% load static %}
-
-{% if AUTH_PROVIDER == 'hanko' %}
-<!-- Hanko SSO Dependencies -->
-<!-- WebAwesome - required for hotosm-auth dropdown components -->
-<link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-beta.1/dist/styles/webawesome.css">
-<script type="module" src="https://early.webawesome.com/webawesome@3.0.0-beta.1/dist/webawesome.js"></script>
+{% load static %} {% if AUTH_PROVIDER == 'hanko' %}
 <!-- HOTOSM Auth Web Component (local build for development) -->
 <script type="module" src="{% static 'umap/js/hanko-auth.esm.js' %}"></script>
 {% endif %}
 
 <!-- Matomo -->
 <script>
-  var _paq = window._paq = window._paq || [];
-    _paq.push(['disableCookies']);
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function () {
-      var u = "//matomo.hotosm.org/";
-      _paq.push(['setTrackerUrl', u + 'matomo.php']);
-      _paq.push(['setSiteId', '34']);
-      var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-      g.async = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
-    })();
+  var _paq = (window._paq = window._paq || []);
+  _paq.push(["disableCookies"]);
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+  (function () {
+    var u = "//matomo.hotosm.org/";
+    _paq.push(["setTrackerUrl", u + "matomo.php"]);
+    _paq.push(["setSiteId", "34"]);
+    var d = document,
+      g = d.createElement("script"),
+      s = d.getElementsByTagName("script")[0];
+    g.async = true;
+    g.src = u + "matomo.js";
+    s.parentNode.insertBefore(g, s);
+  })();
 
-  window.onload = function() {
+  window.onload = function () {
     /* Track download button clicks */
     if (U && "MAP" in U && "share" in U.MAP && "download") {
       const uMapShareDownload = U.MAP.share.download;
-      U.MAP.share.download = function(...args) {
-          _paq.push(['trackEvent', 'Download', 'Click', document.title.slice(0,100), 1]);
-          return uMapShareDownload.apply(this, args);
-      }
+      U.MAP.share.download = function (...args) {
+        _paq.push([
+          "trackEvent",
+          "Download",
+          "Click",
+          document.title.slice(0, 100),
+          1,
+        ]);
+        return uMapShareDownload.apply(this, args);
+      };
     }
-  }
+  };
 </script>
 <!-- End Matomo Code -->
