@@ -63,8 +63,7 @@ services:
     depends_on:
       - app
     volumes:
-      - ./nginx/conf.d/umap.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./nginx/conf.d/snippets:/etc/nginx/conf.d/snippets:ro
+      - ./nginx-traefik.conf:/etc/nginx/conf.d/default.conf:ro
       - umap-static:/app/static:ro
       - umap-icons:/app/custom/icons:ro
     networks:
