@@ -58,12 +58,20 @@
   align-items: center;
   gap: var(--hot-spacing-medium);
 }
+.umap-nav ul li {
+  line-height: 27px;
+}
+
+hotosm-tool-menu {
+  text-align: left;
+}
 .umap-nav a.button,
 .button-primary,
 input[type="submit"] {
   color: var(--color-light);
   background-color: var(--color-red);
   margin-inline-start: 0;
+  font-weight: 400;
   /* margin-inline-end: var(--hot-spacing-large); */
 }
 .umap-nav .button,
@@ -179,6 +187,8 @@ footer a.branding {
 hotosm-auth {
   --login-btn-border-radius: 0;
   --font-weight: 700;
+  --login-btn-font-weight: 400;
+  --login-btn-bg-color: var(--hot-color-neutral-900);
 }
 
 .hot-maintenance-banner {
