@@ -181,6 +181,20 @@ hotosm-auth {
   --font-weight: 700;
 }
 
+.hot-maintenance-banner {
+  background-color: var(--hot-color-warning-500, #f59e0b);
+  color: var(--hot-color-neutral-950, #0a0a0a);
+  padding: var(--hot-spacing-small) var(--hot-spacing-medium);
+  text-align: center;
+  font-size: var(--hot-font-size-small);
+  font-weight: var(--hot-font-weight-semibold, 600);
+  margin-top: 0;
+}
+
+.hot-maintenance-banner p {
+  margin: 0;
+}
+
 header.wrapper {
   padding: 0;
 }
@@ -203,14 +217,18 @@ header.wrapper {
     position: absolute;
     left: 0;
     background-color: white;
-    transition: max-height 0.3s ease-out, opacity 0.15s ease-out;
+    transition:
+      max-height 0.3s ease-out,
+      opacity 0.15s ease-out;
     margin-top: var(--hot-spacing-small);
     gap: 0;
   }
   .nav-links.open {
     max-height: 600px;
     opacity: 1;
-    transition: max-height 0.4s ease-in, opacity 0.2s ease-in;
+    transition:
+      max-height 0.4s ease-in,
+      opacity 0.2s ease-in;
     gap: 0;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   }
