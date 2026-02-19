@@ -4,72 +4,30 @@
   <section>
     {% include "umap/branding.html" %}
   </section>
+  
   <section>
-    <ul>
+    <button class="nav-hamburger" aria-label="Menu" onclick="this.closest('nav').querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+    <ul class="nav-links">
+      {% if AUTH_PROVIDER != 'hanko' %}
+        {% if user.is_authenticated %}<li><a href="{% url 'user_dashboard' %}">{% trans "My Dashboard" %} ({{ user }})</a></li><li><a href="{{ user.get_stars_url }}">{% trans "Starred maps" %}</a></li>{% else %}<li><a href="{% url 'login' %}" class="login">{% trans "Log in" %} / {% trans "Sign in" %}</a></li>{% endif %}
+      {% endif %}
+      {% if not UMAP_READONLY %}<li><a href="/chatmap">{% trans "Upload (ChatMap)" %}</a></li>{% endif %}
       {% if AUTH_PROVIDER == 'hanko' %}
-        {# Hanko SSO Mode #}
         {% if hanko_authenticated %}
-          {# User is authenticated with Hanko - show dashboard and starred #}
-          <li>
-            <a href="{% url 'user_dashboard' %}">{% trans "Dashboard" %}</a>
-          </li>
-          {% if hanko_django_user %}
-            <li>
-              <a href="{{ hanko_django_user.get_stars_url }}">Starred</a>
-            </li>
-          {% endif %}
+          <li><a href="{% url 'user_dashboard' %}">{% trans "Dashboard" %}</a></li>
+          {% if hanko_django_user %}<li><a href="{{ hanko_django_user.get_stars_url }}">Starred</a></li>{% endif %}
         {% endif %}
-        {# Hanko auth web component - ALWAYS show (Sign In button or dropdown) #}
-        <li>
-          <hotosm-auth
-            hanko-url="{{ HANKO_PUBLIC_URL }}"
-            base-path="{{ HANKO_PUBLIC_URL }}"
-            redirect-after-login="{{ SITE_URL }}"
-            redirect-after-logout="{{ SITE_URL }}"
-            mapping-check-url="/api/v1/auth/status/"
-            app-id="umap"
-            {% if hanko_django_user %}display-name="{{ hanko_django_user.username }}"{% elif hanko_user %}display-name="{{ hanko_user.email }}"{% endif %}
-          ></hotosm-auth>
-        </li>
+        {% if not UMAP_READONLY %}<li><a href="{% url 'map_new' %}" class="button button-primary">{% trans "Create a map" %}</a></li>{% endif %}
+        <li class="hotosm-auth-mobile"><hotosm-auth hanko-url="{{ HANKO_PUBLIC_URL }}" base-path="{{ HANKO_PUBLIC_URL }}" redirect-after-login="{{ SITE_URL }}" redirect-after-logout="{{ SITE_URL }}" mapping-check-url="/api/v1/auth/status/" app-id="umap" button-variant="filled" button-color="neutral" display="bar"></hotosm-auth></li>
+        <li class="hotosm-auth-desktop"><hotosm-auth hanko-url="{{ HANKO_PUBLIC_URL }}" base-path="{{ HANKO_PUBLIC_URL }}" redirect-after-login="{{ SITE_URL }}" redirect-after-logout="{{ SITE_URL }}" mapping-check-url="/api/v1/auth/status/" app-id="umap" button-variant="filled" button-color="neutral"></hotosm-auth></li>
       {% else %}
-        {# Legacy Django/OSM Login #}
+        {% if not UMAP_READONLY %}<li><a href="{% url 'map_new' %}" class="button button-primary">{% trans "Create a map" %}</a></li>{% endif %}
         {% if user.is_authenticated %}
-          <li>
-            <a href="{% url 'user_dashboard' %}">{% trans "My Dashboard" %} ({{ user }})</a>
-          </li>
-          <li>
-            <a href="{{ user.get_stars_url }}">{% trans "Starred maps" %}</a>
-          </li>
-        {% else %}
-          <li>
-            <a href="{% url 'login' %}" class="login">{% trans "Log in" %} / {% trans "Sign in" %}</a>
-          </li>
+          {% if user.has_usable_password %}<li><a href="{% url 'password_change' %}">{% trans "Change password" %}</a></li>{% endif %}
+          <li><a href="{% url 'logout' %}" class="logout">{% trans "Log out" %}</a></li>
         {% endif %}
       {% endif %}
-
-      {% if AUTH_PROVIDER != 'hanko' and user.is_authenticated %}
-        {% if user.has_usable_password %}
-          <li>
-            <a href="{% url 'password_change' %}">{% trans "Change password" %}</a>
-          </li>
-        {% endif %}
-        <li>
-          <a href="{% url 'logout' %}" class="logout">{% trans "Log out" %}</a>
-        </li>
-      {% endif %}
-
-      {% if not UMAP_READONLY %}
-        <li>
-          <a href="/chatmap">{% trans "Upload (ChatMap)" %}</a>
-        </li>
-        <li>
-          {% if AUTH_PROVIDER == 'hanko' and not hanko_authenticated %}
-            <a href="{{ HANKO_PUBLIC_URL }}/app?return_to={{ SITE_URL|urlencode }}" class="button button-primary">{% trans "Create a map" %}</a>
-          {% else %}
-            <a href="{% url 'map_new' %}" class="button button-primary">{% trans "Create a map" %}</a>
-          {% endif %}
-        </li>
-      {% endif %}
+      <li><hotosm-tool-menu></hotosm-tool-menu></li>
     </ul>
   </section>
 </nav>

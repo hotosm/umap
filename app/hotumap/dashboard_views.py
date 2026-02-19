@@ -330,6 +330,15 @@ class HankoAwareLoginView(auth_views.LoginView):
                 else:
                     # Default to user dashboard
                     return HttpResponseRedirect(reverse('user_dashboard'))
+            else:
+                # User not authenticated - redirect to Hanko login page
+                from urllib.parse import quote
+                hanko_url = getattr(settings, 'HANKO_PUBLIC_URL', '') or getattr(settings, 'HANKO_API_URL', '')
+                site_url = getattr(settings, 'SITE_URL', '/')
+                # Extract language from URL path: /es/login/ -> es
+                lang = request.path.strip('/').split('/')[0]
+                return_to = quote(site_url, safe='')
+                return HttpResponseRedirect(f"{hanko_url}/app?return_to={return_to}&lang={lang}")
 
-        # Fall through to normal login view
+        # Fall through to normal login view (legacy auth)
         return super().dispatch(request, *args, **kwargs)
