@@ -2,6 +2,16 @@
 <!-- HOTOSM Auth Web Component (local build for development) -->
 <script type="module" src="{% static 'umap/js/hanko-auth.esm.js' %}"></script>
 {% endif %}
+<!-- HOTOSM Tool Menu Web Component with lit decorators -->
+<script type="importmap">
+  {
+    "imports": {
+      "lit": "https://esm.sh/lit@3",
+      "lit/decorators.js": "https://esm.sh/lit@3/decorators"
+    }
+  }
+</script>
+<script type="module" src="{% static 'umap/js/tool-menu.esm.js' %}"></script>
 
 <!-- Matomo -->
 <script>
