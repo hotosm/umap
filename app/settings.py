@@ -7,6 +7,19 @@ from django.utils.translation import gettext_lazy as _
 # Application definition
 ROOT_URLCONF = 'urls'
 
+# AUTH_PROVIDER Configuration
+AUTH_PROVIDER = os.environ.get('AUTH_PROVIDER', 'legacy')
+
+# Hanko SSO Configuration
+if AUTH_PROVIDER == 'hanko':
+    # HANKO_API_URL is used by backend middleware for JWT validation (internal URL preferred)
+    HANKO_API_URL = os.environ.get('HANKO_API_URL')
+    # HANKO_PUBLIC_URL is used by frontend web component (public URL)
+    HANKO_PUBLIC_URL = os.environ.get('HANKO_PUBLIC_URL', HANKO_API_URL)
+    COOKIE_SECRET = os.environ.get('COOKIE_SECRET')
+    COOKIE_DOMAIN = os.environ.get('COOKIE_DOMAIN', None)
+    COOKIE_SECURE = os.environ.get('COOKIE_SECURE', 'False').lower() == 'true'
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-+q304+%(8^1#r49+0dbj584!k2n#wuc-a5^yx()jlf)quv+chu')
 INTERNAL_IPS = ("127.0.0.1",)
@@ -46,12 +59,21 @@ if os.environ.get('ENABLE_S3_STORAGE', False) == 'True':
         "staticfiles": { "BACKEND": "umap.storage.staticfiles.UmapManifestStaticFilesStorage" }
     }
 
-if not "hotumap" in INSTALLED_APPS:
-    INSTALLED_APPS.append("hotumap")
-if not "dbbackup" in INSTALLED_APPS:
-    INSTALLED_APPS.append("dbbackup")
-if not "rest_framework" in INSTALLED_APPS:
-    INSTALLED_APPS.append("rest_framework")
+# Ensure hotumap is registered only once (base settings may already add it)
+INSTALLED_APPS = tuple(
+    app for app in INSTALLED_APPS if app not in ("hotumap", "hotumap.apps.HotumapConfig")
+)
+for _app in ("hotumap.apps.HotumapConfig", "dbbackup", "rest_framework"):
+    if _app not in INSTALLED_APPS:
+        INSTALLED_APPS += (_app,)
+
+if AUTH_PROVIDER == 'hanko':
+    INSTALLED_APPS += ("hotosm_auth_django",)
+
+# Add custom context processor for auth settings in templates
+TEMPLATES[0]['OPTIONS']['context_processors'] = list(TEMPLATES[0]['OPTIONS']['context_processors']) + [
+    'hotumap.context_processors.auth_settings',
+]
 
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {'location': './backups'}
@@ -82,7 +104,17 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_KEY=os.environ.get('UMAP_OSM_KEY')
 SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_SECRET=os.environ.get('UMAP_OSM_SECRET')
 
+MIDDLEWARE = list(MIDDLEWARE)
 MIDDLEWARE += ("social_django.middleware.SocialAuthExceptionMiddleware",)
+
+if AUTH_PROVIDER == 'hanko':
+    auth_middleware_index = MIDDLEWARE.index("django.contrib.auth.middleware.AuthenticationMiddleware")
+    MIDDLEWARE.insert(auth_middleware_index, "hotosm_auth_django.HankoAuthMiddleware")
+    # Add our custom middleware AFTER AuthenticationMiddleware to set request.user
+    # This makes @login_required and is_authenticated work with Hanko
+    MIDDLEWARE.append("hotumap.middleware.HankoUserMiddleware")
+
+MIDDLEWARE = tuple(MIDDLEWARE)
 
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = os.getenv('UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS', 'False').lower() == 'true'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
@@ -104,6 +136,9 @@ UMAP_CUSTOM_STATICS=os.environ.get('UMAP_CUSTOM_STATICS', '/app/custom/static')
 
 # Add a banner to warn people this instance is not production ready.
 UMAP_DEMO_SITE = False
+
+# Show a maintenance banner across the site.
+MAINTENANCE_MODE = os.environ.get('MAINTENANCE_MODE', 'false').lower() == 'true'
 
 # Whether to allow non authenticated people to create maps.
 UMAP_ALLOW_ANONYMOUS = False
