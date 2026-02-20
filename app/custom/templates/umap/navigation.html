@@ -7,7 +7,7 @@
   </section>
   
   <section>
-    <button class="nav-hamburger" aria-label="Menu" onclick="this.closest('nav').querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+    <button class="nav-hamburger" aria-label="Menu" onclick="this.closest('nav').querySelector('.nav-links').classList.toggle('open'); this.textContent = this.textContent.trim() === '✕' ? '☰' : '✕'">&#9776;</button>
     <ul class="nav-links">
       {% if AUTH_PROVIDER != 'hanko' %}
         {% if user.is_authenticated %}<li><a href="{% url 'user_dashboard' %}">{% trans "My Dashboard" %} ({{ user }})</a></li><li><a href="{{ user.get_stars_url }}">{% trans "Starred maps" %}</a></li>{% else %}<li><a href="{% url 'login' %}" class="login">{% trans "Log in" %} / {% trans "Sign in" %}</a></li>{% endif %}
