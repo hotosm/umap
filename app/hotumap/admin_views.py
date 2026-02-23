@@ -1,7 +1,7 @@
 """
 Admin views for user mapping management.
 
-Compatible with fAIr's admin mapping endpoints.
+Compatible with uMap's admin mapping endpoints.
 Uses basic Django views without REST Framework.
 """
 

@@ -17,7 +17,7 @@ urlpatterns = [
    # API routes
    path('api/get_map/<path:map_id>', api.get_map, name='api_get_map'),
 
-   # Auth API routes (compatible with fAIr)
+   # Auth API routes (compatible with uMap)
    path('api/v1/auth/', include('hotumap.auth_urls')),
 ]
 

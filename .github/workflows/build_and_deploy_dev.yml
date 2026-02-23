@@ -116,19 +116,19 @@ jobs:
                 sudo mkdir -p \$APP_DIR
                 sudo chown \$USER:\$USER \$APP_DIR
                 git clone -b develop https://github.com/hotosm/umap.git \$APP_DIR
-                echo "✅ Cloned repository"
+                echo "Cloned repository"
             fi
             cd \$APP_DIR
             # Pull latest changes
             git fetch origin develop
             git reset --hard origin/develop
-            echo "✅ Updated to latest develop"
+            echo "Updated to latest develop"
             # Pull and deploy
             sed -i -e 's/umap.hotosm.org/umap-dev.hotosm.org/g' nginx/conf.d/umap.conf
             docker compose -f compose.dev.yml pull
             docker compose -f compose.dev.yml up -d --force-recreate
             # Cleanup
             docker image prune -af
-            echo "✅ Deployment complete"
+            echo "Deployment complete"
           ENDSSH
 

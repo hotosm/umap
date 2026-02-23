@@ -7,7 +7,7 @@ These helpers implement the user mapping flow for uMap:
 3. Legacy user → Connect OSM to recover account
 4. New user → Create new Django user
 
-This follows the same pattern as fAIr but adapted for uMap's User model.
+This follows the same pattern as uMap but adapted for uMap's User model.
 """
 
 from typing import Optional, Tuple

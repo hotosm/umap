@@ -1,7 +1,7 @@
 """
 Authentication module for uMap.
 
-Provides OSM OAuth login endpoints compatible with fAIr.
+Provides OSM OAuth login endpoints compatible with uMap.
 """
 
 from django.urls import path

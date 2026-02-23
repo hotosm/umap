@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 class OSMLogin(APIView):
     """Generate OSM OAuth login URL.
     
-    Compatible endpoint with fAIr. Returns login URL for OSM OAuth.
+    Compatible endpoint with uMap. Returns login URL for OSM OAuth.
     """
     renderer_classes = [JSONRenderer]
     

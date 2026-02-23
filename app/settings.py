@@ -59,13 +59,11 @@ if os.environ.get('ENABLE_S3_STORAGE', False) == 'True':
         "staticfiles": { "BACKEND": "umap.storage.staticfiles.UmapManifestStaticFilesStorage" }
     }
 
-# Ensure hotumap is registered only once (base settings may already add it)
-INSTALLED_APPS = tuple(
-    app for app in INSTALLED_APPS if app not in ("hotumap", "hotumap.apps.HotumapConfig")
+INSTALLED_APPS += (
+    "rest_framework",
+    "hotumap",
+    'dbbackup',
 )
-for _app in ("hotumap.apps.HotumapConfig", "dbbackup", "rest_framework"):
-    if _app not in INSTALLED_APPS:
-        INSTALLED_APPS += (_app,)
 
 if AUTH_PROVIDER == 'hanko':
     INSTALLED_APPS += ("hotosm_auth_django",)
@@ -104,17 +102,16 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_KEY=os.environ.get('UMAP_OSM_KEY')
 SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_SECRET=os.environ.get('UMAP_OSM_SECRET')
 
-MIDDLEWARE = list(MIDDLEWARE)
 MIDDLEWARE += ("social_django.middleware.SocialAuthExceptionMiddleware",)
 
 if AUTH_PROVIDER == 'hanko':
+    MIDDLEWARE = list(MIDDLEWARE)
     auth_middleware_index = MIDDLEWARE.index("django.contrib.auth.middleware.AuthenticationMiddleware")
     MIDDLEWARE.insert(auth_middleware_index, "hotosm_auth_django.HankoAuthMiddleware")
     # Add our custom middleware AFTER AuthenticationMiddleware to set request.user
     # This makes @login_required and is_authenticated work with Hanko
     MIDDLEWARE.append("hotumap.middleware.HankoUserMiddleware")
-
-MIDDLEWARE = tuple(MIDDLEWARE)
+    MIDDLEWARE = tuple(MIDDLEWARE)
 
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = os.getenv('UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS', 'False').lower() == 'true'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False

@@ -746,7 +746,7 @@ var ya = { 7: function(n, e, t) {
 }, 21: (n, e, t) => {
   t.d(e, { A: () => c });
   var o = t(645), i = t.n(o), a = t(278), s = t.n(a)()(i());
-  s.push([n.id, '.hanko_accordion{font-weight:var(--font-weight, 400);font-size:var(--font-size, 16px);font-family:var(--font-family, sans-serif);line-height:var(--line-height, 1.4rem);width:100%;overflow:hidden}.hanko_accordion .hanko_accordionItem{color:var(--color, #333333);margin:.25rem 0;overflow:hidden}.hanko_accordion .hanko_accordionItem.hanko_dropdown{margin:0}.hanko_accordion .hanko_accordionItem .hanko_label{border-radius:var(--border-radius, 8px);border-style:none;height:var(--item-height, 42px);background:var(--background-color, white);box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;padding:0 1rem;margin:0;cursor:pointer;transition:all .35s}.hanko_accordion .hanko_accordionItem .hanko_label .hanko_labelText{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hanko_accordion .hanko_accordionItem .hanko_label .hanko_labelText .hanko_description{color:var(--color-shade-1, #8f9095)}.hanko_accordion .hanko_accordionItem .hanko_label.hanko_dropdown{margin:0;color:var(--link-color, #506cf0);justify-content:flex-start}.hanko_accordion .hanko_accordionItem .hanko_label:hover{color:var(--brand-contrast-color, white);background:var(--brand-color-shade-1, #6b84fb)}.hanko_accordion .hanko_accordionItem .hanko_label:hover .hanko_description{color:var(--brand-contrast-color, white)}.hanko_accordion .hanko_accordionItem .hanko_label:hover.hanko_dropdown{color:var(--link-color, #506cf0);background:none}.hanko_accordion .hanko_accordionItem .hanko_label:not(.hanko_dropdown)::after{content:"❯";width:1rem;text-align:center;transition:all .35s}.hanko_accordion .hanko_accordionItem .hanko_accordionInput{position:absolute;opacity:0;z-index:-1}.hanko_accordion .hanko_accordionItem .hanko_accordionInput:checked+.hanko_label{color:var(--brand-contrast-color, white);background:var(--brand-color, #506cf0)}.hanko_accordion .hanko_accordionItem .hanko_accordionInput:checked+.hanko_label .hanko_description{color:var(--brand-contrast-color, white)}.hanko_accordion .hanko_accordionItem .hanko_accordionInput:checked+.hanko_label.hanko_dropdown{color:var(--link-color, #506cf0);background:none}.hanko_accordion .hanko_accordionItem .hanko_accordionInput:checked+.hanko_label:not(.hanko_dropdown)::after{transform:rotate(90deg)}.hanko_accordion .hanko_accordionItem .hanko_accordionInput:checked+.hanko_label~.hanko_accordionContent{margin:.25rem 1rem;opacity:1;max-height:100vh}.hanko_accordion .hanko_accordionItem .hanko_accordionContent{max-height:0;margin:0 1rem;opacity:0;overflow:hidden;transition:all .35s}.hanko_accordion .hanko_accordionItem .hanko_accordionContent.hanko_dropdownContent{border-style:none}', ""]), s.locals = { accordion: "hanko_accordion", accordionItem: "hanko_accordionItem", dropdown: "hanko_dropdown", label: "hanko_label", labelText: "hanko_labelText", description: "hanko_description", accordionInput: "hanko_accordionInput", accordionContent: "hanko_accordionContent", dropdownContent: "hanko_dropdownContent" };
+  s.push([n.id, '.hanko_accordion{font-weight:var(--font-weight, 400);font-size:var(--font-size, 16px);font-family:var(--font-family, sans-serif);line-height:var(--line-height, 1.4rem);width:100%;overflow:hidden}.hanko_accordion .hanko_accordionItem{color:var(--color, #333333);margin:.25rem 0;overflow:hidden}.hanko_accordion .hanko_accordionItem.hanko_dropdown{margin:0}.hanko_accordion .hanko_accordionItem .hanko_label{border-radius:var(--border-radius, 8px);border-style:none;height:var(--item-height, 42px);background:var(--background-color, white);box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;padding:0 1rem;margin:0;cursor:pointer;transition:all .35s}.hanko_accordion .hanko_accordionItem .hanko_label .hanko_labelText{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hanko_accordion .hanko_accordionItem .hanko_label .hanko_labelText .hanko_description{color:var(--color-shade-1, #8f9095)}.hanko_accordion .hanko_accordionItem .hanko_label.hanko_dropdown{margin:0;color:var(--link-color, #506cf0);justify-content:flex-start}.hanko_accordion .hanko_accordionItem .hanko_label:hover{color:var(--brand-contrast-color, white);background:var(--brand-color-shade-1, #6b84fb)}.hanko_accordion .hanko_accordionItem .hanko_label:hover .hanko_description{color:var(--brand-contrast-color, white)}.hanko_accordion .hanko_accordionItem .hanko_label:hover.hanko_dropdown{color:var(--link-color, #506cf0);background:none}.hanko_accordion .hanko_accordionItem .hanko_label:not(.hanko_dropdown)::after{content:"";width:1rem;text-align:center;transition:all .35s}.hanko_accordion .hanko_accordionItem .hanko_accordionInput{position:absolute;opacity:0;z-index:-1}.hanko_accordion .hanko_accordionItem .hanko_accordionInput:checked+.hanko_label{color:var(--brand-contrast-color, white);background:var(--brand-color, #506cf0)}.hanko_accordion .hanko_accordionItem .hanko_accordionInput:checked+.hanko_label .hanko_description{color:var(--brand-contrast-color, white)}.hanko_accordion .hanko_accordionItem .hanko_accordionInput:checked+.hanko_label.hanko_dropdown{color:var(--link-color, #506cf0);background:none}.hanko_accordion .hanko_accordionItem .hanko_accordionInput:checked+.hanko_label:not(.hanko_dropdown)::after{transform:rotate(90deg)}.hanko_accordion .hanko_accordionItem .hanko_accordionInput:checked+.hanko_label~.hanko_accordionContent{margin:.25rem 1rem;opacity:1;max-height:100vh}.hanko_accordion .hanko_accordionItem .hanko_accordionContent{max-height:0;margin:0 1rem;opacity:0;overflow:hidden;transition:all .35s}.hanko_accordion .hanko_accordionItem .hanko_accordionContent.hanko_dropdownContent{border-style:none}', ""]), s.locals = { accordion: "hanko_accordion", accordionItem: "hanko_accordionItem", dropdown: "hanko_dropdown", label: "hanko_label", labelText: "hanko_labelText", description: "hanko_description", accordionInput: "hanko_accordionInput", accordionContent: "hanko_accordionContent", dropdownContent: "hanko_dropdownContent" };
   const c = s;
 }, 905: (n, e, t) => {
   t.d(e, { A: () => c });
@@ -756,7 +756,7 @@ var ya = { 7: function(n, e, t) {
 }, 577: (n, e, t) => {
   t.d(e, { A: () => c });
   var o = t(645), i = t.n(o), a = t(278), s = t.n(a)()(i());
-  s.push([n.id, '.hanko_form{display:flex;flex-grow:1}.hanko_form .hanko_ul{flex-grow:1;margin:var(--item-margin, 0.5rem 0);padding-inline-start:0;list-style-type:none;display:flex;flex-wrap:wrap;gap:1em}.hanko_form .hanko_li{display:flex;max-width:100%;flex-grow:1;flex-basis:min-content}.hanko_form .hanko_li.hanko_maxWidth{min-width:100%}.hanko_button{font-weight:var(--font-weight, 400);font-size:var(--font-size, 16px);font-family:var(--font-family, sans-serif);line-height:var(--line-height, 1.4rem);border-radius:var(--border-radius, 8px);border-style:var(--border-style, solid);border-width:var(--border-width, 1px);white-space:nowrap;width:100%;min-width:var(--button-min-width, 7em);min-height:var(--item-height, 42px);outline:none;cursor:pointer;transition:.1s ease-out;flex-grow:1;flex-shrink:1;display:inline-flex}.hanko_button:disabled{cursor:default}.hanko_button.hanko_primary{color:var(--brand-contrast-color, white);background:var(--brand-color, #506cf0);border-color:var(--brand-color, #506cf0);justify-content:center}.hanko_button.hanko_primary:hover{color:var(--brand-contrast-color, white);background:var(--brand-color-shade-1, #6b84fb);border-color:var(--brand-color, #506cf0)}.hanko_button.hanko_primary:focus{color:var(--brand-contrast-color, white);background:var(--brand-color, #506cf0);border-color:var(--color, #333333)}.hanko_button.hanko_primary:disabled{color:var(--color-shade-1, #8f9095);background:var(--color-shade-2, #e5e6ef);border-color:var(--color-shade-2, #e5e6ef)}.hanko_button.hanko_secondary{color:var(--color, #333333);background:var(--background-color, white);border-color:var(--color, #333333);justify-content:flex-start}.hanko_button.hanko_secondary:hover{color:var(--color, #333333);background:var(--color-shade-2, #e5e6ef);border-color:var(--color, #333333)}.hanko_button.hanko_secondary:focus{color:var(--color, #333333);background:var(--background-color, white);border-color:var(--brand-color, #506cf0)}.hanko_button.hanko_secondary:disabled{color:var(--color-shade-1, #8f9095);background:var(--color-shade-2, #e5e6ef);border-color:var(--color-shade-1, #8f9095)}.hanko_button.hanko_dangerous{color:var(--error-color, #e82020);background:var(--background-color, white);border-color:var(--error-color, #e82020);flex-grow:0;width:auto}.hanko_caption{flex-grow:1;flex-wrap:wrap;display:flex;justify-content:space-between;align-items:baseline}.hanko_lastUsed{color:var(--color-shade-1, #8f9095);font-size:smaller}.hanko_inputWrapper{flex-grow:1;position:relative;display:flex;min-width:var(--input-min-width, 14em);max-width:100%}.hanko_input{font-weight:var(--font-weight, 400);font-size:var(--font-size, 16px);font-family:var(--font-family, sans-serif);line-height:var(--line-height, 1.4rem);border-radius:var(--border-radius, 8px);border-style:var(--border-style, solid);border-width:var(--border-width, 1px);height:var(--item-height, 42px);color:var(--color, #333333);border-color:var(--color-shade-1, #8f9095);background:var(--background-color, white);padding:0 .5rem;outline:none;width:100%;box-sizing:border-box;transition:.1s ease-out}.hanko_input.hanko_error{border-color:var(--error-color, #e82020)}.hanko_input:-webkit-autofill,.hanko_input:-webkit-autofill:hover,.hanko_input:-webkit-autofill:focus{-webkit-text-fill-color:var(--color, #333333);-webkit-box-shadow:0 0 0 50px var(--background-color, white) inset}.hanko_input::-ms-reveal,.hanko_input::-ms-clear{display:none}.hanko_input::placeholder{color:var(--color-shade-1, #8f9095)}.hanko_input:focus{color:var(--color, #333333);border-color:var(--color, #333333)}.hanko_input:disabled{color:var(--color-shade-1, #8f9095);background:var(--color-shade-2, #e5e6ef);border-color:var(--color-shade-1, #8f9095)}.hanko_passcodeInputWrapper{flex-grow:1;min-width:var(--input-min-width, 14em);max-width:fit-content;position:relative;display:flex;justify-content:space-between}.hanko_passcodeInputWrapper .hanko_passcodeDigitWrapper{flex-grow:1;margin:0 .5rem 0 0}.hanko_passcodeInputWrapper .hanko_passcodeDigitWrapper:last-child{margin:0}.hanko_passcodeInputWrapper .hanko_passcodeDigitWrapper .hanko_input{text-align:center}.hanko_checkboxWrapper{font-weight:var(--font-weight, 400);font-size:var(--font-size, 16px);font-family:var(--font-family, sans-serif);line-height:var(--line-height, 1.4rem);color:var(--color, #333333);align-items:center;display:flex}.hanko_checkboxWrapper .hanko_label{color:inherit;padding-left:.5rem;cursor:pointer}.hanko_checkboxWrapper .hanko_label.hanko_disabled{cursor:default;color:var(--color-shade-1, #8f9095)}.hanko_checkboxWrapper .hanko_checkbox{border:currentColor solid 1px;border-radius:.15em;appearance:none;-webkit-appearance:none;width:1.1rem;height:1.1rem;margin:0;color:currentColor;background-color:var(--background-color, white);font:inherit;box-shadow:none;display:inline-flex;place-content:center;cursor:pointer}.hanko_checkboxWrapper .hanko_checkbox:checked{background-color:var(--color, #333333)}.hanko_checkboxWrapper .hanko_checkbox:disabled{cursor:default;background-color:var(--color-shade-2, #e5e6ef);border-color:var(--color-shade-1, #8f9095)}.hanko_checkboxWrapper .hanko_checkbox:checked:after{content:"✓";color:var(--background-color, white);position:absolute;line-height:1.1rem}.hanko_checkboxWrapper .hanko_checkbox:disabled:after{color:var(--color-shade-1, #8f9095)}', ""]), s.locals = { form: "hanko_form", ul: "hanko_ul", li: "hanko_li", maxWidth: "hanko_maxWidth", button: "hanko_button", primary: "hanko_primary", secondary: "hanko_secondary", dangerous: "hanko_dangerous", caption: "hanko_caption", lastUsed: "hanko_lastUsed", inputWrapper: "hanko_inputWrapper", input: "hanko_input", error: "hanko_error", passcodeInputWrapper: "hanko_passcodeInputWrapper", passcodeDigitWrapper: "hanko_passcodeDigitWrapper", checkboxWrapper: "hanko_checkboxWrapper", label: "hanko_label", disabled: "hanko_disabled", checkbox: "hanko_checkbox" };
+  s.push([n.id, '.hanko_form{display:flex;flex-grow:1}.hanko_form .hanko_ul{flex-grow:1;margin:var(--item-margin, 0.5rem 0);padding-inline-start:0;list-style-type:none;display:flex;flex-wrap:wrap;gap:1em}.hanko_form .hanko_li{display:flex;max-width:100%;flex-grow:1;flex-basis:min-content}.hanko_form .hanko_li.hanko_maxWidth{min-width:100%}.hanko_button{font-weight:var(--font-weight, 400);font-size:var(--font-size, 16px);font-family:var(--font-family, sans-serif);line-height:var(--line-height, 1.4rem);border-radius:var(--border-radius, 8px);border-style:var(--border-style, solid);border-width:var(--border-width, 1px);white-space:nowrap;width:100%;min-width:var(--button-min-width, 7em);min-height:var(--item-height, 42px);outline:none;cursor:pointer;transition:.1s ease-out;flex-grow:1;flex-shrink:1;display:inline-flex}.hanko_button:disabled{cursor:default}.hanko_button.hanko_primary{color:var(--brand-contrast-color, white);background:var(--brand-color, #506cf0);border-color:var(--brand-color, #506cf0);justify-content:center}.hanko_button.hanko_primary:hover{color:var(--brand-contrast-color, white);background:var(--brand-color-shade-1, #6b84fb);border-color:var(--brand-color, #506cf0)}.hanko_button.hanko_primary:focus{color:var(--brand-contrast-color, white);background:var(--brand-color, #506cf0);border-color:var(--color, #333333)}.hanko_button.hanko_primary:disabled{color:var(--color-shade-1, #8f9095);background:var(--color-shade-2, #e5e6ef);border-color:var(--color-shade-2, #e5e6ef)}.hanko_button.hanko_secondary{color:var(--color, #333333);background:var(--background-color, white);border-color:var(--color, #333333);justify-content:flex-start}.hanko_button.hanko_secondary:hover{color:var(--color, #333333);background:var(--color-shade-2, #e5e6ef);border-color:var(--color, #333333)}.hanko_button.hanko_secondary:focus{color:var(--color, #333333);background:var(--background-color, white);border-color:var(--brand-color, #506cf0)}.hanko_button.hanko_secondary:disabled{color:var(--color-shade-1, #8f9095);background:var(--color-shade-2, #e5e6ef);border-color:var(--color-shade-1, #8f9095)}.hanko_button.hanko_dangerous{color:var(--error-color, #e82020);background:var(--background-color, white);border-color:var(--error-color, #e82020);flex-grow:0;width:auto}.hanko_caption{flex-grow:1;flex-wrap:wrap;display:flex;justify-content:space-between;align-items:baseline}.hanko_lastUsed{color:var(--color-shade-1, #8f9095);font-size:smaller}.hanko_inputWrapper{flex-grow:1;position:relative;display:flex;min-width:var(--input-min-width, 14em);max-width:100%}.hanko_input{font-weight:var(--font-weight, 400);font-size:var(--font-size, 16px);font-family:var(--font-family, sans-serif);line-height:var(--line-height, 1.4rem);border-radius:var(--border-radius, 8px);border-style:var(--border-style, solid);border-width:var(--border-width, 1px);height:var(--item-height, 42px);color:var(--color, #333333);border-color:var(--color-shade-1, #8f9095);background:var(--background-color, white);padding:0 .5rem;outline:none;width:100%;box-sizing:border-box;transition:.1s ease-out}.hanko_input.hanko_error{border-color:var(--error-color, #e82020)}.hanko_input:-webkit-autofill,.hanko_input:-webkit-autofill:hover,.hanko_input:-webkit-autofill:focus{-webkit-text-fill-color:var(--color, #333333);-webkit-box-shadow:0 0 0 50px var(--background-color, white) inset}.hanko_input::-ms-reveal,.hanko_input::-ms-clear{display:none}.hanko_input::placeholder{color:var(--color-shade-1, #8f9095)}.hanko_input:focus{color:var(--color, #333333);border-color:var(--color, #333333)}.hanko_input:disabled{color:var(--color-shade-1, #8f9095);background:var(--color-shade-2, #e5e6ef);border-color:var(--color-shade-1, #8f9095)}.hanko_passcodeInputWrapper{flex-grow:1;min-width:var(--input-min-width, 14em);max-width:fit-content;position:relative;display:flex;justify-content:space-between}.hanko_passcodeInputWrapper .hanko_passcodeDigitWrapper{flex-grow:1;margin:0 .5rem 0 0}.hanko_passcodeInputWrapper .hanko_passcodeDigitWrapper:last-child{margin:0}.hanko_passcodeInputWrapper .hanko_passcodeDigitWrapper .hanko_input{text-align:center}.hanko_checkboxWrapper{font-weight:var(--font-weight, 400);font-size:var(--font-size, 16px);font-family:var(--font-family, sans-serif);line-height:var(--line-height, 1.4rem);color:var(--color, #333333);align-items:center;display:flex}.hanko_checkboxWrapper .hanko_label{color:inherit;padding-left:.5rem;cursor:pointer}.hanko_checkboxWrapper .hanko_label.hanko_disabled{cursor:default;color:var(--color-shade-1, #8f9095)}.hanko_checkboxWrapper .hanko_checkbox{border:currentColor solid 1px;border-radius:.15em;appearance:none;-webkit-appearance:none;width:1.1rem;height:1.1rem;margin:0;color:currentColor;background-color:var(--background-color, white);font:inherit;box-shadow:none;display:inline-flex;place-content:center;cursor:pointer}.hanko_checkboxWrapper .hanko_checkbox:checked{background-color:var(--color, #333333)}.hanko_checkboxWrapper .hanko_checkbox:disabled{cursor:default;background-color:var(--color-shade-2, #e5e6ef);border-color:var(--color-shade-1, #8f9095)}.hanko_checkboxWrapper .hanko_checkbox:checked:after{content:"";color:var(--background-color, white);position:absolute;line-height:1.1rem}.hanko_checkboxWrapper .hanko_checkbox:disabled:after{color:var(--color-shade-1, #8f9095)}', ""]), s.locals = { form: "hanko_form", ul: "hanko_ul", li: "hanko_li", maxWidth: "hanko_maxWidth", button: "hanko_button", primary: "hanko_primary", secondary: "hanko_secondary", dangerous: "hanko_dangerous", caption: "hanko_caption", lastUsed: "hanko_lastUsed", inputWrapper: "hanko_inputWrapper", input: "hanko_input", error: "hanko_error", passcodeInputWrapper: "hanko_passcodeInputWrapper", passcodeDigitWrapper: "hanko_passcodeDigitWrapper", checkboxWrapper: "hanko_checkboxWrapper", label: "hanko_label", disabled: "hanko_disabled", checkbox: "hanko_checkbox" };
   const c = s;
 }, 619: (n, e, t) => {
   t.d(e, { A: () => c });
@@ -5110,14 +5110,14 @@ let re = class extends Mt {
     super(...arguments), this.hankoUrlAttr = "", this.basePath = "", this.authPath = "/api/auth/osm", this.osmRequired = !1, this.osmScopes = "read_prefs", this.showProfile = !1, this.redirectAfterLogin = "", this.autoConnect = !1, this.verifySession = !1, this.redirectAfterLogout = "", this.displayNameAttr = "", this.mappingCheckUrl = "", this.appId = "", this.loginUrl = "", this.lang = "en", this.buttonVariant = "plain", this.buttonColor = "primary", this.display = "default", this.user = null, this.osmConnected = !1, this.osmData = null, this.osmLoading = !1, this.loading = !0, this.error = null, this.hankoReady = !1, this.profileDisplayName = "", this.hasAppMapping = !1, this.userProfileLanguage = null, this.isOpen = !1, this.handleOutsideClick = (n) => {
       this.contains(n.target) || this.closeDropdown();
     }, this._trailingSlashCache = {}, this._debugMode = !1, this._lastSessionId = null, this._hanko = null, this._isPrimary = !1, this._handleVisibilityChange = () => {
-      this._isPrimary && !document.hidden && !this.showProfile && !this.user && (this.log("👁️ Page visible, re-checking session..."), this.checkSession());
+      this._isPrimary && !document.hidden && !this.showProfile && !this.user && (this.log(" Page visible, re-checking session..."), this.checkSession());
     }, this._handleWindowFocus = () => {
-      this._isPrimary && !this.showProfile && !this.user && (this.log("🎯 Window focused, re-checking session..."), this.checkSession());
+      this._isPrimary && !this.showProfile && !this.user && (this.log(" Window focused, re-checking session..."), this.checkSession());
     }, this._handleExternalLogin = (n) => {
       var t;
       if (!this._isPrimary) return;
       const e = n;
-      !this.showProfile && !this.user && ((t = e.detail) != null && t.user) && (this.log("🔔 External login detected, updating user state..."), this.user = e.detail.user, this._broadcastState(), this.osmRequired && this.checkOSMConnection());
+      !this.showProfile && !this.user && ((t = e.detail) != null && t.user) && (this.log(" External login detected, updating user state..."), this.user = e.detail.user, this._broadcastState(), this.osmRequired && this.checkOSMConnection());
     }, this._currentHankoAuthElement = null;
   }
   toggleDropdown() {
@@ -5167,22 +5167,22 @@ let re = class extends Mt {
     if (n) {
       const t = n.getAttribute("content");
       if (t)
-        return this.log("🔍 hanko-url auto-detected from <meta> tag:", t), t;
+        return this.log(" hanko-url auto-detected from <meta> tag:", t), t;
     }
     if (window.HANKO_URL)
       return this.log(
-        "🔍 hanko-url auto-detected from window.HANKO_URL:",
+        " hanko-url auto-detected from window.HANKO_URL:",
         window.HANKO_URL
       ), window.HANKO_URL;
     const e = window.location.origin;
-    return this.log("🔍 hanko-url auto-detected from window.location.origin:", e), e;
+    return this.log(" hanko-url auto-detected from window.location.origin:", e), e;
   }
   connectedCallback() {
-    super.connectedCallback(), this._debugMode = this._checkDebugMode(), this.log("🔌 hanko-auth connectedCallback called"), this.injectHotStyles(), te.instances.add(this), document.addEventListener("visibilitychange", this._handleVisibilityChange), window.addEventListener("focus", this._handleWindowFocus), document.addEventListener("hanko-login", this._handleExternalLogin);
+    super.connectedCallback(), this._debugMode = this._checkDebugMode(), this.log(" hanko-auth connectedCallback called"), this.injectHotStyles(), te.instances.add(this), document.addEventListener("visibilitychange", this._handleVisibilityChange), window.addEventListener("focus", this._handleWindowFocus), document.addEventListener("hanko-login", this._handleExternalLogin);
   }
   // Use firstUpdated instead of connectedCallback to ensure React props are set
   firstUpdated() {
-    this.log("🔌 hanko-auth firstUpdated called"), this.log("  hankoUrl:", this.hankoUrl), this.log("  basePath:", this.basePath), te.initialized || te.primary ? (this.log("🔄 Using shared state from primary instance"), this._syncFromShared(), this._isPrimary = !1) : (this.log("👑 This is the primary instance"), this._isPrimary = !0, te.primary = this, te.initialized = !0, this.init());
+    this.log(" hanko-auth firstUpdated called"), this.log("  hankoUrl:", this.hankoUrl), this.log("  basePath:", this.basePath), te.initialized || te.primary ? (this.log(" Using shared state from primary instance"), this._syncFromShared(), this._isPrimary = !1) : (this.log(" This is the primary instance"), this._isPrimary = !0, te.primary = this, te.initialized = !0, this.init());
   }
   disconnectedCallback() {
     if (super.disconnectedCallback(), document.removeEventListener(
@@ -5190,7 +5190,7 @@ let re = class extends Mt {
       this._handleVisibilityChange
     ), window.removeEventListener("focus", this._handleWindowFocus), document.removeEventListener("hanko-login", this._handleExternalLogin), document.removeEventListener("click", this.handleOutsideClick), te.instances.delete(this), this._isPrimary && te.instances.size > 0) {
       const n = te.instances.values().next().value;
-      n && (this.log("👑 Promoting new primary instance"), n._isPrimary = !0, te.primary = n);
+      n && (this.log(" Promoting new primary instance"), n._isPrimary = !0, te.primary = n);
     }
     te.instances.size === 0 && (te.initialized = !1, te.primary = null);
   }
@@ -5232,7 +5232,7 @@ let re = class extends Mt {
     console.error(...n);
   }
   getBasePath() {
-    return this.basePath ? (this.log("🔍 getBasePath() using basePath:", this.basePath), this.basePath) : (this.log("🔍 getBasePath() using default: empty string"), "");
+    return this.basePath ? (this.log(" getBasePath() using basePath:", this.basePath), this.basePath) : (this.log(" getBasePath() using default: empty string"), "");
   }
   addTrailingSlash(n, e) {
     const t = this._trailingSlashCache[e];
@@ -5258,7 +5258,7 @@ let re = class extends Mt {
   }
   async init() {
     if (!this._isPrimary) {
-      this.log("⏭️ Not primary, skipping init...");
+      this.log(" Not primary, skipping init...");
       return;
     }
     try {
@@ -5271,21 +5271,21 @@ let re = class extends Mt {
         cookieSameSite: "lax"
       };
       this._hanko = new n(this.hankoUrl, a), te.hanko = this._hanko, this._hanko.onSessionExpired(() => {
-        this.log("🕒 Hanko session expired event received"), this.handleSessionExpired();
+        this.log(" Hanko session expired event received"), this.handleSessionExpired();
       }), this._hanko.onUserLoggedOut(() => {
-        this.log("🚪 Hanko user logged out event received"), this.handleUserLoggedOut();
+        this.log(" Hanko user logged out event received"), this.handleUserLoggedOut();
       }), await this.checkSession(), this.user && (this.osmRequired && await this.checkOSMConnection(), await this.fetchProfileDisplayName()), await new Promise((s) => setTimeout(s, 3e3)), this.loading = !1, this._broadcastState(), this.setupEventListeners();
     } catch (n) {
       this.logError("Failed to initialize hanko-auth:", n), this.error = n.message, this.loading = !1, this._broadcastState();
     }
   }
   async checkSession() {
-    if (this.log("🔍 Checking for existing Hanko session..."), !this._hanko) {
-      this.log("⚠️ Hanko instance not initialized yet");
+    if (this.log(" Checking for existing Hanko session..."), !this._hanko) {
+      this.log(" Hanko instance not initialized yet");
       return;
     }
     try {
-      this.log("📡 Checking session validity via cookie...");
+      this.log(" Checking session validity via cookie...");
       try {
         const n = await fetch(
           `${this.hankoUrl}/sessions/validate`,
@@ -5302,11 +5302,11 @@ let re = class extends Mt {
           const e = await n.json();
           if (e.is_valid === !1) {
             this.log(
-              "ℹ️ Session validation returned is_valid:false - no valid session"
+              " Session validation returned is_valid:false - no valid session"
             );
             return;
           }
-          this.log("✅ Valid Hanko session found via cookie"), this.log("📋 Session data:", e);
+          this.log(" Valid Hanko session found via cookie"), this.log(" Session data:", e);
           try {
             const t = await fetch(`${this.hankoUrl}/me`, {
               method: "GET",
@@ -5319,15 +5319,15 @@ let re = class extends Mt {
             let o = !0;
             if (t.ok) {
               const i = await t.json();
-              this.log("👤 User data retrieved from /me:", i), i.email ? (this.user = {
+              this.log(" User data retrieved from /me:", i), i.email ? (this.user = {
                 id: i.user_id || i.id,
                 email: i.email,
                 username: i.username || null,
                 emailVerified: i.email_verified || i.verified || !1
-              }, o = !1) : this.log("⚠️ /me has no email, will use SDK fallback");
+              }, o = !1) : this.log(" /me has no email, will use SDK fallback");
             }
             if (o) {
-              this.log("🔄 Using SDK to get user with email");
+              this.log(" Using SDK to get user with email");
               const i = await this._hanko.user.getCurrent();
               this.user = {
                 id: i.id,
@@ -5337,7 +5337,7 @@ let re = class extends Mt {
               };
             }
           } catch (t) {
-            this.log("⚠️ Failed to get user data:", t), e.user_id && (this.user = {
+            this.log(" Failed to get user data:", t), e.user_id && (this.user = {
               id: e.user_id,
               email: e.email || null,
               username: null,
@@ -5348,7 +5348,7 @@ let re = class extends Mt {
             const t = li(window.location.hostname), o = sessionStorage.getItem(t);
             if (this.verifySession && this.redirectAfterLogin && !o) {
               this.log(
-                "🔄 verify-session enabled, redirecting to callback for app verification..."
+                " verify-session enabled, redirecting to callback for app verification..."
               ), sessionStorage.setItem(t, "true"), window.location.href = this.redirectAfterLogin;
               return;
             }
@@ -5365,40 +5365,40 @@ let re = class extends Mt {
                 bubbles: !0,
                 composed: !0
               })
-            ), this.osmRequired && await this.checkOSMConnection(), await this.fetchProfileDisplayName(), this.osmRequired && this.autoConnect && !this.osmConnected && (this.log("🔄 Auto-connecting to OSM (from existing session)..."), this.handleOSMConnect());
+            ), this.osmRequired && await this.checkOSMConnection(), await this.fetchProfileDisplayName(), this.osmRequired && this.autoConnect && !this.osmConnected && (this.log(" Auto-connecting to OSM (from existing session)..."), this.handleOSMConnect());
           }
         } else
-          this.log("ℹ️ No valid session cookie found - user needs to login");
+          this.log(" No valid session cookie found - user needs to login");
       } catch (n) {
-        this.log("⚠️ Session validation failed:", n), this.log("ℹ️ No valid session - user needs to login");
+        this.log(" Session validation failed:", n), this.log(" No valid session - user needs to login");
       }
     } catch (n) {
-      this.log("⚠️ Session check error:", n), this.log("ℹ️ No existing session - user needs to login");
+      this.log(" Session check error:", n), this.log(" No existing session - user needs to login");
     } finally {
       this._isPrimary && this._broadcastState();
     }
   }
   async checkOSMConnection() {
     if (!this.osmRequired) {
-      this.log("⏭️ OSM not required, skipping connection check");
+      this.log(" OSM not required, skipping connection check");
       return;
     }
     if (this.osmConnected) {
-      this.log("⏭️ Already connected to OSM, skipping check");
+      this.log(" Already connected to OSM, skipping check");
       return;
     }
     const n = this.loading;
     n || (this.osmLoading = !0);
     try {
       const e = this.getBasePath(), t = this.authPath, i = `${`${e}${t}/status`}`;
-      this.log("🔍 Checking OSM connection at:", i), this.log("  basePath:", e), this.log("  authPath:", t), this.log("🍪 Current cookies:", document.cookie);
+      this.log(" Checking OSM connection at:", i), this.log("  basePath:", e), this.log("  authPath:", t), this.log(" Current cookies:", document.cookie);
       const a = await fetch(i, {
         credentials: "include",
         redirect: "follow"
       });
-      if (this.log("📡 OSM status response:", a.status), this.log("📡 Final URL after redirects:", a.url), this.log("📡 Response headers:", [...a.headers.entries()]), a.ok) {
+      if (this.log(" OSM status response:", a.status), this.log(" Final URL after redirects:", a.url), this.log(" Response headers:", [...a.headers.entries()]), a.ok) {
         const s = await a.text();
-        this.log("📡 OSM raw response:", s.substring(0, 200));
+        this.log(" OSM raw response:", s.substring(0, 200));
         let c;
         try {
           c = JSON.parse(s);
@@ -5408,13 +5408,13 @@ let re = class extends Mt {
             s.substring(0, 500)
           ), new Error("Invalid JSON response from OSM status endpoint");
         }
-        this.log("📡 OSM status data:", c), c.connected ? (this.log("✅ OSM is connected:", c.osm_username), this.osmConnected = !0, this.osmData = c, this.dispatchEvent(
+        this.log(" OSM status data:", c), c.connected ? (this.log(" OSM is connected:", c.osm_username), this.osmConnected = !0, this.osmData = c, this.dispatchEvent(
           new CustomEvent("osm-connected", {
             detail: { osmData: c },
             bubbles: !0,
             composed: !0
           })
-        )) : (this.log("❌ OSM is NOT connected"), this.osmConnected = !1, this.osmData = null);
+        )) : (this.log(" OSM is NOT connected"), this.osmConnected = !1, this.osmData = null);
       }
     } catch (e) {
       this.logError("OSM connection check failed:", e);
@@ -5429,63 +5429,63 @@ let re = class extends Mt {
       return !0;
     const n = ci(window.location.hostname);
     if (sessionStorage.getItem(n))
-      return this.log("✅ Onboarding already completed this session, skipping check"), this.hasAppMapping = !0, !0;
-    this.log("🔍 Checking app mapping at:", this.mappingCheckUrl);
+      return this.log(" Onboarding already completed this session, skipping check"), this.hasAppMapping = !0, !0;
+    this.log(" Checking app mapping at:", this.mappingCheckUrl);
     try {
       const t = await fetch(this.mappingCheckUrl, {
         credentials: "include"
       });
       if (t.ok) {
         const o = await t.json();
-        if (this.log("📡 Mapping check response:", o), o.needs_onboarding) {
-          this.log("⚠️ User needs onboarding, redirecting...");
+        if (this.log(" Mapping check response:", o), o.needs_onboarding) {
+          this.log(" User needs onboarding, redirecting...");
           const i = encodeURIComponent(window.location.origin), a = this.appId ? `onboarding=${this.appId}` : "";
           return window.location.href = `${this.hankoUrl}/app?${a}&return_to=${i}`, !1;
         }
-        return sessionStorage.setItem(n, "true"), this.hasAppMapping = !0, this.log("✅ User has app mapping, onboarding marked complete"), !0;
+        return sessionStorage.setItem(n, "true"), this.hasAppMapping = !0, this.log(" User has app mapping, onboarding marked complete"), !0;
       } else if (t.status === 401 || t.status === 403) {
-        this.log("⚠️ 401/403 - User needs onboarding, redirecting...");
+        this.log(" 401/403 - User needs onboarding, redirecting...");
         const o = encodeURIComponent(window.location.origin), i = this.appId ? `onboarding=${this.appId}` : "";
         return window.location.href = `${this.hankoUrl}/app?${i}&return_to=${o}`, !1;
       }
-      return this.log("⚠️ Unexpected status from mapping check:", t.status), !0;
+      return this.log(" Unexpected status from mapping check:", t.status), !0;
     } catch (t) {
-      return this.log("⚠️ App mapping check failed:", t), !0;
+      return this.log(" App mapping check failed:", t), !0;
     }
   }
   // Fetch profile display name and language from login backend
   async fetchProfileDisplayName() {
     try {
       const n = `${this.hankoUrl}/api/profile/me`;
-      this.log("👤 Fetching profile from:", n);
+      this.log(" Fetching profile from:", n);
       const e = await fetch(n, {
         credentials: "include"
       });
       if (e.ok) {
         const t = await e.json();
-        this.log("👤 Profile data:", t), (t.first_name || t.last_name) && (this.profileDisplayName = `${t.first_name || ""} ${t.last_name || ""}`.trim(), this.log("👤 Display name set to:", this.profileDisplayName)), t.language && (this.userProfileLanguage = t.language, this.log("🌐 Language set from profile:", this.userProfileLanguage));
+        this.log(" Profile data:", t), (t.first_name || t.last_name) && (this.profileDisplayName = `${t.first_name || ""} ${t.last_name || ""}`.trim(), this.log(" Display name set to:", this.profileDisplayName)), t.language && (this.userProfileLanguage = t.language, this.log(" Language set from profile:", this.userProfileLanguage));
       }
     } catch (n) {
-      this.log("⚠️ Could not fetch profile:", n);
+      this.log(" Could not fetch profile:", n);
     }
   }
   updated(n) {
-    super.updated(n), n.has("user") && this.user === null && this.showProfile && (this.log("🔄 User logged out, re-attaching event listeners..."), this._currentHankoAuthElement = null, this.setupEventListeners());
+    super.updated(n), n.has("user") && this.user === null && this.showProfile && (this.log(" User logged out, re-attaching event listeners..."), this._currentHankoAuthElement = null, this.setupEventListeners());
   }
   setupEventListeners() {
     this.updateComplete.then(() => {
       var e;
       const n = (e = this.shadowRoot) == null ? void 0 : e.querySelector("hanko-auth");
       if (n && n === this._currentHankoAuthElement) {
-        this.log("⏭️ Event listeners already attached to this element");
+        this.log(" Event listeners already attached to this element");
         return;
       }
-      n && (this._currentHankoAuthElement = n, this.log("🎯 Attaching event listeners to hanko-auth element"), n.addEventListener("onSessionCreated", (t) => {
+      n && (this._currentHankoAuthElement = n, this.log(" Attaching event listeners to hanko-auth element"), n.addEventListener("onSessionCreated", (t) => {
         var i, a;
-        this.log("🎯 Hanko event: onSessionCreated", t.detail);
+        this.log(" Hanko event: onSessionCreated", t.detail);
         const o = (a = (i = t.detail) == null ? void 0 : i.claims) == null ? void 0 : a.session_id;
         if (o && this._lastSessionId === o) {
-          this.log("⏭️ Skipping duplicate session event");
+          this.log(" Skipping duplicate session event");
           return;
         }
         this._lastSessionId = o, this.handleHankoSuccess(t);
@@ -5514,25 +5514,25 @@ let re = class extends Mt {
       });
       if (clearTimeout(a), s.ok) {
         const c = await s.json();
-        this.log("👤 User data retrieved from /me:", c), c.email ? (this.user = {
+        this.log(" User data retrieved from /me:", c), c.email ? (this.user = {
           id: c.user_id || c.id,
           email: c.email,
           username: c.username || null,
           emailVerified: c.email_verified || c.verified || !1
-        }, e = !0) : this.log("⚠️ /me has no email, will try SDK fallback");
+        }, e = !0) : this.log(" /me has no email, will try SDK fallback");
       } else
         this.log(
-          "⚠️ /me endpoint returned non-OK status, will try SDK fallback"
+          " /me endpoint returned non-OK status, will try SDK fallback"
         );
     } catch (i) {
       this.log(
-        "⚠️ /me endpoint fetch failed (timeout or cross-origin TLS issue):",
+        " /me endpoint fetch failed (timeout or cross-origin TLS issue):",
         i
       );
     }
     if (!e)
       try {
-        this.log("🔄 Trying SDK fallback for user info...");
+        this.log(" Trying SDK fallback for user info...");
         const i = new Promise(
           (s, c) => setTimeout(() => c(new Error("SDK timeout")), 5e3)
         ), a = await Promise.race([
@@ -5544,9 +5544,9 @@ let re = class extends Mt {
           email: a.email,
           username: a.username,
           emailVerified: a.email_verified || !1
-        }, e = !0, this.log("✅ User info retrieved via SDK fallback");
+        }, e = !0, this.log(" User info retrieved via SDK fallback");
       } catch (i) {
-        this.log("⚠️ SDK fallback failed, trying JWT claims:", i);
+        this.log(" SDK fallback failed, trying JWT claims:", i);
         try {
           const a = (o = n.detail) == null ? void 0 : o.claims;
           if (a != null && a.sub)
@@ -5555,7 +5555,7 @@ let re = class extends Mt {
               email: a.email || null,
               username: null,
               emailVerified: a.email_verified || !1
-            }, e = !0, this.log("✅ User info extracted from JWT claims");
+            }, e = !0, this.log(" User info extracted from JWT claims");
           else {
             this.logError("No user claims available in event"), this.user = null;
             return;
@@ -5568,19 +5568,19 @@ let re = class extends Mt {
           return;
         }
       }
-    if (this.log("✅ User state updated:", this.user), this._isPrimary && this._broadcastState(), this.dispatchEvent(
+    if (this.log(" User state updated:", this.user), this._isPrimary && this._broadcastState(), this.dispatchEvent(
       new CustomEvent("hanko-login", {
         detail: { user: this.user },
         bubbles: !0,
         composed: !0
       })
     ), this.osmRequired && await this.checkOSMConnection(), await this.fetchProfileDisplayName(), this.osmRequired && this.autoConnect && !this.osmConnected) {
-      this.log("🔄 Auto-connecting to OSM..."), this.handleOSMConnect();
+      this.log(" Auto-connecting to OSM..."), this.handleOSMConnect();
       return;
     }
     const t = !this.osmRequired || this.osmConnected;
     this.log(
-      "🔄 Checking redirect-after-login:",
+      " Checking redirect-after-login:",
       this.redirectAfterLogin,
       "showProfile:",
       this.showProfile,
@@ -5591,11 +5591,11 @@ let re = class extends Mt {
         bubbles: !0,
         composed: !0
       })
-    ), this.redirectAfterLogin ? (this.log("✅ Redirecting to:", this.redirectAfterLogin), window.location.href = this.redirectAfterLogin) : this.log("❌ No redirect (redirectAfterLogin not set)")) : this.log("⏸️ Waiting for OSM connection before redirect");
+    ), this.redirectAfterLogin ? (this.log(" Redirecting to:", this.redirectAfterLogin), window.location.href = this.redirectAfterLogin) : this.log(" No redirect (redirectAfterLogin not set)")) : this.log(" Waiting for OSM connection before redirect");
   }
   async handleOSMConnect() {
     const n = this.osmScopes.split(" ").join("+"), e = this.getBasePath(), t = this.authPath, i = `${`${e}${t}/login`}?scopes=${n}`;
-    this.log("🔗 OSM Connect clicked!"), this.log("  basePath:", e), this.log("  authPath:", t), this.log("  Login path:", i), this.log("  Fetching redirect URL from backend...");
+    this.log(" OSM Connect clicked!"), this.log("  basePath:", e), this.log("  authPath:", t), this.log("  Login path:", i), this.log("  Fetching redirect URL from backend...");
     try {
       const a = await fetch(i, {
         method: "GET",
@@ -5605,49 +5605,49 @@ let re = class extends Mt {
       });
       if (this.log("  Response status:", a.status), this.log("  Response type:", a.type), a.status === 0 || a.type === "opaqueredirect") {
         const s = a.headers.get("Location") || a.url;
-        this.log("  ✅ Got redirect URL:", s), window.location.href = s;
+        this.log("   Got redirect URL:", s), window.location.href = s;
       } else if (a.status >= 300 && a.status < 400) {
         const s = a.headers.get("Location");
-        this.log("  ✅ Got redirect URL from header:", s), s && (window.location.href = s);
+        this.log("   Got redirect URL from header:", s), s && (window.location.href = s);
       } else {
-        this.logError("  ❌ Unexpected response:", a.status);
+        this.logError("   Unexpected response:", a.status);
         const s = await a.text();
         this.logError("  Response body:", s.substring(0, 200));
       }
     } catch (a) {
-      this.logError("  ❌ Failed to fetch redirect URL:", a);
+      this.logError("   Failed to fetch redirect URL:", a);
     }
   }
   async handleLogout() {
-    this.log("🚪 Logout initiated"), this.log("📊 Current state before logout:", {
+    this.log(" Logout initiated"), this.log(" Current state before logout:", {
       user: this.user,
       osmConnected: this.osmConnected,
       osmData: this.osmData
-    }), this.log("🍪 Cookies before logout:", document.cookie);
+    }), this.log(" Cookies before logout:", document.cookie);
     try {
       const n = this.getBasePath(), e = this.authPath, t = `${n}${e}/disconnect`, o = t.startsWith("http") ? t : `${window.location.origin}${t}`;
-      this.log("🔌 Calling OSM disconnect:", o);
+      this.log(" Calling OSM disconnect:", o);
       const i = await fetch(o, {
         method: "POST",
         credentials: "include"
       });
-      this.log("📡 Disconnect response status:", i.status);
+      this.log(" Disconnect response status:", i.status);
       const a = await i.json();
-      this.log("📡 Disconnect response data:", a), this.log("✅ OSM disconnected");
+      this.log(" Disconnect response data:", a), this.log(" OSM disconnected");
     } catch (n) {
-      this.logError("❌ OSM disconnect failed:", n);
+      this.logError(" OSM disconnect failed:", n);
     }
     if (this._hanko)
       try {
-        await this._hanko.user.logout(), this.log("✅ Hanko logout successful");
+        await this._hanko.user.logout(), this.log(" Hanko logout successful");
       } catch (n) {
         this.logError("Hanko logout failed:", n);
       }
     if (this._clearAuthState(), this.log(
-      "✅ Logout complete - component will re-render with updated state"
+      " Logout complete - component will re-render with updated state"
     ), this.redirectAfterLogout) {
       const n = window.location.href.replace(/\/$/, ""), e = this.redirectAfterLogout.replace(/\/$/, "");
-      n !== e && !n.startsWith(e + "#") ? (this.log("🔄 Redirecting after logout to:", this.redirectAfterLogout), window.location.href = this.redirectAfterLogout) : this.log("⏭️ Already on logout target, skipping redirect");
+      n !== e && !n.startsWith(e + "#") ? (this.log(" Redirecting after logout to:", this.redirectAfterLogout), window.location.href = this.redirectAfterLogout) : this.log(" Already on logout target, skipping redirect");
     }
   }
   /**
@@ -5655,9 +5655,9 @@ let re = class extends Mt {
    */
   _clearAuthState() {
     const n = window.location.hostname;
-    document.cookie = `hanko=; path=/; domain=${n}; max-age=0`, document.cookie = "hanko=; path=/; max-age=0", document.cookie = `osm_connection=; path=/; domain=${n}; max-age=0`, document.cookie = "osm_connection=; path=/; max-age=0", this.log("🍪 Cookies cleared");
+    document.cookie = `hanko=; path=/; domain=${n}; max-age=0`, document.cookie = "hanko=; path=/; max-age=0", document.cookie = `osm_connection=; path=/; domain=${n}; max-age=0`, document.cookie = "osm_connection=; path=/; max-age=0", this.log(" Cookies cleared");
     const e = li(n), t = ci(n);
-    sessionStorage.removeItem(e), sessionStorage.removeItem(t), this.log("🔄 Session flags cleared"), this.user = null, this.osmConnected = !1, this.osmData = null, this.hasAppMapping = !1, this.userProfileLanguage = null, this._isPrimary && this._broadcastState(), this.dispatchEvent(
+    sessionStorage.removeItem(e), sessionStorage.removeItem(t), this.log(" Session flags cleared"), this.user = null, this.osmConnected = !1, this.osmData = null, this.hasAppMapping = !1, this.userProfileLanguage = null, this._isPrimary && this._broadcastState(), this.dispatchEvent(
       new CustomEvent("logout", {
         bubbles: !0,
         composed: !0
@@ -5665,46 +5665,46 @@ let re = class extends Mt {
     );
   }
   async handleSessionExpired() {
-    if (this.log("🕒 Session expired event received"), this.log("📊 Current state:", {
+    if (this.log(" Session expired event received"), this.log(" Current state:", {
       user: this.user,
       osmConnected: this.osmConnected,
       loading: this.loading
     }), this.loading) {
-      this.log("⏳ Still loading, ignoring session expired event during init");
+      this.log(" Still loading, ignoring session expired event during init");
       return;
     }
     if (this.user) {
-      this.log("✅ User is logged in, ignoring stale session expired event");
+      this.log(" User is logged in, ignoring stale session expired event");
       return;
     }
-    this.log("🧹 No active user - cleaning up state");
+    this.log(" No active user - cleaning up state");
     try {
       const n = this.getBasePath(), e = this.authPath, t = `${n}${e}/disconnect`, o = t.startsWith("http") ? t : `${window.location.origin}${t}`;
-      this.log("🔌 Calling OSM disconnect (session expired):", o);
+      this.log(" Calling OSM disconnect (session expired):", o);
       const i = await fetch(o, {
         method: "POST",
         credentials: "include"
       });
-      this.log("📡 Disconnect response status:", i.status);
+      this.log(" Disconnect response status:", i.status);
       const a = await i.json();
-      this.log("📡 Disconnect response data:", a), this.log("✅ OSM disconnected");
+      this.log(" Disconnect response data:", a), this.log(" OSM disconnected");
     } catch (n) {
-      this.logError("❌ OSM disconnect failed:", n);
+      this.logError(" OSM disconnect failed:", n);
     }
-    if (this._clearAuthState(), this.log("✅ Session cleanup complete"), this.redirectAfterLogout) {
+    if (this._clearAuthState(), this.log(" Session cleanup complete"), this.redirectAfterLogout) {
       const n = window.location.href.replace(/\/$/, ""), e = this.redirectAfterLogout.replace(/\/$/, "");
       n !== e && !n.startsWith(e + "#") ? (this.log(
-        "🔄 Redirecting after session expired to:",
+        " Redirecting after session expired to:",
         this.redirectAfterLogout
-      ), window.location.href = this.redirectAfterLogout) : this.log("⏭️ Already on logout target, skipping redirect");
+      ), window.location.href = this.redirectAfterLogout) : this.log(" Already on logout target, skipping redirect");
     }
   }
   handleUserLoggedOut() {
-    this.log("🚪 User logged out in another window/tab"), this.handleSessionExpired();
+    this.log(" User logged out in another window/tab"), this.handleSessionExpired();
   }
   handleDropdownSelect(n) {
     const t = n.currentTarget.dataset.action;
-    if (this.log("🎯 Dropdown item selected:", t), t === "profile") {
+    if (this.log(" Dropdown item selected:", t), t === "profile") {
       const o = this.hankoUrl, i = this.redirectAfterLogin || window.location.origin;
       window.location.href = `${o}/app/profile?return_to=${encodeURIComponent(i)}`;
     } else if (t === "connect-osm") {
@@ -5715,7 +5715,7 @@ let re = class extends Mt {
   }
   oldHandleDropdownSelect(n) {
     const e = n.detail.item.value;
-    if (this.log("🎯 Dropdown item selected:", e), e === "profile") {
+    if (this.log(" Dropdown item selected:", e), e === "profile") {
       const t = this.redirectAfterLogin || window.location.origin, o = this.loginUrl ? `${this.loginUrl}/profile` : `${this.hankoUrl}/app/profile`;
       window.location.href = `${o}?return_to=${encodeURIComponent(t)}`;
     } else if (e === "connect-osm") {
@@ -5731,7 +5731,7 @@ let re = class extends Mt {
   render() {
     var n, e, t;
     if (this.log(
-      "🎨 RENDER - showProfile:",
+      " RENDER - showProfile:",
       this.showProfile,
       "user:",
       !!this.user,
@@ -5774,7 +5774,7 @@ let re = class extends Mt {
                       <div class="osm-section">
                         <div class="osm-connected">
                           <div class="osm-badge">
-                            <span class="osm-badge-icon">🗺️</span>
+                            <span class="osm-badge-icon"></span>
                             <div>
                               <div>${this.t("connectedToOpenStreetMap")}</div>
                               ${(n = this.osmData) != null && n.osm_username ? xe`
@@ -5793,12 +5793,12 @@ let re = class extends Mt {
                             <div class="osm-connecting">
                               <div class="spinner"></div>
                               <div class="connecting-text">
-                                🗺️ ${this.t("connectingToOpenStreetMap")}
+                                 ${this.t("connectingToOpenStreetMap")}
                               </div>
                             </div>
                           ` : xe`
                             <div class="osm-prompt-title">
-                              🌍 ${this.t("osmRequired")}
+                               ${this.t("osmRequired")}
                             </div>
                             <div class="osm-prompt-text">
                               ${this.t("osmRequiredText")}
@@ -5856,7 +5856,7 @@ let re = class extends Mt {
                     <span
                       class="osm-status-badge connected"
                       title="${this.t("connectedToOsmAs")} @${(e = this.osmData) == null ? void 0 : e.osm_username}"
-                      >✓</span
+                      ></span
                     >
                   ` : this.osmRequired ? xe`
                       <span
@@ -5931,14 +5931,14 @@ let re = class extends Mt {
         )}
           </div>
         ` : (this.log(
-          "⏳ Waiting for Hanko registration before rendering form..."
+          " Waiting for Hanko registration before rendering form..."
         ), xe`<span class="loading-placeholder"
             ><span class="loading-placeholder-text">${this.t("logIn")}</span
             ><span class="spinner-small"></span
           ></span>`);
       {
         const i = window.location.pathname.includes("/app"), a = this.redirectAfterLogin || (i ? window.location.origin : window.location.href), c = new URLSearchParams(window.location.search).get("auto_connect") === "true" ? "&auto_connect=true" : "", d = this.hankoUrl;
-        this.log("🔗 Login URL base:", d);
+        this.log(" Login URL base:", d);
         const u = `${this.loginUrl || `${d}/app`}?return_to=${encodeURIComponent(
           a
         )}${this.osmRequired ? "&osm_required=true" : ""}${c}&lang=${this.lang}`;
