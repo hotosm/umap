@@ -134,9 +134,6 @@ UMAP_CUSTOM_STATICS=os.environ.get('UMAP_CUSTOM_STATICS', '/app/custom/static')
 # Add a banner to warn people this instance is not production ready.
 UMAP_DEMO_SITE = False
 
-# Show a maintenance banner across the site.
-MAINTENANCE_MODE = os.environ.get('MAINTENANCE_MODE', 'false').lower() == 'true'
-
 # Whether to allow non authenticated people to create maps.
 UMAP_ALLOW_ANONYMOUS = False
 

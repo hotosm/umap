@@ -24,7 +24,6 @@ def auth_settings(request):
         'HANKO_PUBLIC_URL': hanko_public_url,  # Explicit public URL for web component
         'SITE_URL': getattr(settings, 'SITE_URL', '/'),
         'COOKIE_DOMAIN': getattr(settings, 'COOKIE_DOMAIN', ''),
-        'MAINTENANCE_MODE': getattr(settings, 'MAINTENANCE_MODE', False),
         'hanko_user': None,
         'hanko_authenticated': False,
     }

@@ -19,13 +19,6 @@
   {% endblock messages %}
 {% endblock header %}
 {% block content %}
-  {% if MAINTENANCE_MODE %}
-  <div class="wrapper hot-maintenance-banner">
-    <div>
-      <p>We are currently working on this site and you may experience some issues. Thank you for your patience.</p>
-    </div>
-  </div>
-  {% endif %}
   {% if UMAP_READONLY %}
     <div class="wrapper demo-instance-warning">
       <div class="row">
