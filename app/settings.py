@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
-# NOTE: This file is loaded via exec() by umap.settings.__init__.py
-# All base settings are already available in globals() - do NOT import base again
-
+# Import base settings to get INSTALLED_APPS etc
+from umap.settings.base import *  # pylint: disable=W0614,W0401
 import os
 from django.utils.translation import gettext_lazy as _
 
