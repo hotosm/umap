@@ -60,7 +60,6 @@ if os.environ.get('ENABLE_S3_STORAGE', False) == 'True':
     }
 
 INSTALLED_APPS += (
-    "rest_framework",
     "hotumap",
     'dbbackup',
 )
