@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-
+# Import base settings to get INSTALLED_APPS etc
 from umap.settings.base import *  # pylint: disable=W0614,W0401
 import os
 from django.utils.translation import gettext_lazy as _
@@ -60,7 +60,6 @@ if os.environ.get('ENABLE_S3_STORAGE', False) == 'True':
     }
 
 INSTALLED_APPS += (
-    "rest_framework",
     "hotumap",
     'dbbackup',
 )
