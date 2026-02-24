@@ -5,7 +5,6 @@ description = "A HOT instance for uMap"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "django-dbbackup>=5.0.0",
     "djangorestframework>=3.16.1",
     "gunicorn>=23.0.0",
     "psycopg2-binary>=2.9.10",
