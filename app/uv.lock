@@ -226,18 +226,6 @@ wheels = [
 ]
 
 [[package]]
-name = "django-dbbackup"
-version = "5.0.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "django" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/df/88/3b8fe59075369d828b31b77de931511b2479b7bd21489132a0123ce0656b/django_dbbackup-5.0.0.tar.gz", hash = "sha256:aa9cc88e1413adfec0e547dd91e0afed6dbb91a02459697663a9b988dbc71f18", size = 25046 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/72/de/9d7c894b5bdf9825db8e8f3d89d12851a34e32ce43b94f0b88995a9feb1f/django_dbbackup-5.0.0-py3-none-any.whl", hash = "sha256:a0301b14a4bb3c7243a2fde76d09f8f572f16cd7639f75f4cd42d898fc1b82a2", size = 33110 },
-]
-
-[[package]]
 name = "django-environ"
 version = "0.12.0"
 source = { registry = "https://pypi.org/simple" }
@@ -304,7 +292,6 @@ name = "hotosm-umap"
 version = "0.1.4"
 source = { virtual = "." }
 dependencies = [
-    { name = "django-dbbackup" },
     { name = "djangorestframework" },
     { name = "gunicorn" },
     { name = "psycopg2-binary" },
@@ -315,7 +302,6 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "django-dbbackup", specifier = ">=5.0.0" },
     { name = "djangorestframework", specifier = ">=3.16.1" },
     { name = "gunicorn", specifier = ">=23.0.0" },
     { name = "psycopg2-binary", specifier = ">=2.9.10" },
