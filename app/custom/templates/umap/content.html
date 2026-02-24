@@ -20,13 +20,11 @@
 {% endblock header %}
 {% block content %}
   {% if UMAP_READONLY %}
-    <div class="wrapper demo-instance-warning">
-      <div class="row">
-        <p>
-          {% blocktrans %}This instance of uMap is currently in read only mode, no creation/edit is allowed.{% endblocktrans %}
-        </p>
-      </div>
+  <div class="wrapper hot-maintenance-banner">
+    <div>
+      <p>We are currently working on this site and you may experience some issues. Thank you for your patience.</p>
     </div>
+  </div>
   {% endif %}
   {% if UMAP_DEMO_SITE %}
     <div class="wrapper demo-instance-warning">

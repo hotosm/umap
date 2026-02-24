@@ -30,15 +30,6 @@ RUN uv sync --locked
 # Copy application code
 COPY --chown=appuser:appuser . .
 
-# Download HOTOSM web components from npm
-ARG HANKO_AUTH_VERSION=0.4.7
-RUN curl -fsSL "https://registry.npmjs.org/@hotosm/hanko-auth/-/hanko-auth-${HANKO_AUTH_VERSION}.tgz" | \
-    tar -xzO "package/dist/hanko-auth.esm.js" > /app/custom/static/umap/js/hanko-auth.esm.js
-
-ARG TOOL_MENU_VERSION=0.2.6
-RUN curl -fsSL "https://registry.npmjs.org/@hotosm/tool-menu/-/tool-menu-${TOOL_MENU_VERSION}.tgz" | \
-    tar -xzO "package/dist/tool-menu.esm.js" > /app/custom/static/umap/js/tool-menu.esm.js
-
 EXPOSE 8000
 
 # Healthcheck

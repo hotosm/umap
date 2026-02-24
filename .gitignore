@@ -11,10 +11,6 @@ env.prod
 .env
 env
 
-# Built web components (provided via npm in Dockerfile, volume mount in dev)
-app/custom/static/umap/js/hanko-auth.esm.js
-app/custom/static/umap/js/tool-menu.esm.js
-
 .DS_Store
 
 certbot

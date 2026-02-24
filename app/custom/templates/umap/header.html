@@ -1,8 +1,8 @@
 {% load static %} {% if AUTH_PROVIDER == 'hanko' %}
 <!-- HOTOSM Auth Web Component (@hotosm/hanko-auth) -->
-<script type="module" src="{% static 'umap/js/hanko-auth.esm.js' %}"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@hotosm/hanko-auth@0.4.7/dist/hanko-auth.esm.js"></script>
 {% endif %}
-<!-- HOTOSM Tool Menu Web Component with lit decorators -->
+<!-- HOTOSM Tool Menu Web Component -->
 <script type="importmap">
   {
     "imports": {
@@ -11,7 +11,7 @@
     }
   }
 </script>
-<script type="module" src="{% static 'umap/js/tool-menu.esm.js' %}"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@hotosm/tool-menu@0.2.6/dist/tool-menu.esm.js"></script>
 
 <!-- Matomo -->
 <script>
