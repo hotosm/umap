@@ -8,6 +8,9 @@ env.local
 env.docker
 env.prod
 
+.env
+env
+
 .DS_Store
 
 certbot

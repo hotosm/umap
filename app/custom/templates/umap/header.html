@@ -1,3 +1,18 @@
+{% load static %} {% if AUTH_PROVIDER == 'hanko' %}
+<!-- HOTOSM Auth Web Component (@hotosm/hanko-auth) -->
+<script type="module" src="https://cdn.jsdelivr.net/npm/@hotosm/hanko-auth@0.4.7/dist/hanko-auth.esm.js"></script>
+{% endif %}
+<!-- HOTOSM Tool Menu Web Component -->
+<script type="importmap">
+  {
+    "imports": {
+      "lit": "https://esm.sh/lit@3",
+      "lit/decorators.js": "https://esm.sh/lit@3/decorators"
+    }
+  }
+</script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@hotosm/tool-menu@0.2.6/dist/tool-menu.esm.js"></script>
+
 <!-- Matomo -->
 <script>
   var _paq = window._paq = window._paq || [];
@@ -16,7 +31,7 @@
     /* Track download button clicks */
     if (U && "MAP" in U && "share" in U.MAP && "download") {
       const uMapShareDownload = U.MAP.share.download;
-      U.MAP.share.download = function(...args) { 
+      U.MAP.share.download = function(...args) {
           _paq.push(['trackEvent', 'Download', 'Click', document.title.slice(0,100), 1]);
           return uMapShareDownload.apply(this, args);
       }

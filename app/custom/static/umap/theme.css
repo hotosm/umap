@@ -1,100 +1,134 @@
 /* Override this file for theming uMap easily */
 
-@import url('https://cdn.jsdelivr.net/npm/@hotosm/ui-design@latest/dist/hot.css');
+@import url("https://cdn.jsdelivr.net/npm/@hotosm/ui-design@latest/dist/hot.css");
 @import url("hot-font-face.css");
 
 :root {
-    /* Colors. */
-    --color-waterMint: var(--hot-color-cyan-50);
-    --color-darkBlue: var(--hot-color-blue-700);
-    --color-lightGray: var(--hot-color-gray-50);
-    --color-mediumGray: var(--hot-color-gray-500);
-    --color-darkGray: var(--hot-color-gray-900);
-    --color-light: var(--hot-color-neutral-0);
-    --color-limeGreen: var(--hot-color-cyan-50);
-    --color-brightCyan: var(--hot-color-cyan-100);
-    --color-lightCyan: var(--hot-color-cyan-50);
-    --color-red: var(--hot-color-red-700);
-    --color-darkRed: var(--hot-color-rose-700);
+  /* Colors. */
+  --color-waterMint: var(--hot-color-cyan-50);
+  --color-darkBlue: var(--hot-color-blue-700);
+  --color-lightGray: var(--hot-color-gray-50);
+  --color-mediumGray: var(--hot-color-gray-500);
+  --color-darkGray: var(--hot-color-gray-900);
+  --color-light: var(--hot-color-neutral-0);
+  --color-limeGreen: var(--hot-color-cyan-50);
+  --color-brightCyan: var(--hot-color-cyan-100);
+  --color-lightCyan: var(--hot-color-cyan-50);
+  --color-red: var(--hot-color-red-700);
+  --color-darkRed: var(--hot-color-rose-700);
 
-    --background-color: var(--color-light);
-    --color-accent: var(--color-brightCyan);
-    --text-color: black;
+  --background-color: var(--color-light);
+  --color-accent: var(--color-brightCyan);
+  --text-color: black;
 
-    /* Buttons. */
-    --button-primary-background: var(--color-red);
-    --button-primary-color: var(--color-light);
-    --button-neutral-background: var(--color-lightGray);
-    --button-neutral-color: var(--color-darkGray);
+  /* Buttons. */
+  --button-primary-background: var(--color-red);
+  --button-primary-color: var(--color-light);
+  --button-neutral-background: var(--color-lightGray);
+  --button-neutral-color: var(--color-darkGray);
 }
 
-
 .umap-nav h1 a:not(.button) {
-    background-image: url("./img/logo-hot.svg");
-    color: var(--hot-color-neutral-950);
-    font-family: var(--hot-font-sans-variant);
-    font-weight: 700;
-    font-size: var(--hot-font-size-x-large);
-    padding-inline-start: 70px;
-    padding-top: 0;
+  background-image: url("./img/logo-hot.svg");
+  color: var(--hot-color-neutral-950);
+  font-family: var(--hot-font-sans-variant);
+  font-weight: 700;
+  font-size: var(--hot-font-size-x-large);
+  padding-inline-start: 70px;
+  padding-top: 0;
 }
 
 .umap-nav ul li a:not(.button) {
-    color: var(--hot-color-neutral-950);
-    font-size: var(--hot-font-size-small);
+  color: var(--hot-color-neutral-950);
+  font-size: var(--hot-font-size-small);
 }
 
 .umap-main-edit-toolbox .logo a {
-    background-image: url("./img/logo-hot-grey.svg");
-    background-size: 40px;
+  background-image: url("./img/logo-hot-grey.svg");
+  background-size: 40px;
 }
 
 .button-bar {
-    margin: var(--hot-spacing-2x-large);
-    display: block;
-    font-size: var(--hot-font-size-x-large);
+  margin: var(--hot-spacing-2x-large);
+  display: block;
+  font-size: var(--hot-font-size-x-large);
+}
+.umap-nav ul {
+  display: flex;
+  align-items: center;
+  gap: var(--hot-spacing-medium);
+}
+.umap-nav ul li {
+  line-height: 27px;
 }
 
-.umap-nav a.button, .button-primary, input[type="submit"] {
-    color: var(--color-light);
-    background-color: var(--color-red);
-    margin-inline-end: var(--hot-spacing-large);
+hotosm-tool-menu {
+  text-align: left;
+}
+.umap-nav a.button,
+.button-primary,
+input[type="submit"] {
+  color: var(--color-light);
+  background-color: var(--color-red);
+  margin-inline-start: 0;
+  font-weight: 400;
+  /* margin-inline-end: var(--hot-spacing-large); */
+}
+.umap-nav .button,
+.umap-nav .button:hover {
+  margin-inline-start: 0;
 }
 
-body, div, ul, ol, li, a, section, nav,
-h1, h2, h3, h4, h5, h6, label,
-hr, input, textarea, select, button {
-    font-family: var(--hot-font-sans)
+body,
+div,
+ul,
+ol,
+li,
+a,
+section,
+nav,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+hr,
+input,
+textarea,
+select,
+button {
+  font-family: var(--hot-font-sans);
 }
 
 a {
-    color: var(--color-red);
+  color: var(--color-red);
 }
 
-
 .upload-form {
-    width: 50%;
-    min-width: 375px;
+  width: 50%;
+  min-width: 375px;
 }
 
 .upload-form .text-input {
-    font-size: var(--hot-font-size-large);
+  font-size: var(--hot-font-size-large);
 }
 
 .upload-form .button-primary {
-    font-weight: bold;
-    font-size: var(--hot-font-size-medium);
-    padding-left: var(--hot-spacing-x-large);
-    padding-right: var(--hot-spacing-x-large);
+  font-weight: bold;
+  font-size: var(--hot-font-size-medium);
+  padding-left: var(--hot-spacing-x-large);
+  padding-right: var(--hot-spacing-x-large);
 }
 
 .upload-form input,
 .upload-form select {
-    margin-bottom: var(--hot-spacing-large);
+  margin-bottom: var(--hot-spacing-large);
 }
 
 .upload-form select {
-    border: 2px solid var(--hot-color-neutral-1000);
+  border: 2px solid var(--hot-color-neutral-1000);
 }
 
 .umap-permanent-credits-container {
@@ -105,46 +139,149 @@ a {
 }
 
 .wrapper {
-    padding: var(--hot-spacing-small);
+  padding: var(--hot-spacing-small);
 }
 
 footer {
-    width: 100%;
-    background-color: var(--hot-color-neutral-900);
-    font-size: var(--hot-font-size-small);
+  width: 100%;
+  background-color: var(--hot-color-neutral-900);
+  font-size: var(--hot-font-size-small);
 }
 
-footer a, footer span {
-    color: var(--hot-color-neutral-300)
+footer a,
+footer span {
+  color: var(--hot-color-neutral-300);
 }
 
 footer a.branding {
-    background-image: url("./img/logo-hot-grey.svg");
-    font-size: var(--hot-font-size-x-large);
+  background-image: url("./img/logo-hot-grey.svg");
+  font-size: var(--hot-font-size-x-large);
 }
 
 .umap-popup-content {
-    text-align: center;
+  text-align: center;
 }
 
 .umap-popup-container.text > * {
-    text-align: left;
+  text-align: left;
 }
 
 .umap-popup-content img {
-    border-radius: var(--hot-border-radius-medium);
-    max-height: 486px;
+  border-radius: var(--hot-border-radius-medium);
+  max-height: 486px;
 }
 
 .search-form input[type="submit"] {
-    color: var(--hot-color-neutral-50);
-    background-color: var(--hot-color-neutral-900);
+  color: var(--hot-color-neutral-50);
+  background-color: var(--hot-color-neutral-900);
 }
 
-.grid-container, .pagination {
-    padding-bottom: 150px;
+.grid-container,
+.pagination {
+  padding-bottom: 150px;
 }
 
 .login form input {
-    margin: var(--hot-spacing-medium) 0;
+  margin: var(--hot-spacing-medium) 0;
+}
+hotosm-auth {
+  --login-btn-border-radius: 0;
+  --font-weight: 700;
+  --login-btn-font-weight: 400;
+  --login-btn-bg-color: var(--hot-color-neutral-900);
+}
+
+.hot-maintenance-banner {
+  background-color: var(--hot-color-warning-500, #f59e0b);
+  color: var(--hot-color-neutral-950, #0a0a0a);
+  padding: var(--hot-spacing-small) var(--hot-spacing-medium);
+  text-align: center;
+  font-size: var(--hot-font-size-small);
+  font-weight: var(--hot-font-weight-semibold, 600);
+  margin-top: 0;
+}
+
+.hot-maintenance-banner p {
+  margin: 0;
+}
+
+header.wrapper {
+  padding: 0;
+}
+
+@media only screen and (max-width: 750px) {
+  .nav-hamburger {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+  .nav-links {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    background-color: white;
+    transition:
+      max-height 0.3s ease-out,
+      opacity 0.15s ease-out;
+    margin-top: var(--hot-spacing-small);
+    gap: var(--hot-spacing-small);
+  }
+  .nav-links.open {
+    max-height: 600px;
+    opacity: 1;
+    transition:
+      max-height 0.4s ease-in,
+      opacity 0.2s ease-in;
+    gap: var(--hot-spacing-small);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .hotosm-auth-desktop {
+    display: none !important;
+  }
+  .hotosm-auth-mobile {
+    display: block !important;
+  }
+  .umap-nav {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .umap-nav ul li {
+    align-items: start;
+    min-width: 100%;
+    text-align: start;
+  }
+  .umap-nav ul li a {
+    margin: 0 var(--hot-spacing-medium);
+  }
+  .umap-nav a.button,
+  .button-primary,
+  input[type="submit"],
+  .umap-nav a.button,
+  .button-primary,
+  input[type="submit"]:hover {
+    margin-inline-start: var(--hot-spacing-medium) !important;
+    max-width: fit-content;
+  }
+  .umap-nav li:has(hotosm-tool-menu) {
+    display: none !important;
+  }
+  .hotosm-auth-mobile hotosm-auth {
+    --login-btn-margin: var(--hot-spacing-small) var(--hot-spacing-medium);
+  }
+}
+@media only screen and (min-width: 751px) {
+  .nav-hamburger {
+    display: none;
+  }
+  .hotosm-auth-mobile {
+    display: none !important;
+  }
 }
