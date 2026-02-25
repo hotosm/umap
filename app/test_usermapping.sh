@@ -2,16 +2,42 @@
 # uMap User Mapping Test Script
 # Tests authentication status and user mapping in uMap
 #
-# Requirements: Requires both umap.hotosm.test and login.hotosm.test running locally
-# (hot-dev-env). A valid JWT token from login.hotosm.test is needed for authenticated tests.
+# Usage: ./test_usermapping.sh [local|test|prod]
+#   local  - https://umap.hotosm.test (requires hot-dev-env running locally)
+#   test   - https://testlogin.umap.hotosm.org
+#   prod   - https://umap-dev.hotosm.org
+#
+# A valid JWT token from the login service is needed for authenticated tests.
 
 set -e
 
-UMAP_URL="https://umap.hotosm.test"
-LOGIN_URL="https://login.hotosm.test/app"
+ENV="${1:-local}"
+
+case "$ENV" in
+  local)
+    UMAP_URL="https://umap.hotosm.test"
+    LOGIN_URL="https://login.hotosm.test/app"
+    ;;
+  test)
+    UMAP_URL="https://testlogin.umap.hotosm.org"
+    LOGIN_URL="https://dev.login.hotosm.org/app"
+    ;;
+  prod)
+    UMAP_URL="https://umap-dev.hotosm.org"
+    LOGIN_URL="https://login.hotosm.org/app"
+    ;;
+  *)
+    echo "Unknown environment: $ENV"
+    echo "Usage: $0 [local|test|prod]"
+    exit 1
+    ;;
+esac
 
 echo "uMap User Mapping Test Script"
 echo "=================================="
+echo "Environment : $ENV"
+echo "uMap URL    : $UMAP_URL"
+echo "Login URL   : $LOGIN_URL"
 echo ""
 
 # Color codes
@@ -68,8 +94,8 @@ else
 fi
 echo ""
 
-# 5. Ask for JWT token (requires login.hotosm.test running)
-echo -e "${YELLOW}To complete the test you need a JWT token from login.hotosm.test:${NC}"
+# 5. Ask for JWT token
+echo -e "${YELLOW}To complete the test you need a JWT token from $LOGIN_URL:${NC}"
 echo ""
 echo "  1. Open: $LOGIN_URL"
 echo "  2. Create an account or log in"
