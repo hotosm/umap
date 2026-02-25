@@ -58,7 +58,7 @@ services:
       - COOKIE_SECURE=${COOKIE_SECURE:-true}
       - ADMIN_EMAILS=${ADMIN_EMAILS:-}
     volumes:
-      - ./data:/app/umap/var/data
+      - ./data:/app/data
       - static_volume:/app/static
       - icons_volume:/app/custom/icons
       - umap_data_volume:/app/data
