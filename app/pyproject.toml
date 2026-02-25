@@ -1,6 +1,6 @@
 [project]
 name = "hotosm-umap"
-version = "0.1.4"
+version = "0.1.5"
 description = "A HOT instance for uMap"
 readme = "README.md"
 requires-python = ">=3.13"
