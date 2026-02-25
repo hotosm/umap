@@ -7,7 +7,7 @@
   </section>
   
   <section>
-    <button class="nav-hamburger" aria-label="Menu" onclick="this.closest('nav').querySelector('.nav-links').classList.toggle('open'); this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') !== 'true'); this.textContent = this.getAttribute('aria-expanded') === 'true' ? 'X' : 'Menu'" aria-expanded="false">Menu</button>
+    <button class="nav-hamburger" aria-label="Menu" onclick="this.closest('nav').querySelector('.nav-links').classList.toggle('open'); this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') !== 'true'); this.textContent = this.getAttribute('aria-expanded') === 'true' ? '✕' : '☰'" aria-expanded="false">☰</button>
     <ul class="nav-links">
       {% if AUTH_PROVIDER != 'hanko' %}
         {% if user.is_authenticated %}<li><a href="{% url 'user_dashboard' %}">{% trans "My Dashboard" %} ({{ user }})</a></li><li><a href="{{ user.get_stars_url }}">{% trans "Starred maps" %}</a></li>{% else %}<li><a href="{% url 'login' %}" class="login">{% trans "Log in" %} / {% trans "Sign in" %}</a></li>{% endif %}
