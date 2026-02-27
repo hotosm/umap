@@ -168,7 +168,7 @@ class OnboardingCallback(View):
                 from urllib.parse import urlencode
                 login_url = getattr(settings, 'HANKO_PUBLIC_URL', '') or getattr(settings, 'HANKO_API_URL', 'https://login.hotosm.org')
                 site_url = getattr(settings, 'SITE_URL', '/')
-                error_msg = f"No existing account found for OSM user '{osm_username}' (osm_id={osm_id}). Please select 'No, I'm new' to create a new account."
+                error_msg = f"No existing account found for your OSM user. Please select 'No, I'm new' to create a new account."
                 params = urlencode({
                     'onboarding': 'umap',
                     'return_to': site_url,
