@@ -217,6 +217,7 @@ header.wrapper {
     font-size: 2rem;
     cursor: pointer;
     padding: 0.5rem;
+    color: var(--color-darkGray);
   }
   .nav-links {
     max-height: 0;
