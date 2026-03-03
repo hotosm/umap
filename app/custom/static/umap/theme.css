@@ -286,3 +286,8 @@ header.wrapper {
     display: none !important;
   }
 }
+/* avoid jump on load */
+.hotosm-auth-desktop,
+.tool-menu-container {
+  min-width: 44px;
+}
