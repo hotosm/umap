@@ -28,7 +28,22 @@
           <li><a href="{% url 'logout' %}" class="logout">{% trans "Log out" %}</a></li>
         {% endif %}
       {% endif %}
-      <li><hotosm-tool-menu lang="{{ CURRENT_LANG }}"></hotosm-tool-menu></li>
+      <li class="tool-menu-container"><hotosm-tool-menu lang="{{ CURRENT_LANG }}"></hotosm-tool-menu></li>
     </ul>
   </section>
 </nav>
+
+{% if AUTH_PROVIDER == 'hanko' %}
+<script>
+  customElements.whenDefined('hotosm-auth').then(() => {
+    document.querySelectorAll('hotosm-auth').forEach(auth => {
+      auth.addEventListener('hanko-login', (e) => {
+        localStorage.setItem('hotosm-auth-user', JSON.stringify(e.detail.user));
+      });
+      auth.addEventListener('logout', () => {
+        localStorage.removeItem('hotosm-auth-user');
+      });
+    });
+  });
+</script>
+{% endif %}
