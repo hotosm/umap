@@ -120,6 +120,15 @@ class OnboardingCallback(View):
         is_new_user = request.GET.get('new_user') == 'true'
 
         if is_new_user:
+            from hotosm_auth_django import get_mapped_user_id
+
+            # If mapping already exists (e.g. user hit this URL twice), skip creation
+            existing_mapped_id = get_mapped_user_id(hanko_user, app_name="umap")
+            if existing_mapped_id:
+                logger.info(f"Mapping already exists for hanko_id={hanko_user.id}, redirecting")
+                site_url = getattr(settings, 'SITE_URL', '/')
+                return HttpResponseRedirect(site_url)
+
             # New user - create Django user with email as username base
             username = hanko_user.email.split('@')[0]
 
@@ -174,6 +183,7 @@ class OnboardingCallback(View):
                     'return_to': site_url,
                     'error': error_msg,
                 })
+                
                 return HttpResponseRedirect(f"{login_url}/app?{params}")
 
             # True legacy user - create mapping
