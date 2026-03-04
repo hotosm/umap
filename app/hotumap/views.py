@@ -122,23 +122,52 @@ class OnboardingCallback(View):
         if is_new_user:
             from hotosm_auth_django import get_mapped_user_id
 
-            # If mapping already exists (e.g. user hit this URL twice), skip creation
+            # If mapping already exists AND the Django user still exists, skip creation
             existing_mapped_id = get_mapped_user_id(hanko_user, app_name="umap")
             if existing_mapped_id:
-                logger.info(f"Mapping already exists for hanko_id={hanko_user.id}, redirecting")
-                site_url = getattr(settings, 'SITE_URL', '/')
-                return HttpResponseRedirect(site_url)
+                from django.contrib.auth.models import User as DjangoUser
+                try:
+                    DjangoUser.objects.get(id=int(existing_mapped_id))
+                    logger.info(f"Valid mapping already exists for hanko_id={hanko_user.id}, redirecting")
+                    site_url = getattr(settings, 'SITE_URL', '/')
+                    return HttpResponseRedirect(site_url)
+                except (DjangoUser.DoesNotExist, ValueError):
+                    # Stale mapping: user was deleted and re-created. Fall through to create
+                    # a new Django user; create_user_mapping will update the stale mapping.
+                    logger.info(
+                        f"Stale mapping for hanko_id={hanko_user.id} "
+                        f"(app_user_id={existing_mapped_id} not found), re-creating"
+                    )
 
-            # New user - create Django user with email as username base
+            # If they have an OSM connection, check for an existing Django user with
+            # that OSM ID (e.g. user connected OSM in a prior step but has no legacy
+            # uMap account — avoid creating a duplicate account).
+            osm_connection = request.hotosm.osm
+            if osm_connection and osm_connection.osm_user_id:
+                existing_by_osm = find_legacy_user_by_osm_id(osm_connection.osm_user_id)
+                if existing_by_osm:
+                    # Existing account found via OSM — link it instead of creating a new one
+                    create_user_mapping(
+                        hanko_user_id=hanko_user.id,
+                        app_user_id=str(existing_by_osm.id),
+                        app_name="umap",
+                    )
+                    logger.info(
+                        f"OSM user linked (found via new_user path): "
+                        f"hanko_id={hanko_user.id}, osm_id={osm_connection.osm_user_id}, "
+                        f"django_user_id={existing_by_osm.id}"
+                    )
+                    site_url = getattr(settings, 'SITE_URL', '/')
+                    return HttpResponseRedirect(site_url)
+
+            # Truly new user - create Django user with email as username base
             username = hanko_user.email.split('@')[0]
 
-            # Create User
             user = create_umap_user(
                 username=username,
                 email=hanko_user.email,
             )
 
-            # Create mapping
             create_user_mapping(
                 hanko_user_id=hanko_user.id,
                 app_user_id=str(user.id),
@@ -147,7 +176,6 @@ class OnboardingCallback(View):
 
             logger.info(f"New user created: hanko_id={hanko_user.id}, django_user_id={user.id}")
 
-            # Redirect to uMap homepage
             site_url = getattr(settings, 'SITE_URL', '/')
             return HttpResponseRedirect(site_url)
 
