@@ -59,10 +59,7 @@ def find_legacy_user_by_email(email: str) -> Optional[User]:
     """
     if not email:
         return None
-    try:
-        return User.objects.get(email=email)
-    except User.DoesNotExist:
-        return None
+    return User.objects.filter(email=email).order_by('id').first()
 
 
 def handle_legacy_recovery(osm_data: dict) -> Tuple[Optional[User], int]:
