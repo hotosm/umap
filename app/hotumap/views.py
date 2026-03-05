@@ -6,6 +6,7 @@ These views handle both OSM OAuth (legacy) and Hanko authentication flows.
 
 import logging
 from django.conf import settings
+from django.db import IntegrityError
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
@@ -168,11 +169,15 @@ class OnboardingCallback(View):
                 email=hanko_user.email,
             )
 
-            create_user_mapping(
-                hanko_user_id=hanko_user.id,
-                app_user_id=str(user.id),
-                app_name="umap",
-            )
+            try:
+                create_user_mapping(
+                    hanko_user_id=hanko_user.id,
+                    app_user_id=str(user.id),
+                    app_name="umap",
+                )
+            except IntegrityError:
+                # Race condition or duplicate call — mapping already exists, that's fine
+                logger.warning(f"Mapping already existed on insert for hanko_id={hanko_user.id}, ignoring")
 
             logger.info(f"New user created: hanko_id={hanko_user.id}, django_user_id={user.id}")
 
@@ -215,11 +220,14 @@ class OnboardingCallback(View):
                 return HttpResponseRedirect(f"{login_url}/app?{params}")
 
             # True legacy user - create mapping
-            create_user_mapping(
-                hanko_user_id=hanko_user.id,
-                app_user_id=str(existing_user.id),
-                app_name="umap",
-            )
+            try:
+                create_user_mapping(
+                    hanko_user_id=hanko_user.id,
+                    app_user_id=str(existing_user.id),
+                    app_name="umap",
+                )
+            except IntegrityError:
+                logger.warning(f"Mapping already existed on insert for hanko_id={hanko_user.id}, ignoring")
 
             logger.info(f"Legacy user mapped: hanko_id={hanko_user.id}, django_user_id={existing_user.id}")
 
