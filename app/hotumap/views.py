@@ -189,13 +189,12 @@ class OnboardingCallback(View):
             osm_connection = request.hotosm.osm
 
             if not osm_connection:
-                return JsonResponse(
-                    {"error": "OSM connection required for legacy users"},
-                    status=400
-                )
+                # No OSM cookie yet — send user through OSM OAuth so we can
+                # get their OSM ID.  After OAuth, osm_callback redirects back
+                # here (it uses HTTP_REFERER, which the browser sets to this URL).
+                return HttpResponseRedirect('/api/v1/auth/osm/login/')
 
             osm_id = osm_connection.osm_user_id
-            osm_username = osm_connection.osm_username
 
             # Check if User already exists (true legacy)
             # Priority: 1) OSM ID (via social_auth), 2) Email (Hanko email)
