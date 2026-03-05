@@ -24,7 +24,6 @@ from .hanko_helpers import (
 
 logger = logging.getLogger(__name__)
 
-
 # ==========================================
 # OSM Legacy Authentication (Compatibility)
 # ==========================================
