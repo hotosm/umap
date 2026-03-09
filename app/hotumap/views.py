@@ -6,6 +6,7 @@ These views handle both OSM OAuth (legacy) and Hanko authentication flows.
 
 import logging
 from django.conf import settings
+from django.db import connection
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
@@ -23,6 +24,25 @@ from .hanko_helpers import (
 
 logger = logging.getLogger(__name__)
 
+
+def _upsert_user_mapping(hanko_user_id: str, app_user_id: str, app_name: str = "umap") -> None:
+    """Insert or update a hanko→django user mapping.
+
+    Uses ON CONFLICT DO UPDATE so that stale mappings (pointing to deleted
+    Django users) are corrected automatically, and duplicate calls are safe.
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """
+            INSERT INTO hanko_user_mappings (hanko_user_id, app_user_id, app_name, created_at)
+            VALUES (%s, %s, %s, NOW())
+            ON CONFLICT (hanko_user_id) DO UPDATE
+                SET app_user_id = EXCLUDED.app_user_id,
+                    updated_at  = NOW()
+            """,
+            [hanko_user_id, app_user_id, app_name],
+        )
+    logger.info(f"Upserted mapping: {hanko_user_id} -> {app_user_id} ({app_name})")
 
 # ==========================================
 # OSM Legacy Authentication (Compatibility)
@@ -100,8 +120,6 @@ class OnboardingCallback(View):
     """
 
     def get(self, request):
-        from hotosm_auth_django import create_user_mapping
-
         # Only for Hanko auth
         if getattr(settings, 'AUTH_PROVIDER', 'legacy') != 'hanko':
             return JsonResponse(
@@ -147,11 +165,7 @@ class OnboardingCallback(View):
                 existing_by_osm = find_legacy_user_by_osm_id(osm_connection.osm_user_id)
                 if existing_by_osm:
                     # Existing account found via OSM — link it instead of creating a new one
-                    create_user_mapping(
-                        hanko_user_id=hanko_user.id,
-                        app_user_id=str(existing_by_osm.id),
-                        app_name="umap",
-                    )
+                    _upsert_user_mapping(hanko_user.id, str(existing_by_osm.id))
                     logger.info(
                         f"OSM user linked (found via new_user path): "
                         f"hanko_id={hanko_user.id}, osm_id={osm_connection.osm_user_id}, "
@@ -168,12 +182,7 @@ class OnboardingCallback(View):
                 email=hanko_user.email,
             )
 
-            create_user_mapping(
-                hanko_user_id=hanko_user.id,
-                app_user_id=str(user.id),
-                app_name="umap",
-            )
-
+            _upsert_user_mapping(hanko_user.id, str(user.id))
             logger.info(f"New user created: hanko_id={hanko_user.id}, django_user_id={user.id}")
 
             site_url = getattr(settings, 'SITE_URL', '/')
@@ -214,12 +223,7 @@ class OnboardingCallback(View):
                 return HttpResponseRedirect(f"{login_url}/app?{params}")
 
             # True legacy user - create mapping
-            create_user_mapping(
-                hanko_user_id=hanko_user.id,
-                app_user_id=str(existing_user.id),
-                app_name="umap",
-            )
-
+            _upsert_user_mapping(hanko_user.id, str(existing_user.id))
             logger.info(f"Legacy user mapped: hanko_id={hanko_user.id}, django_user_id={existing_user.id}")
 
             # Redirect to uMap homepage
