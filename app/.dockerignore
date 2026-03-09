@@ -3,3 +3,28 @@
 **/*.pyc
 **/__pypackages__
 **/__pycache__
+
+# Python
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.coverage
+
+# Development
+.vscode/
+.idea/
+*.md
+LICENSE*
+
+# Data (persistent, not needed in image)
+data/
+backups/
+
+# Misc
+.DS_Store
+*.log
+tmp/

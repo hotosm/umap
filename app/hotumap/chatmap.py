@@ -9,6 +9,7 @@ from .serializers import FileUploadSerializer
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from rest_framework.permissions import IsAuthenticated
+from .decorators import hanko_or_login_required
 from umap.models import Map, DataLayer, get_default_licence, set_storage
 from django.contrib.gis.geos import Point
 from django.utils import timezone
@@ -18,7 +19,7 @@ from django.http import FileResponse, Http404
 from settings import SITE_URL
 
 # Upload form
-@login_required
+@hanko_or_login_required
 def upload_view(request):
     # Get ChatMap templates list
     # they must contain 'chatmap' in the name

@@ -1,11 +1,24 @@
 # -*- coding:utf-8 -*-
-
+# Import base settings to get INSTALLED_APPS etc
 from umap.settings.base import *  # pylint: disable=W0614,W0401
 import os
 from django.utils.translation import gettext_lazy as _
 
 # Application definition
 ROOT_URLCONF = 'urls'
+
+# AUTH_PROVIDER Configuration
+AUTH_PROVIDER = os.environ.get('AUTH_PROVIDER', 'legacy')
+
+# Hanko SSO Configuration
+if AUTH_PROVIDER == 'hanko':
+    # HANKO_API_URL is used by backend middleware for JWT validation (internal URL preferred)
+    HANKO_API_URL = os.environ.get('HANKO_API_URL')
+    # HANKO_PUBLIC_URL is used by frontend web component (public URL)
+    HANKO_PUBLIC_URL = os.environ.get('HANKO_PUBLIC_URL', HANKO_API_URL)
+    COOKIE_SECRET = os.environ.get('COOKIE_SECRET')
+    COOKIE_DOMAIN = os.environ.get('COOKIE_DOMAIN', None)
+    COOKIE_SECURE = os.environ.get('COOKIE_SECURE', 'False').lower() == 'true'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-+q304+%(8^1#r49+0dbj584!k2n#wuc-a5^yx()jlf)quv+chu')
@@ -51,6 +64,14 @@ if not "hotumap" in INSTALLED_APPS:
 if not "rest_framework" in INSTALLED_APPS:
     INSTALLED_APPS.append("rest_framework")
 
+if AUTH_PROVIDER == 'hanko' and not "hotosm_auth_django" in INSTALLED_APPS:
+    INSTALLED_APPS.append("hotosm_auth_django")
+
+# Add custom context processor for auth settings in templates
+TEMPLATES[0]['OPTIONS']['context_processors'] = list(TEMPLATES[0]['OPTIONS']['context_processors']) + [
+    'hotumap.context_processors.auth_settings',
+]
+
 LANGUAGE_CODE = "en"
 
 # Set to False if login into django account should not be possible. You can
@@ -66,6 +87,15 @@ SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_KEY=os.environ.get('UMAP_OSM_KEY')
 SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_SECRET=os.environ.get('UMAP_OSM_SECRET')
 
 MIDDLEWARE += ("social_django.middleware.SocialAuthExceptionMiddleware",)
+
+if AUTH_PROVIDER == 'hanko':
+    MIDDLEWARE = list(MIDDLEWARE)
+    auth_middleware_index = MIDDLEWARE.index("django.contrib.auth.middleware.AuthenticationMiddleware")
+    MIDDLEWARE.insert(auth_middleware_index, "hotosm_auth_django.HankoAuthMiddleware")
+    # Add our custom middleware AFTER AuthenticationMiddleware to set request.user
+    # This makes @login_required and is_authenticated work with Hanko
+    MIDDLEWARE.append("hotumap.middleware.HankoUserMiddleware")
+    MIDDLEWARE = tuple(MIDDLEWARE)
 
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = os.getenv('UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS', 'False').lower() == 'true'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
