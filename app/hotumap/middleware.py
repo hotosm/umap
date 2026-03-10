@@ -8,7 +8,7 @@ authentication checks (like @login_required) work with Hanko auth.
 
 import logging
 from django.conf import settings
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, logout
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -36,6 +36,11 @@ class HankoUserMiddleware:
             self._authenticate_hanko_user(request)
 
         response = self.get_response(request)
+
+        # If Hanko is enabled but no Hanko session, clear stale Django cookies
+        if getattr(settings, 'AUTH_PROVIDER', 'legacy') == 'hanko':
+            self._clear_session_if_no_hanko(request, response)
+
         return response
 
     def _authenticate_hanko_user(self, request):
@@ -86,6 +91,38 @@ class HankoUserMiddleware:
             logger.error(f"hotosm_auth_django not available: {e}")
         except Exception as e:
             logger.error(f"Error in HankoUserMiddleware: {e}")
+
+    def _clear_session_if_no_hanko(self, request, response):
+        """Clear Django session cookies if no Hanko authentication is present.
+
+        When the Hanko cookie is missing or invalid, any existing Django session
+        is stale (the user logged out from Hanko but the Django session persists).
+        We log them out server-side and delete the session cookie from the response.
+        """
+        has_hanko = hasattr(request, 'hotosm') and request.hotosm.user
+        if has_hanko:
+            return
+
+        session_cookie_name = getattr(settings, 'SESSION_COOKIE_NAME', 'sessionid')
+        if session_cookie_name not in request.COOKIES:
+            return
+
+        # Flush session data server-side
+        if hasattr(request, 'user') and request.user.is_authenticated:
+            logger.info(f"No Hanko cookie — clearing stale Django session for user {request.user.id}")
+            logout(request)
+
+        # Delete session cookie from the response
+        response.delete_cookie(
+            session_cookie_name,
+            path=getattr(settings, 'SESSION_COOKIE_PATH', '/'),
+            domain=getattr(settings, 'SESSION_COOKIE_DOMAIN', None),
+            samesite=getattr(settings, 'SESSION_COOKIE_SAMESITE', 'Lax'),
+        )
+
+        # Also delete messages cookie if present
+        if 'messages' in request.COOKIES:
+            response.delete_cookie('messages', path='/')
 
     def _sync_hanko_user_data(self, django_user, hanko_user):
         """Sync email and username from Hanko user to the mapped Django user.
