@@ -83,10 +83,10 @@ docker exec -ti hotumap uv run python manage.py createsuperuser
 |✅| Template selection for ChatMap imports
 |✅| [Support audio for ChatMap imports](https://github.com/hotosm/umap/issues/6)
 |✅| Advanced integration with ChatMap (live stream of data) |
-|⚙️| Add shared HOT accounts |
+|✅| Add shared HOT accounts |
+|✅| Add access to all HOT products from header |
 | | [Create visualizations from multiple maps](https://github.com/hotosm/umap/issues/11)
 | | [Create isochrone visualization map](https://github.com/hotosm/umap/issues/10)
-| | Add access to all HOT products from header |
 | | Basic integration with OpenAerialMap (get available background imagery for the map's area) |
 | | Basic integration with DroneTM (get available background imagery from project id) |
 | | Basic integration with Tasking Manager (get project AOI/status by id) |
