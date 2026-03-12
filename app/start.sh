@@ -7,15 +7,6 @@ echo "Waiting for database to be ready..."
 
 # collect static files
 uv run python manage.py collectstatic --noinput
-
-# Patch upstream JS files after collectstatic
-# Downgrade noisy Duplicate id errors to debug level (managers.js)
-find /app/static/umap/js/modules -name "managers*.js" -exec \
-  sed -i -E "s/console\.error\('Duplicate id'[^)]*\);//g" {} \;
-# Fix deprecated L.Mixin.Events in iconLayers vendor
-sed -i \
-  "s/includes: L\.Mixin\.Events,/includes: ((typeof L.Evented !== 'undefined' \&\& L.Evented.prototype) || L.Mixin.Events),/g" \
-  /app/static/umap/vendors/iconlayers/iconLayers.js || true
 # ensure social_django migrations are set
 uv run python manage.py migrate social_django
 # then run other migrations
