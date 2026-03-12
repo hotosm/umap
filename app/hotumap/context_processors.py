@@ -5,7 +5,6 @@ Exposes authentication settings and Hanko user info to templates.
 """
 
 from django.conf import settings
-from django.contrib.auth.models import User
 
 def auth_settings(request):
     """Add authentication settings and Hanko user to template context.
@@ -19,7 +18,7 @@ def auth_settings(request):
 
     return {
         'AUTH_PROVIDER': getattr(settings, 'AUTH_PROVIDER', 'legacy'),
-        'HANKO_PUBLIC_URL': hanko_public_url,  # Explicit public URL for web component
+        'HANKO_PUBLIC_URL': hanko_public_url,
         'SITE_URL': getattr(settings, 'SITE_URL', '/'),
         'COOKIE_DOMAIN': getattr(settings, 'COOKIE_DOMAIN', ''),
     }
