@@ -118,7 +118,7 @@ def user_dashboard(request):
 
     # Get user's maps (empty if no mapping yet)
     if user:
-        qs = Map.objects.filter(owner=user, is_template=False)
+        qs = Map.private.for_user(user).filter(is_template=False)
         q = request.GET.get("q")
         if q:
             qs = qs.filter(name__icontains=q)
