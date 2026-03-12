@@ -61,29 +61,6 @@ def find_legacy_user_by_email(email: str) -> Optional[User]:
     return User.objects.filter(email=email).order_by('id').first()
 
 
-def handle_legacy_recovery(osm_data: dict) -> Tuple[Optional[User], int]:
-    """Handle legacy user recovery after OSM connect.
-
-    Called when user said "Yes, I had an account" and connected OSM.
-    Checks if the OSM ID from OAuth exists in social_auth.
-
-    Args:
-        osm_data: OSM OAuth response containing 'id', 'username', 'display_name'
-
-    Returns:
-        Tuple of (existing_user, osm_id):
-        - If existing_user is not None: Legacy user found, create mapping
-        - If existing_user is None: No legacy user, need to create new account
-    """
-    osm_id = osm_data.get("id")
-    existing_user = find_legacy_user_by_osm_id(osm_id) if osm_id else None
-
-    if existing_user:
-        logger.info(f"Legacy user found: osm_id={osm_id}, django_user_id={existing_user.id}")
-    else:
-        logger.info(f"No legacy user found for osm_id={osm_id}")
-
-    return existing_user, osm_id
 
 
 def create_umap_user(
