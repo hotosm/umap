@@ -16,7 +16,6 @@ from django.contrib.auth.models import User
 
 logger = logging.getLogger(__name__)
 
-
 def find_legacy_user_by_osm_id(osm_id: int) -> Optional[User]:
     """Find existing user by OSM ID via social_auth.
 

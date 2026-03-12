@@ -67,10 +67,10 @@ if not "rest_framework" in INSTALLED_APPS:
 if AUTH_PROVIDER == 'hanko' and not "hotosm_auth_django" in INSTALLED_APPS:
     INSTALLED_APPS.append("hotosm_auth_django")
 
-# Add custom context processor for auth settings in templates
-TEMPLATES[0]['OPTIONS']['context_processors'] = list(TEMPLATES[0]['OPTIONS']['context_processors']) + [
-    'hotumap.context_processors.auth_settings',
-]
+    # Add custom context processor for auth settings in templates
+    TEMPLATES[0]['OPTIONS']['context_processors'] = list(TEMPLATES[0]['OPTIONS']['context_processors']) + [
+        'hotumap.context_processors.auth_settings',
+    ]
 
 LANGUAGE_CODE = "en"
 
@@ -83,9 +83,6 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
 )
 
-SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_KEY=os.environ.get('UMAP_OSM_KEY')
-SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_SECRET=os.environ.get('UMAP_OSM_SECRET')
-
 MIDDLEWARE += ("social_django.middleware.SocialAuthExceptionMiddleware",)
 
 if AUTH_PROVIDER == 'hanko':
@@ -94,12 +91,14 @@ if AUTH_PROVIDER == 'hanko':
     MIDDLEWARE.insert(auth_middleware_index, "hotosm_auth_django.HankoAuthMiddleware")
     # Add our custom middleware AFTER AuthenticationMiddleware to set request.user
     # This makes @login_required and is_authenticated work with Hanko
-    MIDDLEWARE.append("hotumap.middleware.HankoUserMiddleware")
+    MIDDLEWARE.append("hotumap.hanko_middleware.HankoUserMiddleware")
     MIDDLEWARE = tuple(MIDDLEWARE)
-
-SOCIAL_AUTH_REDIRECT_IS_HTTPS = os.getenv('UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS', 'False').lower() == 'true'
-SOCIAL_AUTH_RAISE_EXCEPTIONS = False
-SOCIAL_AUTH_BACKEND_ERROR_URL = "/"
+else:
+    SOCIAL_AUTH_REDIRECT_IS_HTTPS = os.getenv('UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS', 'False').lower() == 'true'
+    SOCIAL_AUTH_RAISE_EXCEPTIONS = False
+    SOCIAL_AUTH_BACKEND_ERROR_URL = "/"
+    SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_KEY=os.environ.get('UMAP_OSM_KEY')
+    SOCIAL_AUTH_OPENSTREETMAP_OAUTH2_SECRET=os.environ.get('UMAP_OSM_SECRET')
 
 SITE_URL = os.environ.get('UMAP_SITE_URL', "http://127.0.0.1:8001")
 
