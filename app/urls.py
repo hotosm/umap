@@ -1,6 +1,6 @@
 # This file extends uMap app with new URLs for custom features
 
-from hotumap import chatmap, api
+from hotumap import chatmap, api, hanko_views
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
@@ -23,7 +23,6 @@ urlpatterns = [
 
 # Add admin mapping patterns if Hanko is enabled
 if getattr(settings, 'AUTH_PROVIDER', 'legacy') == 'hanko':
-    from hotumap import dashboard_views
     from hotumap.admin_routes_wrapper import create_json_admin_urlpatterns
 
     # Auth-libs admin routes for hanko_user_mappings (used by Login admin panel)
@@ -39,11 +38,7 @@ if getattr(settings, 'AUTH_PROVIDER', 'legacy') == 'hanko':
     # Override user views with Hanko-aware versions using i18n_patterns.
     # This automatically handles all languages configured in Django (same mechanism umap uses).
     urlpatterns += i18n_patterns(
-        path('login/', dashboard_views.HankoAwareLoginView.as_view(), name='login'),
-        path('me', dashboard_views.user_dashboard, name='user_dashboard'),
-        path('me/teams', dashboard_views.user_teams, name='user_teams'),
-        path('me/templates', dashboard_views.user_templates, name='user_templates'),
-        path('me/profile', dashboard_views.user_profile, name='user_profile'),
+        path('login/', hanko_views.login_view, name='login'),
     )
 
 urlpatterns += urls.urlpatterns

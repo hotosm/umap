@@ -32,14 +32,12 @@ class HankoUserMiddleware:
 
     def __call__(self, request):
         # Only process if Hanko auth is enabled
-        if getattr(settings, 'AUTH_PROVIDER', 'legacy') == 'hanko':
-            self._authenticate_hanko_user(request)
+        self._authenticate_hanko_user(request)
 
         response = self.get_response(request)
 
         # If Hanko is enabled but no Hanko session, clear stale Django cookies
-        if getattr(settings, 'AUTH_PROVIDER', 'legacy') == 'hanko':
-            self._clear_session_if_no_hanko(request, response)
+        self._clear_session_if_no_hanko(request, response)
 
         return response
 
