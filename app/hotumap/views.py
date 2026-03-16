@@ -270,16 +270,25 @@ class AuthStatus(APIView):
         if mapped_user_id is not None:
             # Has mapping - fully authenticated
             try:
+                from social_django.models import UserSocialAuth
+                from hotumap.hanko_helpers import is_real_osm_user
                 django_user_id = int(mapped_user_id)
                 user = User.objects.get(id=django_user_id)
+                try:
+                    social_auth = UserSocialAuth.objects.get(
+                        user=user, provider='openstreetmap-oauth2'
+                    )
+                    osm_id = int(social_auth.uid)
+                except UserSocialAuth.DoesNotExist:
+                    osm_id = 0
                 return Response({
                     "auth_provider": "hanko",
                     "authenticated": True,
                     "needs_onboarding": False,
                     "user": {
-                        "id": user.id,
+                        "osm_id": osm_id,
                         "username": user.username,
-                        "email": user.email,
+                        "is_real_osm": is_real_osm_user(osm_id),
                     },
                     "hanko_user": {
                         "id": hanko_user.id,
