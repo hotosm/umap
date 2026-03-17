@@ -288,6 +288,9 @@ class AuthStatus(APIView):
                     "user": {
                         "osm_id": osm_id,
                         "username": user.username,
+                        # is_real_osm: True if the user has a real OSM account
+                        # (positive osm_id from OSM OAuth); False for Hanko-only
+                        # users whose osm_id is a synthetic placeholder equal to zero.
                         "is_real_osm": is_real_osm_user(osm_id),
                     },
                     "hanko_user": {

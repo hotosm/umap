@@ -18,7 +18,13 @@ logger = logging.getLogger(__name__)
 
 
 def generate_synthetic_osm_id(hanko_id: str) -> int:
-    """Generate a negative osm_id for users without OSM account."""
+    """Generates an `osm_id` of zero for users without an OSM account.
+
+    The uMap data model stores an integer `osm_id` for each user. 
+    When a user authenticates using Hanko but has never connected an OpenStreetMap account, there is no OSM ID available. 
+    Instead of leaving the field empty (which would cause errors in queries expecting an integer), we zero out the Hanko user ID as a placeholder. 
+    The zero value is used to avoid conflicts with actual OSM IDs, which are always positive.
+    """
     synthetic_id = -(abs(hash(hanko_id)) % 10**9)
     return synthetic_id if synthetic_id != 0 else -1
 
