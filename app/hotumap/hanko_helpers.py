@@ -16,6 +16,24 @@ from django.contrib.auth.models import User
 
 logger = logging.getLogger(__name__)
 
+
+def generate_synthetic_osm_id(hanko_id: str) -> int:
+    """Generates an `osm_id` of zero for users without an OSM account.
+
+    The uMap data model stores an integer `osm_id` for each user. 
+    When a user authenticates using Hanko but has never connected an OpenStreetMap account, there is no OSM ID available. 
+    Instead of leaving the field empty (which would cause errors in queries expecting an integer), we zero out the Hanko user ID as a placeholder. 
+    The zero value is used to avoid conflicts with actual OSM IDs, which are always positive.
+    """
+    synthetic_id = -(abs(hash(hanko_id)) % 10**9)
+    return synthetic_id if synthetic_id != 0 else -1
+
+
+def is_real_osm_user(osm_id: int) -> bool:
+    """Real OSM IDs are positive, synthetic ones are negative."""
+    return osm_id > 0
+
+
 def find_legacy_user_by_osm_id(osm_id: int) -> Optional[User]:
     """Find existing user by OSM ID via social_auth.
 
