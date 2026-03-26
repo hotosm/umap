@@ -231,6 +231,44 @@ class OnboardingCallback(View):
             return HttpResponseRedirect(site_url)
 
 
+
+
+class MapList(APIView):
+    """Return the authenticated user's maps as JSON.
+
+    Query params:
+    - source=mine: user's own maps (requires authentication)
+
+    GET /api/v1/maps/?source=mine
+    """
+    renderer_classes = [JSONRenderer]
+
+    def get(self, request):
+        from umap.models import Map
+
+        if not request.user.is_authenticated:
+            return Response({"error": "Authentication required"}, status=401)
+
+        source = request.GET.get("source", "mine")
+        if source == "mine":
+            qs = Map.private.filter(is_template=False).for_user(request.user)
+        else:
+            qs = Map.public.filter(is_template=False)
+
+        maps = [
+            {
+                "id": m.id,
+                "name": m.name,
+                "description": m.description,
+                "slug": m.slug,
+                "url": m.get_absolute_url(),
+                "modified_at": m.modified_at.isoformat(),
+            }
+            for m in qs.order_by("-modified_at")
+        ]
+        return Response({"maps": maps})
+
+
 class AuthStatus(APIView):
     """Check authentication status for Hanko users.
 
