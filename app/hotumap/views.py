@@ -11,6 +11,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from hotosm_auth_django import login_required
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
@@ -233,6 +234,7 @@ class OnboardingCallback(View):
 
 
 
+@method_decorator(login_required, name="get")
 class MapList(APIView):
     """Return the authenticated user's maps as JSON.
 
@@ -245,9 +247,6 @@ class MapList(APIView):
 
     def get(self, request):
         from umap.models import Map
-
-        if not request.user.is_authenticated:
-            return Response({"error": "Authentication required"}, status=401)
 
         source = request.GET.get("source", "mine")
         if source == "mine":
