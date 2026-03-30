@@ -238,21 +238,14 @@ class OnboardingCallback(View):
 class MapList(APIView):
     """Return the authenticated user's maps as JSON.
 
-    Query params:
-    - source=mine: user's own maps (requires authentication)
-
-    GET /api/v1/maps/?source=mine
+    GET /api/v1/maps/
     """
     renderer_classes = [JSONRenderer]
 
     def get(self, request):
         from umap.models import Map
 
-        source = request.GET.get("source", "mine")
-        if source == "mine":
-            qs = Map.private.filter(is_template=False).for_user(request.user)
-        else:
-            qs = Map.public.filter(is_template=False)
+        qs = Map.private.filter(is_template=False).for_user(request.user)
 
         maps = [
             {
