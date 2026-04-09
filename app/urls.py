@@ -19,6 +19,9 @@ urlpatterns = [
 
    # Auth API routes (compatible with uMap)
    path('api/v1/auth/', include('hotumap.auth_urls')),
+
+   # Maps API
+   path('api/v1/maps/', include('hotumap.maps_urls')),
 ]
 
 # Add admin mapping patterns if Hanko is enabled
