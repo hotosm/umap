@@ -4,40 +4,9 @@ from hotumap.hanko_helpers import (
     create_umap_user,
     find_legacy_user_by_email,
     find_legacy_user_by_osm_id,
-    generate_synthetic_osm_id,
-    is_real_osm_user,
 )
 
 from .base import BaseAuthTestCase
-
-
-class SyntheticOsmIdTest(BaseAuthTestCase):
-    def test_returns_negative_integer(self):
-        result = generate_synthetic_osm_id("some-uuid")
-        self.assertIsInstance(result, int)
-        self.assertLess(result, 0)
-
-    def test_is_deterministic(self):
-        uid = "fixed-hanko-id"
-        self.assertEqual(generate_synthetic_osm_id(uid), generate_synthetic_osm_id(uid))
-
-    def test_different_uids_produce_different_ids(self):
-        a = generate_synthetic_osm_id("uuid-aaa")
-        b = generate_synthetic_osm_id("uuid-bbb")
-        self.assertNotEqual(a, b)
-
-
-class IsRealOsmUserTest(BaseAuthTestCase):
-    def test_positive_id_is_real(self):
-        self.assertTrue(is_real_osm_user(1))
-        self.assertTrue(is_real_osm_user(9999999))
-
-    def test_negative_id_is_synthetic(self):
-        self.assertFalse(is_real_osm_user(-1))
-        self.assertFalse(is_real_osm_user(-9999999))
-
-    def test_zero_is_not_real(self):
-        self.assertFalse(is_real_osm_user(0))
 
 
 class FindLegacyUserByOsmIdTest(BaseAuthTestCase):
