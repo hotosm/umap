@@ -8,14 +8,6 @@ VALUES
 
 INSERT INTO umap_tilelayer (id, name, url_template, "minZoom", "maxZoom", attribution, rank, tms)
 VALUES
-    (3, 'OAM (Kontur)',
-     'https://apps.kontur.io/raster-tiler/oam/mosaic/{z}/{x}/{y}.png',
-     3, 24,
-     '&copy; © OpenAerialMap © Kontur',
-     2, false) ON CONFLICT (id) DO NOTHING;
-
-INSERT INTO umap_tilelayer (id, name, url_template, "minZoom", "maxZoom", attribution, rank, tms)
-VALUES
     (4, 'Humanitarian',
      'https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png https://b.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
      0, 19,
