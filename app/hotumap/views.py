@@ -255,6 +255,7 @@ class MapList(APIView):
                 "slug": m.slug,
                 "url": m.get_absolute_url(),
                 "modified_at": m.modified_at.isoformat(),
+                "centroid": [m.center.y, m.center.x] if m.center else None,
             }
             for m in qs.order_by("-modified_at")
         ]
