@@ -10,7 +10,7 @@
   --color-lightGray: var(--hot-color-gray-50);
   --color-mediumGray: var(--hot-color-gray-500);
   --color-darkGray: var(--hot-color-gray-900);
-  --color-light: var(--hot-color-neutral-0);
+  --color-light: var(--hot-color-primary-0);
   --color-limeGreen: var(--hot-color-cyan-50);
   --color-brightCyan: var(--hot-color-cyan-100);
   --color-lightCyan: var(--hot-color-cyan-50);
@@ -22,7 +22,7 @@
   --text-color: black;
 
   /* Buttons. */
-  --button-primary-background: var(--color-red);
+  --button-primary-background: var(--color-primary-950);
   --button-primary-color: var(--color-light);
   --button-neutral-background: var(--color-lightGray);
   --button-neutral-color: var(--color-darkGray);
@@ -30,7 +30,7 @@
 
 .umap-nav h1 a:not(.button) {
   background-image: url("./img/logo-umap.svg");
-  color: var(--hot-color-neutral-950);
+  color: var(--hot-color-primary-950);
   font-family: var(--hot-font-sans-variant);
   font-weight: 700;
   font-size: var(--hot-font-size-x-large);
@@ -39,7 +39,7 @@
 }
 
 .umap-nav ul li a:not(.button) {
-  color: var(--hot-color-neutral-950);
+  color: var(--hot-color-primary-950);
   font-size: var(--hot-font-size-small);
 }
 
@@ -72,6 +72,7 @@ input[type="submit"] {
   background-color: var(--color-red);
   margin-inline-start: 0;
   font-weight: 400;
+  border-radius: 4px;
   /* margin-inline-end: var(--hot-spacing-large); */
 }
 .umap-nav .button,
@@ -128,7 +129,7 @@ a {
 }
 
 .upload-form select {
-  border: 2px solid var(--hot-color-neutral-1000);
+  border: 2px solid var(--hot-color-primary-1000);
 }
 
 .umap-permanent-credits-container {
@@ -144,13 +145,13 @@ a {
 
 footer {
   width: 100%;
-  background-color: var(--hot-color-neutral-900);
+  background-color: var(--hot-color-primary-900);
   font-size: var(--hot-font-size-small);
 }
 
 footer a,
 footer span {
-  color: var(--hot-color-neutral-300);
+  color: var(--hot-color-primary-300);
 }
 
 footer a.branding {
@@ -172,8 +173,8 @@ footer a.branding {
 }
 
 .search-form input[type="submit"] {
-  color: var(--hot-color-neutral-50);
-  background-color: var(--hot-color-neutral-900);
+  color: var(--hot-color-primary-50);
+  background-color: var(--hot-color-primary-900);
 }
 
 .grid-container,
@@ -188,12 +189,12 @@ hotosm-auth {
   --login-btn-border-radius: 0;
   --font-weight: 700;
   --login-btn-font-weight: 400;
-  --login-btn-bg-color: var(--hot-color-neutral-900);
+  --login-btn-bg-color: var(--hot-color-primary-900);
 }
 
 .hot-maintenance-banner {
   background-color: var(--hot-color-warning-500, #f59e0b);
-  color: var(--hot-color-neutral-950, #0a0a0a);
+  color: var(--hot-color-primary-950, #0a0a0a);
   padding: var(--hot-spacing-small) var(--hot-spacing-medium);
   text-align: center;
   font-size: var(--hot-font-size-small);
