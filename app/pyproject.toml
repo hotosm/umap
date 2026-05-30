@@ -10,6 +10,6 @@ dependencies = [
     "psycopg2-binary>=2.9.10",
     "pydantic>=2.12.5",
     "redis>=7.1.0",
-    "umap-project[s3]>=3.6.1",
+    "umap-project[s3]>=3.7.3",
     "hotosm-auth[django]==0.2.10",
 ]
