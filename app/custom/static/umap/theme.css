@@ -47,6 +47,7 @@
 
 .umap-main-edit-toolbox .logo a {
   background-image: url("./img/home.svg");
+  background-size: 36px;
 }
 
 .button-bar {
@@ -190,7 +191,7 @@ hotosm-auth {
   --login-btn-border-radius: 4px;
   --font-weight: 700;
   --login-btn-font-weight: 400;
-  --login-btn-bg-color: var(--hot-color-primary-900);
+  --login-btn-bg-color: var(--hot-color-primary-950);
 }
 
 .hot-maintenance-banner {
