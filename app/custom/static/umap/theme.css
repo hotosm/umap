@@ -5,21 +5,21 @@
 
 :root {
   /* Colors. */
-  --color-waterMint: var(--hot-color-cyan-50);
-  --color-darkBlue: var(--hot-color-blue-700);
+  --color-waterMint: var(--hot-color-gray-50);
+  --color-darkBlue: var(--hot-color-primary-950);
   --color-lightGray: var(--hot-color-gray-50);
   --color-mediumGray: var(--hot-color-gray-500);
   --color-darkGray: var(--hot-color-gray-900);
-  --color-light: var(--hot-color-primary-0);
+  --color-light: var(--hot-color-neutral-0);
   --color-limeGreen: var(--hot-color-cyan-50);
-  --color-brightCyan: var(--hot-color-cyan-100);
-  --color-lightCyan: var(--hot-color-cyan-50);
-  --color-red: var(--hot-color-red-700);
-  --color-darkRed: var(--hot-color-rose-700);
+  --color-brightCyan: var(--hot-color-gray-100);
+  --color-lightCyan: var(--hot-color-gray-50);
+  --color-red: var(--hot-color-primary-950);
+  --color-darkRed: var(--hot-color-primary-950);
 
   --background-color: var(--color-light);
-  --color-accent: var(--color-brightCyan);
-  --text-color: black;
+  --color-accent: var(--hot-color-primary-950);
+  --text-color: var(--hot-color-primary-950);;
 
   /* Buttons. */
   --button-primary-background: var(--color-primary-950);
@@ -36,6 +36,8 @@
   font-size: var(--hot-font-size-x-large);
   padding-inline-start: 70px;
   padding-top: 0;
+  background-position: 10px center;
+  background-size: 40px;
 }
 
 .umap-nav ul li a:not(.button) {
@@ -68,12 +70,11 @@ hotosm-tool-menu {
 .umap-nav a.button,
 .button-primary,
 input[type="submit"] {
-  color: var(--color-light);
-  background-color: var(--color-red);
+  color: var(--hot-color-neutral-0);
+  background-color: var(--hot-color-primary-950);
   margin-inline-start: 0;
   font-weight: 400;
   border-radius: 4px;
-  /* margin-inline-end: var(--hot-spacing-large); */
 }
 .umap-nav .button,
 .umap-nav .button:hover {
@@ -175,6 +176,7 @@ footer a.branding {
 .search-form input[type="submit"] {
   color: var(--hot-color-primary-50);
   background-color: var(--hot-color-primary-900);
+  border-radius: 0 4px 4px 0
 }
 
 .grid-container,
@@ -186,7 +188,7 @@ footer a.branding {
   margin: var(--hot-spacing-medium) 0;
 }
 hotosm-auth {
-  --login-btn-border-radius: 0;
+  --login-btn-border-radius: 4px;
   --font-weight: 700;
   --login-btn-font-weight: 400;
   --login-btn-bg-color: var(--hot-color-primary-900);
