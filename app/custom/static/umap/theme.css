@@ -46,8 +46,8 @@
 }
 
 .umap-main-edit-toolbox .logo a {
-  background-image: url("./img/logo-umap.svg");
-  background-size: 40px;
+  background-image: url("./img/home.svg");
+  background-size: 28px;
 }
 
 .button-bar {
@@ -175,7 +175,7 @@ footer a.branding {
 
 .search-form input[type="submit"] {
   color: var(--hot-color-primary-50);
-  background-color: var(--hot-color-primary-900);
+  background-color: var(--hot-color-primary-950);
   border-radius: 0 4px 4px 0
 }
 
