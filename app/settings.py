@@ -163,3 +163,4 @@ UMAP_TAGS = (
     ("science", _("Science")),
 )
 
+OPENROUTESERVICE_APIKEY=os.environ.get('OPENROUTESERVICE_APIKEY')
