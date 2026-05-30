@@ -60,6 +60,7 @@ jobs:
           UMAP_OSM_KEY: ${{ secrets.UMAP_OSM_KEY }}
           UMAP_OSM_SECRET: ${{ secrets.UMAP_OSM_SECRET }}
           UMAP_DB_PASSWORD: ${{ secrets.UMAP_DB_PASSWORD }}
+          OPENROUTESERVICE_APIKEY: ${{ secrets.OPENROUTESERVICE_APIKEY }}
 
           S3_ENDPOINT_URL: ${{ vars.S3_ENDPOINT_URL }}
           S3_BUCKET_NAME: ${{ vars.S3_BUCKET_NAME }}
@@ -102,6 +103,7 @@ jobs:
             export APP_MEM_RES="$APP_MEM_RES"
             export REALTIME_ENABLED="$REALTIME_ENABLED"
             export UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS="$UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS"
+            export OPENROUTESERVICE_APIKEY="$OPENROUTESERVICE_APIKEY"
             # Hanko SSO
             export AUTH_PROVIDER="$AUTH_PROVIDER"
             export HANKO_API_URL="$HANKO_API_URL"
