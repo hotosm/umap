@@ -29,7 +29,7 @@
 }
 
 .umap-nav h1 a:not(.button) {
-  background-image: url("./img/logo-hot.svg");
+  background-image: url("./img/logo-umap.svg");
   color: var(--hot-color-neutral-950);
   font-family: var(--hot-font-sans-variant);
   font-weight: 700;
@@ -44,7 +44,7 @@
 }
 
 .umap-main-edit-toolbox .logo a {
-  background-image: url("./img/logo-hot-grey.svg");
+  background-image: url("./img/logo-umap.svg");
   background-size: 40px;
 }
 
