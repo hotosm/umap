@@ -73,6 +73,7 @@ jobs:
           APP_MEM_RES: ${{ vars.APP_MEM_RES }}
           REALTIME_ENABLED: ${{ vars.REALTIME_ENABLED }}
           UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS: ${{ vars.UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS }}
+          SITE_DOMAIN: ${{ vars.SITE_DOMAIN }}
           # Hanko SSO
           AUTH_PROVIDER: ${{ vars.AUTH_PROVIDER }}
           HANKO_API_URL: ${{ vars.HANKO_API_URL }}
@@ -85,6 +86,7 @@ jobs:
         run: |
           ssh $EC2_USER@$EC2_HOST << ENDSSH
             set -e
+            export SITE_DOMAIN="$SITE_DOMAIN"
             export UMAP_OSM_KEY="$UMAP_OSM_KEY"
             export UMAP_OSM_SECRET="$UMAP_OSM_SECRET"
             export UMAP_DB_PASSWORD="$UMAP_DB_PASSWORD"
@@ -110,7 +112,7 @@ jobs:
             export COOKIE_DOMAIN="$COOKIE_DOMAIN"
             export COOKIE_SECURE="$COOKIE_SECURE"
             export ADMIN_EMAILS="$ADMIN_EMAILS"
-            APP_DIR="/home/$EC2_USER/umap.hotosm.org"
+            APP_DIR="/home/$EC2_USER/umap-dev.hotosm.org"
             # Initial setup if it doesn't exist
             if [ ! -d "\$APP_DIR" ]; then
                 sudo mkdir -p \$APP_DIR
@@ -123,8 +125,9 @@ jobs:
             git fetch origin develop
             git reset --hard origin/develop
             echo "Updated to latest develop"
+            envsubst '\$SITE_DOMAIN' < deploy/nginx/default.tpl.conf > nginx/conf.d/umap.conf
+            envsubst '\$SITE_DOMAIN' < deploy/nginx/default-init.tpl.conf > nginx/default-init.conf
             # Pull and deploy
-            sed -i -e 's/umap.hotosm.org/umap-dev.hotosm.org/g' nginx/conf.d/umap.conf
             docker compose -f compose.dev.yml pull
             docker compose -f compose.dev.yml up -d --force-recreate
             # Cleanup
