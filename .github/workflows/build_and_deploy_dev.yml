@@ -65,7 +65,6 @@ jobs:
           ENABLE_S3_STORAGE: ${{ vars.ENABLE_S3_STORAGE }}
           UMAP_SITE_URL: ${{ vars.UMAP_SITE_URL }}
           SITE_ADMIN_EMAIL: ${{ vars.SITE_ADMIN_EMAIL }}
-          SITE_DOMAIN: ${{ vars.SITE_DOMAIN }}
           ALLOWED_HOSTS: ${{ vars.ALLOWED_HOSTS }}
           CSRF_TRUSTED_ORIGINS: ${{ vars.CSRF_TRUSTED_ORIGINS }}
           APP_REPLICAS: ${{ vars.APP_REPLICAS }}
@@ -95,7 +94,6 @@ jobs:
             export ENABLE_S3_STORAGE="$ENABLE_S3_STORAGE"
             export UMAP_SITE_URL="$UMAP_SITE_URL"
             export SITE_ADMIN_EMAIL="$SITE_ADMIN_EMAIL"
-            export SITE_DOMAIN="$SITE_DOMAIN"
             export ALLOWED_HOSTS="$ALLOWED_HOSTS"
             export CSRF_TRUSTED_ORIGINS="$CSRF_TRUSTED_ORIGINS"
             export APP_REPLICAS="$APP_REPLICAS"
