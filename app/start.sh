@@ -27,4 +27,5 @@ uv run uvicorn \
   --proxy-headers \
   --uds /srv/umap/umap.sock \
   --no-access-log \
+  --host 0.0.0.0 --port 8000 \
   umap.asgi:application
