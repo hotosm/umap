@@ -69,7 +69,7 @@ docker exec -ti hotumap uv run python manage.py createsuperuser
 |✅| Containerization (via Docker) |
 |✅| Database backup functionality |
 |✅| Define and create a set of initial categories for humanitarian use |
-|⚙️| [Enable real-time collaboration](https://github.com/hotosm/umap/issues/3) |
+|✅| [Enable real-time collaboration](https://github.com/hotosm/umap/issues/3) |
 | | Define and create a set of initial templates for humanitarian use |
 | | [Multiple imagery backgrounds / imagery backgrounds as layers](https://github.com/hotosm/umap/issues/5) |
 | | Support [vector tiles](https://github.com/umap-project/umap/issues/1634)
@@ -97,6 +97,14 @@ docker exec -ti hotumap uv run python manage.py createsuperuser
 
 ## Licensing
 
-Copyright (2024) Humanitarian OpenStreetMap Team under the terms of the same license, GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+## uMap project
 
 This project makes heavy use of the amazing [uMap](https://github.com/umap-project/umap) project, developed by Yohan Boniface & contributors, which is also under the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+More information in: https://umap-project.org
+
+## HOT's uMap app
+
+Copyright (2024) Humanitarian OpenStreetMap Team under the terms of the same license, GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+
