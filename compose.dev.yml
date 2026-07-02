@@ -58,9 +58,9 @@ services:
       - COOKIE_SECURE=${COOKIE_SECURE:-true}
       - ADMIN_EMAILS=${ADMIN_EMAILS:-}
     volumes:
+      - ./data:/app/umap/var/data
       - static_volume:/app/static
       - icons_volume:/app/custom/icons
-      - umap_data_volume:/app/data
     restart: always
     depends_on:
       db:
@@ -76,11 +76,10 @@ services:
       - "443:443"
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./certbot/www:/var/www/certbot
-      - ./certbot/conf:/etc/letsencrypt
+      - ./deploy/certbot/www:/var/www/certbot
+      - ./deploy/certbot/conf:/etc/letsencrypt
       - static_volume:/app/static
       - icons_volume:/app/custom/icons/
-      - umap_data_volume:/app/data
     depends_on:
       - app
     networks:
