@@ -73,8 +73,8 @@ services:
         - "443:443"
       volumes:
         - ./nginx/conf.d:/etc/nginx/conf.d
-        - ./certbot/www:/var/www/certbot
-        - ./certbot/conf:/etc/letsencrypt
+        - ./deploy/certbot/www:/var/www/certbot
+        - ./deploy/certbot/conf:/etc/letsencrypt
         - static_volume:/app/static
         - icons_volume:/app/custom/icons/
       depends_on:
