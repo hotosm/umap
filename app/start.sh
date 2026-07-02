@@ -23,4 +23,8 @@ psql \
   --dbname="$UMAP_DB_NAME" \
   --file=${UMAP_IMPORT_TILELAYERS_PATH:-"/app/scripts/import-tilelayers.sql"}
 # run app
-uv run gunicorn -b 0.0.0.0:8000 wsgi
+uv uvicorn \
+--proxy-headers \
+--uds /srv/umap/umap.sock \
+--no-access-log \
+umap.asgi:application
