@@ -126,6 +126,8 @@ jobs:
             git fetch origin master
             git reset --hard origin/master
             echo "Updated to latest master"
+            envsubst '\$SITE_DOMAIN' < deploy/nginx/default.tpl.conf > nginx/conf.d/umap.conf
+            envsubst '\$SITE_DOMAIN' < deploy/nginx/default-init.tpl.conf > nginx/default-init.conf
             # Pull and deploy
             docker compose -f compose.yml pull
             docker compose -f compose.yml up -d --force-recreate
