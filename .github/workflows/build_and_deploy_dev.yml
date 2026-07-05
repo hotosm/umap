@@ -67,9 +67,6 @@ jobs:
           SITE_ADMIN_EMAIL: ${{ vars.SITE_ADMIN_EMAIL }}
           ALLOWED_HOSTS: ${{ vars.ALLOWED_HOSTS }}
           CSRF_TRUSTED_ORIGINS: ${{ vars.CSRF_TRUSTED_ORIGINS }}
-          APP_REPLICAS: ${{ vars.APP_REPLICAS }}
-          APP_MEM: ${{ vars.APP_MEM }}
-          APP_MEM_RES: ${{ vars.APP_MEM_RES }}
           REALTIME_ENABLED: ${{ vars.REALTIME_ENABLED }}
           UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS: ${{ vars.UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS }}
           SITE_DOMAIN: ${{ vars.SITE_DOMAIN }}
@@ -96,9 +93,6 @@ jobs:
             export SITE_ADMIN_EMAIL="$SITE_ADMIN_EMAIL"
             export ALLOWED_HOSTS="$ALLOWED_HOSTS"
             export CSRF_TRUSTED_ORIGINS="$CSRF_TRUSTED_ORIGINS"
-            export APP_REPLICAS="$APP_REPLICAS"
-            export APP_MEM="$APP_MEM"
-            export APP_MEM_RES="$APP_MEM_RES"
             export REALTIME_ENABLED="$REALTIME_ENABLED"
             export UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS="$UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS"
             # Hanko SSO
