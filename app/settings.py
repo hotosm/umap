@@ -165,4 +165,4 @@ UMAP_TAGS = (
 
 OPENROUTESERVICE_APIKEY=os.environ.get('OPENROUTESERVICE_APIKEY')
 
-REDIS_URL="redis://redis:6379"
+# REDIS_URL="redis://redis:6379"
