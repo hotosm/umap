@@ -1,21 +1,10 @@
 services:
   db:
-    mem_limit: 1600m
-    cpus: 0.8
     container_name: hotumap-db
     healthcheck:
         test: [ "CMD-SHELL", "pg_isready -U postgres" ]
         interval: 2s
     image: postgis/postgis:14-3.5-alpine
-    deploy:
-      replicas: 1
-      resources:
-        limits:
-          cpus: "0.8"
-          memory: "1600M"
-        reservations:
-          cpus: "0.3"
-          memory: "800M"
     environment:
       - POSTGRES_DB=${UMAP_DB_NAME:-postgres}
       - POSTGRES_USER=${UMAP_DB_USER:-postgres}
@@ -25,15 +14,6 @@ services:
 
   app:
     image: ghcr.io/hotosm/hotosm-umap:latest
-    deploy:
-      replicas: 1
-      resources:
-        limits:
-          cpus: "0.18"
-          memory: "900M"
-        reservations:
-          cpus: "0.2"
-          memory: "256M"
     environment:
       - UMAP_SITE_URL=${UMAP_SITE_URL:-http://127.0.0.1:8001/}
       - UMAP_SETTINGS=/app/settings.py
@@ -78,15 +58,6 @@ services:
 
   nginx:
       image: nginx:latest
-      deploy:
-        replicas: 1
-        resources:
-          limits:
-            cpus: "0.1"
-            memory: "64M"
-          reservations:
-            cpus: "0.05"
-            memory: "32M"
       restart: always
       ports:
         - "80:80"
@@ -100,19 +71,10 @@ services:
       depends_on:
         - app
 
-  redis:
-    image: redis:latest
-    deploy:
-      replicas: 1
-      resources:
-        limits:
-          cpus: "0.1"
-          memory: "256M"
-        reservations:
-          cpus: "0.05"
-          memory: "64M"
-    ports:
-      - "6379:6379"
+  # redis:
+  #   image: redis:latest
+  #   ports:
+  #     - "6379:6379"
 
 volumes:
   umap_db_volume:
