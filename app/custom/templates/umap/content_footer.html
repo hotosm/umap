@@ -1,0 +1,23 @@
+{% load i18n %}
+
+<footer>
+  <a href="{% url "home" %}" class="branding">uMap</a>
+  <span>{% trans "An OpenStreetMap project" %}
+  ({% trans "version" %} <a href="https://docs.umap-project.org/en/stable/changelog/">{{ UMAP_VERSION }}</a>)</span>
+  {% if UMAP_HOST_INFOS.url and UMAP_HOST_INFOS.name %}<span>{% trans "Hosted by" %} <a href="{{ UMAP_HOST_INFOS.url }}">{{ UMAP_HOST_INFOS.name }}</a></span>{% endif %}
+  <a href="https://roadmap.hotosm.org/#tech-request" target="_blank">Tech request</a>
+  {% if UMAP_HELP_URL %}<a href="{{ UMAP_HELP_URL }}">{% trans "Help" %}</a>{% endif %}
+  {% if UMAP_HOST_INFOS.tos %}<a href="{{ UMAP_HOST_INFOS.tos }}">{% trans "Terms of Service" %}</a>{% endif %}
+  {% get_language_info_list for LANGUAGES as languages %}
+  <form action="{% url "set_language" %}" method="post" class="i18n_switch">
+    {% csrf_token %}
+    <select name="language" onchange="this.form.submit()">
+      {% for language in languages %}
+        <option value="{{ language.code }}"
+                {% if language.code == LANGUAGE_CODE %}selected="selected"{% endif %}>
+          {{ language.name_local }} ({{ language.code }})
+        </option>
+      {% endfor %}
+    </select>
+  </form>
+</footer>
