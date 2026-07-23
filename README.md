@@ -69,10 +69,8 @@ docker exec -ti hotumap uv run python manage.py createsuperuser
 |✅| Containerization (via Docker) |
 |✅| Database backup functionality |
 |✅| Define and create a set of initial categories for humanitarian use |
-|⚙️| [Enable real-time collaboration](https://github.com/hotosm/umap/issues/3) |
 |✅| Define and create a set of initial templates for humanitarian use |
-| | [Multiple imagery backgrounds / imagery backgrounds as layers](https://github.com/hotosm/umap/issues/5) |
-| | Support [vector tiles](https://github.com/umap-project/umap/issues/1634)
+|✅| [Enable real-time collaboration](https://github.com/hotosm/umap/issues/3) |
 
 ### Custom features / integrations
 
@@ -85,15 +83,6 @@ docker exec -ti hotumap uv run python manage.py createsuperuser
 |✅| Advanced integration with ChatMap (live stream of data) |
 |✅| Add shared HOT accounts |
 |✅| Add access to all HOT products from header |
-| | [Create visualizations from multiple maps](https://github.com/hotosm/umap/issues/11)
-| | [Create isochrone visualization map](https://github.com/hotosm/umap/issues/10)
-| | Basic integration with OpenAerialMap (get available background imagery for the map's area) |
-| | Basic integration with DroneTM (get available background imagery from project id) |
-| | Basic integration with Tasking Manager (get project AOI/status by id) |
-| | Basic integration with FieldTM (get mapped data) |
-| | Basic integration with Raw Data API (get OSM data from there, instead of Overpass) |
-| | Basic integration with fAIr (get predictions) |
-| | Create a raster layer by uploading data to OpenAerialMap |
 
 ## Licensing
 
