@@ -117,7 +117,8 @@ jobs:
             git fetch origin develop
             git reset --hard origin/develop
             echo "Updated to latest develop"
-            envsubst '\$SITE_DOMAIN' < deploy/nginx/default.tpl.conf > nginx/conf.d/umap.conf
+            envsubst '\$SITE_DOMAIN' < deploy/nginx/default-dev.tpl.conf > nginx/conf.d/umap.conf
+            envsubst '\$SITE_DOMAIN' < deploy/nginx/default-init.tpl.conf > nginx/default-init.conf
             envsubst '\$SITE_DOMAIN' < deploy/nginx/default-init.tpl.conf > nginx/default-init.conf
             # Pull and deploy
             docker compose -f compose.dev.yml pull
