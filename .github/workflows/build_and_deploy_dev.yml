@@ -1,4 +1,4 @@
-name: Build & deploy develop to umap-dev.hotosm.org
+name: Build & deploy develop to dev.umap.hotosm.org
 
 on:
   push:
@@ -104,7 +104,7 @@ jobs:
             export COOKIE_DOMAIN="$COOKIE_DOMAIN"
             export COOKIE_SECURE="$COOKIE_SECURE"
             export ADMIN_EMAILS="$ADMIN_EMAILS"
-            APP_DIR="/home/$EC2_USER/umap-dev.hotosm.org"
+            APP_DIR="/home/$EC2_USER/dev.umap.hotosm.org"
             # Initial setup if it doesn't exist
             if [ ! -d "\$APP_DIR" ]; then
                 sudo mkdir -p \$APP_DIR

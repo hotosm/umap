@@ -5,7 +5,7 @@
 # Usage: ./test_usermapping.sh [local|test|prod]
 #   local  - https://umap.hotosm.test (requires hot-dev-env running locally)
 #   test   - https://testlogin.umap.hotosm.org
-#   prod   - https://umap-dev.hotosm.org
+#   prod   - https://dev.umap.hotosm.org
 #
 # A valid JWT token from the login service is needed for authenticated tests.
 
@@ -23,7 +23,7 @@ case "$ENV" in
     LOGIN_URL="https://dev.login.hotosm.org/app"
     ;;
   prod)
-    UMAP_URL="https://umap-dev.hotosm.org"
+    UMAP_URL="https://dev.umap.hotosm.org"
     LOGIN_URL="https://login.hotosm.org/app"
     ;;
   *)
