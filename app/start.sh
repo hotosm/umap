@@ -25,7 +25,7 @@ psql \
 # run app
 
 
-if [ "$ENABLE_REALTIME" = "true" ]; then
+if [ "$REALTIME_ENABLED" = "true" ]; then
   uv run uvicorn \
     --proxy-headers \
     --no-access-log \
