@@ -68,6 +68,7 @@ jobs:
           ALLOWED_HOSTS: ${{ vars.ALLOWED_HOSTS }}
           CSRF_TRUSTED_ORIGINS: ${{ vars.CSRF_TRUSTED_ORIGINS }}
           REALTIME_ENABLED: ${{ vars.REALTIME_ENABLED }}
+          ENABLE_REDIS: ${{ vars.ENABLE_REDIS }}
           UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS: ${{ vars.UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS }}
           SITE_DOMAIN: ${{ vars.SITE_DOMAIN }}
           # Hanko SSO
@@ -94,6 +95,7 @@ jobs:
             export ALLOWED_HOSTS="$ALLOWED_HOSTS"
             export CSRF_TRUSTED_ORIGINS="$CSRF_TRUSTED_ORIGINS"
             export REALTIME_ENABLED="$REALTIME_ENABLED"
+            export ENABLE_REDIS="$ENABLE_REDIS"
             export UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS="$UMAP_SOCIAL_AUTH_REDIRECT_IS_HTTPS"
             # Hanko SSO
             export AUTH_PROVIDER="$AUTH_PROVIDER"
