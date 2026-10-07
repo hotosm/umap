@@ -91,7 +91,7 @@ jobs:
             export S3_BUCKET_NAME="$S3_BUCKET_NAME"
             export ENABLE_S3_STORAGE="$ENABLE_S3_STORAGE"
             export UMAP_SITE_URL="$UMAP_SITE_URL"
-            export SITE_ADMIN_EMAIL="emilio.mariscal@hotosm.org"
+            export SITE_ADMIN_EMAIL="$SITE_ADMIN_EMAIL"
             export ALLOWED_HOSTS="$ALLOWED_HOSTS"
             export CSRF_TRUSTED_ORIGINS="$CSRF_TRUSTED_ORIGINS"
             export REALTIME_ENABLED="$REALTIME_ENABLED"
