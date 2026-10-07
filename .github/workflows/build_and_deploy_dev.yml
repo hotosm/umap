@@ -1,4 +1,4 @@
-name: Build & deploy develop to dev.umap.hotosm.org
+name: Deploy to development environment - ex. dev.umap.hotosm.org
 
 on:
   push:
@@ -106,7 +106,7 @@ jobs:
             export COOKIE_DOMAIN="$COOKIE_DOMAIN"
             export COOKIE_SECURE="$COOKIE_SECURE"
             export ADMIN_EMAILS="$ADMIN_EMAILS"
-            APP_DIR="/home/$EC2_USER/dev.umap.hotosm.org"
+            APP_DIR="/home/$EC2_USER/umap"
             # Initial setup if it doesn't exist
             if [ ! -d "\$APP_DIR" ]; then
                 sudo mkdir -p \$APP_DIR
@@ -120,10 +120,13 @@ jobs:
             git reset --hard origin/develop
             echo "Updated to latest develop"
             envsubst '\$SITE_DOMAIN' < deploy/nginx/default-dev.tpl.conf > nginx/conf.d/umap.conf
-            envsubst '\$SITE_DOMAIN' < deploy/nginx/default-init.tpl.conf > nginx/default-init.conf
+            # Generate dummy ssl certificate if needed (initial deployment)
+            source deploy/ssl/cert_dummy.sh
             # Pull and deploy
             docker compose -f compose.dev.yml pull
             docker compose -f compose.dev.yml up -d --force-recreate
+            # Generate SSL certificate if needed (initial deployment)
+            source deploy/ssl/cert_new.sh
             # Cleanup
             docker image prune -af
             echo "Deployment complete"

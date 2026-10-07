@@ -77,6 +77,16 @@ services:
     networks:
       - umap_net
 
+  # Certbot service
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./deploy/certbot/conf:/etc/letsencrypt
+      - ./deploy/certbot/www:/var/www/certbot
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - chatmap_net
+
   redis:
     image: redis:latest
     ports:
