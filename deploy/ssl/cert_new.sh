@@ -6,7 +6,7 @@ if [ -f "deploy/certbot/conf/live/$SITE_DOMAIN/dummy" ]; then
   sudo rm -rf deploy/certbot/conf/archive/*
   sudo rm -rf deploy/certbot/conf/renewal/*
   # Request cert for first time
-  docker compose run --rm certbot certonly --webroot \
+  docker compose -f compose.dev.yml run --rm certbot certonly --webroot \
     --webroot-path=/var/www/certbot -d $SITE_DOMAIN --non-interactive --agree-tos \
     -m $SITE_ADMIN_EMAIL --no-eff-email --force-renewal
   docker compose -f compose.dev.yml up -d nginx --force-recreate
